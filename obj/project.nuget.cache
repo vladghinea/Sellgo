@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "tkiviDc5ToktwlLkdrnAhIghIKH3bYj0ae+0rKQoB4rwa8TmOAw9YUp0NcXRAJYouhjQdyn9LYZWNQ1gS4KdrQ==",
+  "success": true,
+  "projectFilePath": "D:\\Advanced\\el-proyecte-grande-sprint-1-csharp-vladghinea\\el-proyecte-grande.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\keitk\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\keitk\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\keitk\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\keitk\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\keitk\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\keitk\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
