@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace el_proyecte_grande
+namespace El_Proyecte_Grande
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace el_proyecte_grande
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "el_proyecte_grande", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "El_Proyecte_Grande", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace el_proyecte_grande
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "el_proyecte_grande v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "El_Proyecte_Grande v1"));
             }
 
             app.UseHttpsRedirection();

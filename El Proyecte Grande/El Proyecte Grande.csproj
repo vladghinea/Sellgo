@@ -2,17 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>el_proyecte_grande</RootNamespace>
+    <RootNamespace>El_Proyecte_Grande</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Model\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

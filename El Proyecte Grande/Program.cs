@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace el_proyecte_grande
+namespace El_Proyecte_Grande
 {
     public class Program
     {
