@@ -1,4 +1,5 @@
 ﻿using El_Proyecte_Grande.Models;
+using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,12 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        public IServiceClient seviceClient;
-
-        public ClientController(IServiceClient seviceClient)
+        private IAppDbRepository _db;
+        private ServiceClient services;
+        public ClientController(IAppDbRepository db)
         {
-            this.seviceClient = seviceClient;
+            _db = db;
+            services = new ServiceClient(_db);
         }
 
         //GET Clients
@@ -23,7 +25,7 @@ namespace El_Proyecte_Grande.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<List<Client>> GetClients()
         {
-            List<Client> result = await seviceClient.GetClientsList();
+            List<Client> result = await services.GetClientsList();
             return result;
         }
 
@@ -31,7 +33,7 @@ namespace El_Proyecte_Grande.Controllers
         [Route("{id}")]
         public async Task<Client> GetClient([FromRoute] int id)
         {
-            Client result = await seviceClient.GetClientById(id);
+            Client result = await services.GetClientById(id);
             return result;
         }
     }
