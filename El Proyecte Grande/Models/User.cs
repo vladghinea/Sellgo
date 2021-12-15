@@ -48,9 +48,11 @@ namespace El_Proyecte_Grande.Models
         public Company Company { get; set; }
 
         //Team (ManyToOne)
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
         [ForeignKey("TeamId")]
         public Team Team { get; set; }
+
+
 
     }
 }

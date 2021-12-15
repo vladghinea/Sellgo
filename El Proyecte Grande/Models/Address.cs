@@ -27,6 +27,6 @@ namespace El_Proyecte_Grande.Models
         //Client (OneToOne)
         public int ClientId { get; set; }
         [ForeignKey("ClientId")]
-        public Client Client { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

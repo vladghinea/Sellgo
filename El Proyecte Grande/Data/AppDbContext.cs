@@ -16,6 +16,15 @@ namespace El_Proyecte_Grande
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Team>().HasMany(team => team.Sellers)
+                .WithOne(user => user.Team)
+                .HasForeignKey(user => user.TeamId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Team>().HasOne(team => team.Manager)
+                .WithOne().HasForeignKey<Team>(team => team.ManagerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Client_Deal>().HasKey(clientDeal => new
             {
                 clientDeal.ClientId,
@@ -27,6 +36,8 @@ namespace El_Proyecte_Grande
 
             modelBuilder.Entity<Client_Deal>().HasOne(client => client.Deal)
                .WithMany(clientDeal => clientDeal.Clients).HasForeignKey(clientDeal => clientDeal.ClientId);
+
+
 
             base.OnModelCreating(modelBuilder);
         }

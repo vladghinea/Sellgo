@@ -14,8 +14,14 @@ namespace El_Proyecte_Grande.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [Required]
+
+
+        public int? ManagerId { get; set; }
+        [ForeignKey("ManagerId")]
         public User Manager { get; set; }
+
+
+
         public byte[] Icon { get; set; }
 
         //Relationship
@@ -25,7 +31,7 @@ namespace El_Proyecte_Grande.Models
 
         //Company (ManyToOne)
         public int CompanyId { get; set; }
-        [ForeignKey("Company")]
+        [ForeignKey("CompanyId")]
         public Company Company { get; set; }
 
 

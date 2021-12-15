@@ -28,6 +28,9 @@ namespace El_Proyecte_Grande.Models
         //User (OneToMany)
         public virtual List<User> UserEmployees { get; set; }
 
+        //Team (OneToMany)
+        public List<Team> Teams { get; set; }
+
 
     }
 }
