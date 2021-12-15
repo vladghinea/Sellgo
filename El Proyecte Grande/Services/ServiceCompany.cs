@@ -1,34 +1,50 @@
 ﻿using El_Proyecte_Grande.Models;
+using El_Proyecte_Grande.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace El_Proyecte_Grande.Services
 {
     public class ServiceCompany
     {
-        //private readonly AppDbContext _db;
-        //public ServiceCompany([FromServices] AppDbContext db)
-        //{
-        //    _db = db;
-        //}
 
-        //public async Task<List<Company>> GetCompanyList()
-        //{
-        //    List<Company> result = await _db.Companies.Select(client => client).ToListAsync();
-        //    return result;
-        //}
+        private IAppDbRepository _db;
 
 
-        //public async Task<Company> GetCompanyById(int id)
-        //{
-        //    Company result = await _db.Companies.FirstOrDefaultAsync(x => x.Id == id);
+        public ServiceCompany(IAppDbRepository db)
+        {
+            _db = db;
+        }
 
-        //    return result;
-        //}
+        public async Task<List<Company>> GetCompaniesList()
+        {
+            var result = await _db.Data.Companies.Select(client => client).ToListAsync();
+            return result;
+        }
+
+
+        public async Task<Company> GetCompanyById(int id)
+        {
+            Company result = await _db.Data.Companies.FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
+        }
+
+
+        public async Task<Company> AddCompany(Company company)
+        {
+
+            //company.Id = _db.Data.Users.OrderBy(company => company.Id).Select(company => company.Id).Last() + 1;
+            await _db.Data.Companies.AddAsync(company);
+            await _db.Data.SaveChangesAsync();
+            return company;
+
+        }
 
 
     }

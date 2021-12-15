@@ -10,6 +10,7 @@ namespace El_Proyecte_Grande.Models
     public class Address
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [MaxLength(50)]

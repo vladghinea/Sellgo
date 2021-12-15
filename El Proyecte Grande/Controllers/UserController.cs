@@ -35,7 +35,8 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        [Route("add")]
+        public async Task<IActionResult> AddUser([FromBody] User user)
         {
             if (user == null)
             {
@@ -43,8 +44,8 @@ namespace El_Proyecte_Grande.Controllers
             }
             if (serviceUser.TryAddUser(user))
             {
-                serviceUser.AddUser(user);
-                return Ok(user);
+
+                return Ok(await serviceUser.AddUser(user));
             }
             return BadRequest();
 

@@ -10,7 +10,7 @@ using El_Proyecte_Grande.Repository;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceUser 
+    public class ServiceUser
     {
         private IAppDbRepository _db;
         public ServiceUser(IAppDbRepository db)
@@ -27,10 +27,14 @@ namespace El_Proyecte_Grande.Services
             return await _db.Data.Users.ToListAsync();
         }
 
-        public async void AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
-            user.Password = Utils.Helper.HashPassword(user.Password);
+            //user.Password = Utils.Helper.HashPassword(user.Password);
+            //user.Id = _db.Data.Users.OrderBy(user => user.Id).Select(user => user.Id).Last() + 1;
+            await _db.Data.Users.AddAsync(user);
             await _db.Data.SaveChangesAsync();
+            return user;
+
         }
         public bool TryAddUser(User user)
         {

@@ -1,4 +1,5 @@
 ﻿using El_Proyecte_Grande.Models;
+using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,28 +14,40 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        //public IServiceClient seviceClient;
+        private IAppDbRepository _db;
+        private ServiceCompany services;
+        public CompanyController(IAppDbRepository db)
+        {
+            _db = db;
+            services = new ServiceCompany(_db);
+        }
 
-        //public CompanyController(IServiceClient seviceClient)
-        //{
-        //    this.seviceClient = seviceClient;
-        //}
+        //GET Clients
+        [HttpGet]
+        // [ValidateAntiForgeryToken]
+        public async Task<List<Company>> GetCompanies()
+        {
+            List<Company> result = await services.GetCompaniesList();
+            return result;
+        }
 
-        ////GET Company
-        //[HttpGet]
-        //// [ValidateAntiForgeryToken]
-        //public async Task<List<Client>> GetClients()
-        //{
-        //    List<Client> result = await seviceClient.GetClientsList();
-        //    return result;
-        //}
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Company> GetCompany([FromRoute] int id)
+        {
+            Company result = await services.GetCompanyById(id);
+            return result;
+        }
 
-        //[HttpGet]
-        //[Route("{id}")]
-        //public async Task<Client> GetClient([FromRoute] int id)
-        //{
-        //    Client result = await seviceClient.GetClientById(id);
-        //    return result;
-        //}
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddCompany([FromBody] Company company)
+        {
+            if (company == null)
+            {
+                return BadRequest();
+            }
+            return Ok(await services.AddCompany(company));
+        }
     }
 }
