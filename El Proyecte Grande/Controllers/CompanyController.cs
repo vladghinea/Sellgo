@@ -49,5 +49,18 @@ namespace El_Proyecte_Grande.Controllers
             }
             return Ok(await services.AddCompany(company));
         }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteCompany([FromQuery] int id)
+        {
+
+            Company company = _db.Data.Companies.Find(id);
+            if (company == null)
+            {
+                return NotFound();
+            }
+            return Ok(await services.DeleteCompany(id));
+
+        }
     }
 }

@@ -46,6 +46,15 @@ namespace El_Proyecte_Grande.Services
 
         }
 
+        public async Task<string> DeleteCompany(int id)
+        {
+            var obj = await _db.Data.Companies.FindAsync(id);
+            string name = obj.Name;
+            _db.Data.Companies.Remove(obj);
+            _db.Data.SaveChanges();
+            return name;
+        }
+
 
     }
 }

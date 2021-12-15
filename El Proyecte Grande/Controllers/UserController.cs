@@ -50,5 +50,18 @@ namespace El_Proyecte_Grande.Controllers
             return BadRequest();
 
         }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteCompany([FromQuery] int id)
+        {
+
+            User user = _db.Data.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(await serviceUser.DeleteUser(id));
+
+        }
     }
 }

@@ -44,5 +44,14 @@ namespace El_Proyecte_Grande.Services
             }
             return false;
         }
+
+        public async Task<string> DeleteUser(int id)
+        {
+            var obj = await _db.Data.Users.FindAsync(id);
+            string name = obj.FirstName + " " + obj.LastName + " " + id.ToString();
+            _db.Data.Users.Remove(obj);
+            _db.Data.SaveChanges();
+            return name;
+        }
     }
 }
