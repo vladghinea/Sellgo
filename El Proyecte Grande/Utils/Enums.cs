@@ -13,7 +13,7 @@ namespace El_Proyecte_Grande.Utils
         Male,
         Unknown
     }
-    public enum PiroityTypes
+    public enum PriorityTypes
     {
         High,
         Medium,
@@ -44,9 +44,20 @@ namespace El_Proyecte_Grande.Utils
         Admin
     }
 
-    public enum LocationTypes 
-    { 
+    public enum LocationTypes
+    {
         Virtual,
         Physical
+    }
+
+    public enum SocialMediaChannell
+    {
+        LinkeIn,
+        Instagram,
+        Twitter,
+        Facebook,
+        Slack,
+        Dribbble,
+        Reddit,
     }
 }

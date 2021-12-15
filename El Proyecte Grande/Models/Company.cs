@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,12 +8,26 @@ namespace El_Proyecte_Grande.Models
 {
     public class Company
     {
+        [Key]
         public int Id { get; set; }
+        [MaxLength(50)]
         public string Name { get; set; }
+        [MaxLength(50)]
         public string CUI { get; set; }
+
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [MaxLength(100)]
         public string Email { get; set; }
         public byte[] Logo { get; set; }
-        public List<Client> Employees { get; set; }
+
+        //Relationship
+        //Client (OneToMany)
+        public virtual List<Client> Empmloyees { get; set; }
+
+        //User (OneToMany)
+        public virtual List<User> UserEmployees { get; set; }
+
 
     }
 }
