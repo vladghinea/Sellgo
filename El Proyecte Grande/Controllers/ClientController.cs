@@ -3,6 +3,7 @@ using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Controllers
 {
@@ -10,20 +11,22 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        public ServiceClient seviceClient;
+        public IServiceClient seviceClient;
 
-        public ClientController(ServiceClient seviceClient)
+        public ClientController(IServiceClient seviceClient)
         {
             this.seviceClient = seviceClient;
         }
 
 
         //GET Clients
+        [Route("Clients")]
         [HttpGet]
-        [ValidateAntiForgeryToken]
-        public List<Client> GetClients()
+        // [ValidateAntiForgeryToken]
+        public async Task<List<Client>> index()
         {
-            return seviceClient.GetClientsList();
+            List<Client> result = await seviceClient.GetClientsList();
+            return result;
         }
     }
 }

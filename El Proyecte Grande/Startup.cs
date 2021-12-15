@@ -1,3 +1,4 @@
+using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,8 @@ namespace El_Proyecte_Grande
             services.AddDbContext<AppDbContext>(options => options
                 //.UseLazyLoadingProxies()
                 .UseSqlServer(Configuration.GetConnectionString("CodecoolDbContext")));
+
+            services.AddTransient<IServiceClient, ServiceClient>();
 
             services.AddControllers();
 
