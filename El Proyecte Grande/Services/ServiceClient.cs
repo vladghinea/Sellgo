@@ -23,7 +23,12 @@ namespace El_Proyecte_Grande.Services
         }
 
 
+        public async Task<Client> GetClientById(int id)
+        {
+            Client result = await _db.Clients.FirstOrDefaultAsync(x => x.Id == id);
 
+            return result;
+        }
 
 
     }

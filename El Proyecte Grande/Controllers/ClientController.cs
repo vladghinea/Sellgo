@@ -18,14 +18,20 @@ namespace El_Proyecte_Grande.Controllers
             this.seviceClient = seviceClient;
         }
 
-
         //GET Clients
-        [Route("Clients")]
         [HttpGet]
         // [ValidateAntiForgeryToken]
-        public async Task<List<Client>> index()
+        public async Task<List<Client>> GetClients()
         {
             List<Client> result = await seviceClient.GetClientsList();
+            return result;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<Client> GetClient([FromRoute] int id)
+        {
+            Client result = await seviceClient.GetClientById(id);
             return result;
         }
     }

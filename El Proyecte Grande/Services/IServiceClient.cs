@@ -7,5 +7,6 @@ namespace El_Proyecte_Grande.Services
     public interface IServiceClient
     {
         Task<List<Client>> GetClientsList();
+        Task<Client> GetClientById(int id);
     }
 }
