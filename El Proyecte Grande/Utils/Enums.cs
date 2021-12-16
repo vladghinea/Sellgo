@@ -21,8 +21,8 @@ namespace El_Proyecte_Grande.Utils
     }
     public enum StatusTypes
     {
-        [Display(Name = "Lead Id")]
-        LeadId,
+        [Display(Name = "To Contact")]
+        ToContact,
         [Display(Name = "Contact Made")]
         ContactMade,
         [Display(Name = "Meeting Arranged")]
