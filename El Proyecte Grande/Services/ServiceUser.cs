@@ -29,7 +29,7 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<User> AddUser(User user)
         {
-            //user.Password = Utils.Helper.HashPassword(user.Password);
+            user.Password = Utils.Helper.HashPassword(user.Password);
             //user.Id = _db.Data.Users.OrderBy(user => user.Id).Select(user => user.Id).Last() + 1;
             await _db.Data.Users.AddAsync(user);
             await _db.Data.SaveChangesAsync();
