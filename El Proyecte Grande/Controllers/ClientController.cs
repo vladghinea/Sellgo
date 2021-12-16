@@ -35,23 +35,9 @@ namespace El_Proyecte_Grande.Controllers
             Client result = await services.GetClientById(id);
             return result;
         }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteClient([FromQuery]int id)
-        {
-            var obj = _db.Data.Clients.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            services.DeleteClient(id);
-            return Ok();
-
-        }
-
+       
         //Add Person  
         [HttpPost]
-        [Route("add")]
         public async Task<IActionResult> AddClient([FromBody] Client client)
         {
             if (client == null)
@@ -60,6 +46,19 @@ namespace El_Proyecte_Grande.Controllers
             }
             return Ok(await services.AddClient(client));
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteClient([FromQuery]int id)
+        {
+            Client client = _db.Data.Clients.Find(id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+            return Ok(await services.DeleteClient(id));
+
+        }
+
 
     }
 }

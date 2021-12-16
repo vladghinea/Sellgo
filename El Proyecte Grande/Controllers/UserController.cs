@@ -35,7 +35,6 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
         public async Task<IActionResult> AddUser([FromBody] User user)
         {
             if (user == null)
@@ -51,8 +50,8 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
-        [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteCompany([FromQuery] int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromQuery] int id)
         {
 
             User user = _db.Data.Users.Find(id);
@@ -63,5 +62,17 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await serviceUser.DeleteUser(id));
 
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] User newUser)
+        {
+            //User oldUser = _db.Data.Users.Find(newUser.Id);
+            //if (oldUser == null)
+            //{
+            //    return NotFound();
+            //}
+            return Ok(await serviceUser.UpdateUser(newUser));
+        }
+
     }
 }

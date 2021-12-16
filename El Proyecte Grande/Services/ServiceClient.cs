@@ -33,11 +33,13 @@ namespace El_Proyecte_Grande.Services
             return result;
         }
 
-        public void DeleteClient(int id)
+        public async Task<string> DeleteClient(int id)
         {
-            var obj = _db.Data.Clients.Find(id);
-            _db.Data.Clients.Remove(obj);  
+            Client client = _db.Data.Clients.Find(id);
+            string name = client.FirstName + " " + client.LastName + " id: " + id.ToString();
+            _db.Data.Clients.Remove(client);
             _db.Data.SaveChanges();
+            return name;
         }
 
         //Add Client      

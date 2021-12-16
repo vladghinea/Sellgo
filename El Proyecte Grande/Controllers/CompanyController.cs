@@ -40,7 +40,6 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
         public async Task<IActionResult> AddCompany([FromBody] Company company)
         {
             if (company == null)
@@ -50,7 +49,7 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await services.AddCompany(company));
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteCompany([FromQuery] int id)
         {
 

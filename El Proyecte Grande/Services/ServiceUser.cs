@@ -47,11 +47,23 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<string> DeleteUser(int id)
         {
-            var obj = await _db.Data.Users.FindAsync(id);
-            string name = obj.FirstName + " " + obj.LastName + " " + id.ToString();
-            _db.Data.Users.Remove(obj);
+            User user = await _db.Data.Users.FindAsync(id);
+            string name = user.FirstName + " " + user.LastName + " id: " + id.ToString();
+            _db.Data.Users.Remove(user);
             _db.Data.SaveChanges();
             return name;
         }
+
+        public async Task<User> UpdateUser(User newUser)
+        {
+            //_db.Data.Users.Update(newUser);
+            _db.Data.Entry(newUser).State = EntityState.Modified;
+
+            await _db.Data.SaveChangesAsync();
+            return newUser;
+
+        }
+
+
     }
 }
