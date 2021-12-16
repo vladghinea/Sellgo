@@ -86,7 +86,7 @@ class Deal{
 + UserId : int
 + Priority : PriorityTypes
 + Status : StatusTypes
-+ Clients : List<Cliet>
++ Clients : List<Client>
 + Interceptions: List<Interception>
 + Products : List<Product>
 }
@@ -148,12 +148,6 @@ class ProfessionalApproach{
 + Client : Client
 }
 
-class Client_Deal{
-+ ClientId : int
-+ Client : Client
-+ DealId : int
-+ Deal : Deal
-}
 class SocialMedia{
 + Id : int
 + Channell : SocialMediaChannell
@@ -177,11 +171,28 @@ Female,
 Male,
 Unknown
 }
+circle ApiCompanyCRUD
+circle ApiUserCRUD
+circle ApiClientCRUD
 
-User <-- UserPosition
-SocialMedia <-- SocialMediaChannell 
-Client <-- GenderTypes
-Deal <-- PriorityTypes 
-Deal <-- StatusTypes
+ApiClientCRUD -- User
+ApiUserCRUD -- User
+Deal o-- Interception
+ApiCompanyCRUD -- Company
+User --> UserPosition
+SocialMedia --> SocialMediaChannell 
+Client --> GenderTypes
+Deal --> PriorityTypes 
+Deal --> StatusTypes
+User *-- Deal
+Deal o-- Client
+Deal o-- Product
+Client *-- SocialMedia
+Client o-- Address
+Interception o-- Address
+Company o-- Client
+User "*" --o "1" Team
+Client <-- PersonalApproach
+Client <-- ProfessionalApproach
 
 @enduml
