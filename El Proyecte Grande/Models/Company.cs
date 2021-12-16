@@ -15,7 +15,7 @@ namespace El_Proyecte_Grande.Models
         public string Name { get; set; }
         [MaxLength(50)]
         public string CUI { get; set; }
-
+        [EmailUnique]
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [MaxLength(100)]
