@@ -1,4 +1,5 @@
 ﻿using El_Proyecte_Grande.Utils;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,7 @@ namespace El_Proyecte_Grande.Models
         public string FirstName { get; set; }
         [MaxLength(50)]
         public string LastName { get; set; }
+
 
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
