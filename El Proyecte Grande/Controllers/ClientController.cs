@@ -3,8 +3,10 @@ using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Controllers
@@ -35,7 +37,7 @@ namespace El_Proyecte_Grande.Controllers
             Client result = await services.GetClientById(id);
             return result;
         }
-       
+
         //Add Person  
         [HttpPost]
         public async Task<IActionResult> AddClient([FromBody] Client client)
@@ -48,7 +50,7 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteClient([FromQuery]int id)
+        public async Task<IActionResult> DeleteClient([FromQuery] int id)
         {
             Client client = _db.Data.Clients.Find(id);
             if (client == null)
@@ -56,6 +58,37 @@ namespace El_Proyecte_Grande.Controllers
                 return NotFound();
             }
             return Ok(await services.DeleteClient(id));
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateClient(int id, [FromBody] Client client)
+        {
+
+            if (id != client.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Data.Entry(client).State = EntityState.Modified;
+
+            try
+            {
+                await _db.Data.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_db.Data.Clients.Any(client => client.Id == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
 
         }
 

@@ -35,15 +35,15 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<string> DeleteClient(int id)
         {
-            Client client = _db.Data.Clients.Find(id);
+            Client client = await _db.Data.Clients.FindAsync(id);
             string name = client.FirstName + " " + client.LastName + " id: " + id.ToString();
             _db.Data.Clients.Remove(client);
-            _db.Data.SaveChanges();
+            await _db.Data.SaveChangesAsync();
             return name;
         }
 
         //Add Client      
-        public async Task<Client> AddClient([FromBody]Client client)
+        public async Task<Client> AddClient([FromBody] Client client)
         {
 
             await _db.Data.Clients.AddAsync(client);
@@ -51,7 +51,5 @@ namespace El_Proyecte_Grande.Services
             return client;
 
         }
-
-
     }
 }

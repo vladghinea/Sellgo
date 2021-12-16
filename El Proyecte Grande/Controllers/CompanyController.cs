@@ -3,6 +3,7 @@ using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,37 @@ namespace El_Proyecte_Grande.Controllers
                 return NotFound();
             }
             return Ok(await services.DeleteCompany(id));
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] Company company)
+        {
+
+            if (id != company.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Data.Entry(company).State = EntityState.Modified;
+
+            try
+            {
+                await _db.Data.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_db.Data.Companies.Any(company => company.Id == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
 
         }
     }

@@ -50,7 +50,7 @@ namespace El_Proyecte_Grande.Services
             User user = await _db.Data.Users.FindAsync(id);
             string name = user.FirstName + " " + user.LastName + " id: " + id.ToString();
             _db.Data.Users.Remove(user);
-            _db.Data.SaveChanges();
+            await _db.Data.SaveChangesAsync();
             return name;
         }
 

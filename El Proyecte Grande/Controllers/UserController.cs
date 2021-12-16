@@ -3,7 +3,9 @@ using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Controllers
@@ -63,15 +65,35 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] User newUser)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
         {
-            //User oldUser = _db.Data.Users.Find(newUser.Id);
-            //if (oldUser == null)
-            //{
-            //    return NotFound();
-            //}
-            return Ok(await serviceUser.UpdateUser(newUser));
+
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Data.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _db.Data.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_db.Data.Users.Any(user => user.Id == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+
         }
 
     }

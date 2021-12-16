@@ -51,7 +51,7 @@ namespace El_Proyecte_Grande.Services
             var obj = await _db.Data.Companies.FindAsync(id);
             string name = obj.Name;
             _db.Data.Companies.Remove(obj);
-            _db.Data.SaveChanges();
+            await _db.Data.SaveChangesAsync();
             return name;
         }
 
