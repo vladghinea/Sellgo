@@ -1,6 +1,7 @@
 ﻿using El_Proyecte_Grande.Models;
 using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Controllers
 {
+    [Authorize(Policy ="ManagerOnly")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -23,19 +25,26 @@ namespace El_Proyecte_Grande.Controllers
             serviceUser = new ServiceUser(_db);
         }
 
+
+
+
+
+        //Get Users
         [HttpGet]
         public async Task<List<User>> GetUsers()
         {
             return await serviceUser.GetUsers();
         }
 
+        //Get User
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<User> GetUser([FromRoute] int id)
         {
             return await serviceUser.GetUser(id);
         }
-
+        
+        //Add User
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] User user)
         {
@@ -52,6 +61,7 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
+        //Delete User
         [HttpDelete]
         public async Task<IActionResult> DeleteUser([FromQuery] int id)
         {
@@ -65,11 +75,12 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
-        [HttpPut("{id}")]
+        //Update User
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
         {
 
-            if (id != user.Id)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
@@ -82,7 +93,7 @@ namespace El_Proyecte_Grande.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Users.Any(user => user.Id == id))
+                if (!_db.Data.Users.Any(user => user.UserId == id))
                 {
                     return NotFound();
                 }
@@ -92,7 +103,7 @@ namespace El_Proyecte_Grande.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
 
         }
 

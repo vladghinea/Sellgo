@@ -1,18 +1,26 @@
+using El_Proyecte_Grande.Data.Repository;
+using El_Proyecte_Grande.Models;
 using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande
@@ -33,10 +41,48 @@ namespace El_Proyecte_Grande
                 //.UseLazyLoadingProxies()
                 .UseSqlServer(Configuration.GetConnectionString("CodecoolDbContext")));
 
+            services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<AppDbContext>()
+                    .AddDefaultTokenProviders();
+            services.AddAuthentication(option =>
+{
+                
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+
+            {                
+                option.SaveToken = true;
+                option.RequireHttpsMetadata = false;
+                option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ManagerOnly",
+                   policy => policy.RequireClaim(ClaimTypes.Role, Utils.UserPosition.Manager.ToString()));
+                //options.AddPolicy("TeamOnly",
+                //   policy => policy.RequireClaim("Team", ));
+            });
+
             services.AddTransient<IAppDbRepository, AppDbRepository>();
-
-            services.AddControllers();
-
+            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "El_Proyecte_Grande", Version = "v1" });
@@ -56,7 +102,8 @@ namespace El_Proyecte_Grande
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

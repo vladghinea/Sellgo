@@ -39,8 +39,11 @@ namespace El_Proyecte_Grande.Utils
     }
     public enum UserPosition
     {
+        [Display(Name = "Manager")]
         Manager,
+        [Display(Name = "Salesman")]
         Salesman,
+        [Display(Name = "Admin")]
         Admin
     }
 

@@ -19,7 +19,7 @@ namespace El_Proyecte_Grande.Services
         }
         public async Task<User> GetUser(int id)
         {
-            return await _db.Data.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.Data.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
 
         public async Task<List<User>> GetUsers()

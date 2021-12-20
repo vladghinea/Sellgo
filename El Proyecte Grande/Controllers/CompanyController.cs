@@ -23,7 +23,11 @@ namespace El_Proyecte_Grande.Controllers
             services = new ServiceCompany(_db);
         }
 
-        //GET Clients
+
+
+
+
+        //GET Companies
         [HttpGet]
         // [ValidateAntiForgeryToken]
         public async Task<List<Company>> GetCompanies()
@@ -32,14 +36,16 @@ namespace El_Proyecte_Grande.Controllers
             return result;
         }
 
+        //GET Company
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<Company> GetCompany([FromRoute] int id)
         {
             Company result = await services.GetCompanyById(id);
             return result;
         }
 
+        //Add Company 
         [HttpPost]
         public async Task<IActionResult> AddCompany([FromBody] Company company)
         {
@@ -50,6 +56,7 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await services.AddCompany(company));
         }
 
+        //Delete Company
         [HttpDelete]
         public async Task<IActionResult> DeleteCompany([FromQuery] int id)
         {
@@ -63,7 +70,8 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
-        [HttpPut("{id}")]
+        //Update Company
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateCompany(int id, [FromBody] Company company)
         {
 
@@ -90,7 +98,7 @@ namespace El_Proyecte_Grande.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
 
         }
     }

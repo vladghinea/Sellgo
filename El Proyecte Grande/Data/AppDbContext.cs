@@ -1,4 +1,5 @@
 ﻿using El_Proyecte_Grande.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,6 +17,9 @@ namespace El_Proyecte_Grande
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity => { entity.HasIndex(user => user.Email).IsUnique(); });
+           // modelBuilder.Entity<Client>(entity => { entity.HasIndex(client => client.Email).IsUnique(); });
+
             modelBuilder.Entity<Team>().HasMany(team => team.Sellers)
                 .WithOne(user => user.Team)
                 .HasForeignKey(user => user.TeamId)
@@ -42,7 +46,7 @@ namespace El_Proyecte_Grande
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Company> Companies { get; set; }

@@ -1,4 +1,5 @@
 ﻿using El_Proyecte_Grande.Utils;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         [Key]
-        public int Id { get; set; }
+        public  int UserId { get; set; }
 
         [MaxLength(50)]
         public string FirstName { get; set; }
@@ -22,7 +23,7 @@ namespace El_Proyecte_Grande.Models
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [MaxLength(100)]
-        public string Email { get; set; }
+        public override string Email { get; set; }
 
         [Required]
         [StringLength(150, MinimumLength = 6)]
@@ -35,7 +36,7 @@ namespace El_Proyecte_Grande.Models
 
         [Phone(ErrorMessage = "Invalid Phone Number")]
         [Column(TypeName = "varchar(30)")]
-        public string PhoneNumber { get; set; }
+        public override string PhoneNumber { get; set; }
         public byte[] Image { get; set; }
 
         //Relationship

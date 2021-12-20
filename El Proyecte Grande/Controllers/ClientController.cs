@@ -23,6 +23,10 @@ namespace El_Proyecte_Grande.Controllers
             services = new ServiceClient(_db);
         }
 
+
+
+
+
         //GET Clients
         [HttpGet]
         public async Task<List<Client>> GetClients()
@@ -31,14 +35,15 @@ namespace El_Proyecte_Grande.Controllers
             return result;
         }
 
-        [HttpGet("{id}")]
+        //GET Client
+        [HttpGet("{id:int}")]
         public async Task<Client> GetClient([FromRoute] int id)
         {
             Client result = await services.GetClientById(id);
             return result;
         }
 
-        //Add Person  
+        //Add Client  
         [HttpPost]
         public async Task<IActionResult> AddClient([FromBody] Client client)
         {
@@ -49,6 +54,7 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await services.AddClient(client));
         }
 
+        //Delete Client
         [HttpDelete]
         public async Task<IActionResult> DeleteClient([FromQuery] int id)
         {
@@ -61,7 +67,8 @@ namespace El_Proyecte_Grande.Controllers
 
         }
 
-        [HttpPut("{id}")]
+        //Update Client
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateClient(int id, [FromBody] Client client)
         {
 
@@ -88,7 +95,7 @@ namespace El_Proyecte_Grande.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
 
         }
 

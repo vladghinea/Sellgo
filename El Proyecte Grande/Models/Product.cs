@@ -14,8 +14,11 @@ namespace El_Proyecte_Grande.Models
         public string Name { get; set; }
         [MaxLength(300)]
         public string Description { get; set; }
+        [DataType(DataType.Currency)]
         public decimal ActualPrice { get; set; }
+        [DataType(DataType.Currency)]
         public decimal MinimPrice { get; set; }
+        [DataType(DataType.Currency)]
         public decimal SoldPrice { get; set; }
         [MaxLength(300)]
         public string Guarantees { get; set; }
