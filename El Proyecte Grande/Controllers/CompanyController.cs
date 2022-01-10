@@ -23,10 +23,6 @@ namespace El_Proyecte_Grande.Controllers
             services = new ServiceCompany(_db);
         }
 
-
-
-
-
         //GET Companies
         [HttpGet]
         // [ValidateAntiForgeryToken]

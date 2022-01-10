@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Controllers
 {
-    [Authorize(Policy ="ManagerOnly")]
+    //[Authorize(Policy ="ManagerOnly")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
