@@ -63,4 +63,13 @@ namespace El_Proyecte_Grande.Utils
         Dribbble,
         Reddit,
     }
+    public enum CaresTypes
+    {
+        LivePartner,
+        Daughter,
+        Son,
+        Dog,
+        Cat,
+        Aquarium,
+    }
 }

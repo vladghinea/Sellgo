@@ -18,5 +18,9 @@ namespace El_Proyecte_Grande.Models
         public int ClientId { get; set; }
         [ForeignKey("ClientId")]
         public Client Client { get; set; }
+
+
+        //Care (OneToMany)
+        public virtual List<Care> Cares { get; set; }
     }
 }

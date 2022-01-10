@@ -12,7 +12,7 @@ namespace El_Proyecte_Grande.Models
     public class User : IdentityUser
     {
         [Key]
-        public  int UserId { get; set; }
+        public int UserId { get; set; }
 
         [MaxLength(50)]
         public string FirstName { get; set; }
