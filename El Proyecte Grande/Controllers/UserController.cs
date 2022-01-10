@@ -80,7 +80,7 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
         {
 
-            if (id != user.UserId)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace El_Proyecte_Grande.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Users.Any(user => user.UserId == id))
+                if (!_db.Data.Users.Any(user => user.Id == id))
                 {
                     return NotFound();
                 }

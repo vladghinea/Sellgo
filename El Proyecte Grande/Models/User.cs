@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         [Key]
-        public int UserId { get; set; }
+        public override int Id { get; set; }
 
         [MaxLength(50)]
         public string FirstName { get; set; }

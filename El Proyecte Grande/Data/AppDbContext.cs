@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande
 {
-    public class AppDbContext : IdentityDbContext<User>
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -46,7 +46,7 @@ namespace El_Proyecte_Grande
             base.OnModelCreating(modelBuilder);
         }
 
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Company> Companies { get; set; }
