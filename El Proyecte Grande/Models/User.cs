@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Models
@@ -20,6 +21,7 @@ namespace El_Proyecte_Grande.Models
 
         [Required]
         [StringLength(150, MinimumLength = 6)]
+        [JsonIgnore]
         public string Password { get; set; }
         [Required]
         [NotMapped]

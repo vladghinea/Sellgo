@@ -1,6 +1,7 @@
 ﻿using El_Proyecte_Grande.Data.Repository;
 using El_Proyecte_Grande.Dtos;
 using El_Proyecte_Grande.Models;
+using El_Proyecte_Grande.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace El_Proyecte_Grande.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IAppDbRepository _appDb;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(IAccountRepository accountRepository, IAppDbRepository appDb)
         {
             this._accountRepository = accountRepository;
+            this._appDb = appDb;
         }
 
 
@@ -42,11 +45,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
             string result = await _accountRepository.LoginUserAsync(loginDto);
+            User user = _appDb.Data.Users.Where(user => user.Email == loginDto.Email).Single();
             if (string.IsNullOrEmpty(result))
             {
                 return Unauthorized();
             }
-            return Ok(result);
+            return Ok(user);
         }
 
 
