@@ -18,11 +18,12 @@ namespace El_Proyecte_Grande.Models
         [MaxLength(50)]
         public string LastName { get; set; }
 
-
+        [JsonIgnore]
         [Required]
         [StringLength(150, MinimumLength = 6)]
-        [JsonIgnore]
         public string Password { get; set; }
+
+        [JsonIgnore]
         [Required]
         [NotMapped]
         [Compare("Password")]

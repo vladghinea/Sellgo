@@ -44,13 +44,20 @@ namespace El_Proyecte_Grande.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
-            string result = await _accountRepository.LoginUserAsync(loginDto);
-            User user = _appDb.Data.Users.Where(user => user.Email == loginDto.Email).Single();
-            if (string.IsNullOrEmpty(result))
+            try
             {
-                return Unauthorized();
+                string result = await _accountRepository.LoginUserAsync(loginDto);
+                User user = _appDb.Data.Users.Where(user => user.Email == loginDto.Email).Single();
+                if (string.IsNullOrEmpty(result))
+                {
+                    return Unauthorized();
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (Exception e)
+            {
+                return Unauthorized(e);
+            }
         }
 
 
