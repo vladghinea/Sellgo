@@ -16,7 +16,7 @@ namespace El_Proyecte_Grande.Models
 
 
 
-        public int? ManagerId { get; set; }
+        public string ManagerId { get; set; }
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }
 

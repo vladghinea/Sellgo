@@ -17,7 +17,7 @@ namespace El_Proyecte_Grande.Services
         {
             _db = db;
         }
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(string id)
         {
             return await _db.Data.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -45,7 +45,7 @@ namespace El_Proyecte_Grande.Services
             return false;
         }
 
-        public async Task<string> DeleteUser(int id)
+        public async Task<string> DeleteUser(string id)
         {
             User user = await _db.Data.Users.FindAsync(id);
             string name = user.FirstName + " " + user.LastName + " id: " + id.ToString();

@@ -38,12 +38,12 @@ namespace El_Proyecte_Grande.Controllers
 
         //Get User
         [HttpGet]
-        [Route("{id:int}")]
-        public async Task<User> GetUser([FromRoute] int id)
+        [Route("{id}")]
+        public async Task<User> GetUser([FromRoute] string id)
         {
             return await serviceUser.GetUser(id);
         }
-        
+
         //Add User
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] User user)
@@ -63,7 +63,7 @@ namespace El_Proyecte_Grande.Controllers
 
         //Delete User
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromQuery] int id)
+        public async Task<IActionResult> DeleteUser([FromQuery] string id)
         {
 
             User user = _db.Data.Users.Find(id);
@@ -76,8 +76,8 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         //Update User
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] User user)
         {
 
             if (id != user.Id)

@@ -15,10 +15,13 @@ namespace El_Proyecte_Grande.Models
         [MaxLength(300)]
         public string Description { get; set; }
         [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal ActualPrice { get; set; }
         [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal MinimPrice { get; set; }
         [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal SoldPrice { get; set; }
         [MaxLength(300)]
         public string Guarantees { get; set; }

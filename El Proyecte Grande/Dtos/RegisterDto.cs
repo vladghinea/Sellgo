@@ -20,5 +20,6 @@ namespace El_Proyecte_Grande.Dtos
         public string Password { get; set; }
         [Required]
         public string ConfirmPassword { get; set; }
+        public int CompanyId { get; set; }
     }
 }
