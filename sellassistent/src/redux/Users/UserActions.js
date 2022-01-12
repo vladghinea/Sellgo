@@ -1,3 +1,5 @@
+import { CreateAPIEndPoint, ENDPOINTS } from '../../api/Index'
+import axios from 'axios'
 import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from "./UserTypes"
 
 export const fetchUsersRequest = () => {
@@ -17,3 +19,20 @@ export const fetchUsersFailure = (error) => {
         payload: error
     }
 }
+
+export const fetchUsers = () => {
+    console.log(ENDPOINTS.USER)
+    return (dispatch) => {
+        dispatch(fetchUsersRequest)
+        CreateAPIEndPoint(ENDPOINTS.USER).fetchAll()
+        .then(response => {
+            const users = response.data;
+            dispatch(fetchUsersSuccess(users))
+        })
+        .catch(error => {
+            const errorMsg = error.message; 
+            dispatch(fetchUsersFailure(errorMsg))
+        })
+    }
+}
+
