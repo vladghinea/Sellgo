@@ -1,6 +1,9 @@
 import React from "react";
+import {  ENDPOINTS } from "../../api/Index"
 
-const Card = ({deals,boardId}) => {
+const Card = ({deals,boardId,changePriority}) => {
+
+    const incons = ["⭕️","🔆️","⚠️","🟡","☢️","😵","✅","❌","🟣","⚫️","⚪️","🟤"];
     const dragStart = (e) => {
         const target = e.target;
 
@@ -11,6 +14,7 @@ const Card = ({deals,boardId}) => {
         e.stopPropagation();
     };
 
+
     return (
         <>
             {deals.map( (deal) => 
@@ -18,13 +22,15 @@ const Card = ({deals,boardId}) => {
                     (<div 
                         key={deal.id}
                         id={deal.id}
-                        className="card"
+                        className= {`card priority${deal.priority}`}
                         draggable="true"
                         onDragStart={dragStart}
                         onDragOver={dragOver}
-                        style={{color: "red"}}
+                        // onDoubleClick={() =>updatePriority(deal.id)}
+                        onDoubleClick={() => changePriority(deal.id)}
+
                         >
-                            name {deal.id}
+                            Deal:{deal.id} - ClientId:{deal.clientId} {incons.at(boardId)}
                         </div>):""                
             )}
         </>

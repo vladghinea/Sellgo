@@ -48,6 +48,24 @@ const Board = (props) => {
         updateDeal(card_id,statusId)
         
     };
+    const changePriority = async (id) =>{
+        const dealToChangePriority = await fetchDeal(id);
+        let priority = 0;
+        if (dealToChangePriority.priority === 0) {
+            priority = 1;
+        }else if (dealToChangePriority.priority === 1) {
+            priority = 2;
+        }
+
+        const updDeal = { ...dealToChangePriority, priority: priority };
+        await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(updDeal),
+        });
+    }
 
     const dragOver = (e) => {
         e.preventDefault();
@@ -63,7 +81,7 @@ const Board = (props) => {
                     onDrop={drop}
                     onDragOver={dragOver}
                     className="card col-3"> {item}  
-                        <Card deals={deals} boardId={index} />
+                        <Card deals={deals} boardId={index} changePriority={changePriority} />
                 </div>
                 )
             }   
