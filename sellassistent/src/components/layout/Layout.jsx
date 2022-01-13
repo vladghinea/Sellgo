@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import ThemeAction from '../../redux/Theme/ThemeActions'
 
-const Layout = () => {
+const Layout = ({userName}) => {
 
     const themeReducer = useSelector(state => state.themeRedux)
     const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const Layout = () => {
                 <div className={`layout ${themeReducer.mode}  ${themeReducer.color}`}>
                     <Sidebar {...props}/>
                     <div className='layout__content'>
-                        <Topnav />
+                        <Topnav userName={userName} />
                         <div className="layout__content-main">
                             <Routes />
                         </div>

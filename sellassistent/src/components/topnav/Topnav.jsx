@@ -9,10 +9,7 @@ import user_menu from '../../assets/JsonData/user_menus.json'
 import Dropdown from '../dropdown/Dropdown'
 import ThemeMenu from '../thememenu/ThemeMenu'
 
-const curr_user = {
-    display_name: 'White Belt Ro',
-    image: user_image
-}
+
 
 const renderNotificationItem = (item, index) => (
     <div className="notification-item" key={index}>
@@ -41,7 +38,11 @@ const renderUserMenu = (item, index) => (
     </Link>
 )
 
-const Topnav = () => {
+const Topnav = (props) => {
+    const curr_user = {
+        display_name: props.userName.name ,
+        image: user_image
+    }
     return (
         <div className='topnav'>
             <div className="topnav__search">
