@@ -3,6 +3,7 @@ import axios from "axios";
 const BASE_URL = "https://localhost:44349/api/"
 
 export const ENDPOINTS = {
+    BASE_URL: "https://localhost:44349/api/",
     REGISTER: "account/register",
     LOGIN: "account/login",
     LOGOUT: "account/logout",

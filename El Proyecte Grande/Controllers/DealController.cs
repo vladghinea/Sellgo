@@ -32,6 +32,8 @@ namespace El_Proyecte_Grande.Controllers
             return result;
         }
 
+
+
         //GET Client
         [HttpGet("{id:int}")]
         public async Task<Deal> GetDealById([FromRoute] int id)
@@ -82,7 +84,7 @@ namespace El_Proyecte_Grande.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Clients.Any(client => client.Id == id))
+                if (!_db.Data.Deals.Any(deal => deal.Id == id))
                 {
                     return NotFound();
                 }
