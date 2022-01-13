@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Login = () => {
+const Login = ({Login, error}) => {
+    const [details, setDetails] = useState({email: "", password: "" });
     return (
         <form>
             <div className='form-inner'>
@@ -21,3 +22,4 @@ const Login = () => {
 }
 
 export default Login
+ 

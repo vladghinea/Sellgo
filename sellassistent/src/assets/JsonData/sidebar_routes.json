@@ -19,5 +19,11 @@
         "display_name": "Clients",
         "route": "/clients",        
         "icon": "bx bx-user-pin"
+    },
+    {
+        "display_name": "Users",
+        "route": "/users",        
+        "icon": "bx bx-user-pin"
     }
+
 ]

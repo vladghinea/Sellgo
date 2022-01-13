@@ -12,11 +12,11 @@ import {BrowserRouter, Route} from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import ThemeAction from '../../redux/actions/ThemeActions'
+import ThemeAction from '../../redux/Theme/ThemeActions'
 
 const Layout = () => {
 
-    const themeReducer = useSelector(state => state.ThemeReducer)
+    const themeReducer = useSelector(state => state.themeRedux)
     const dispatch = useDispatch()
 
     useEffect(() => {

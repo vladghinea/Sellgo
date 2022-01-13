@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+
 
 
 
 
 const Pipedashboard = (props) => {
-    return (       
+    return ( 
+        
         < div className="row col-12"> 
             {
                 props.headData.map((item,index) => props.renderHead(item, index))
-            }
-        </div>
-      
-  
+            }            
+        </div>   
     )
 }
 
