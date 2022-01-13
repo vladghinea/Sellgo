@@ -95,6 +95,43 @@ input:focus {
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
 }
+.priority0 {
+    border-left: 10px solid #d2f702;
+    border-right: 10px solid #d2f702;
+}
+.priority1 {
+    border-left: 10px solid #00c8e2;
+    border-right: 10px solid #00c8e2;
+}
+.priority2 {
+    border-left: 10px solid #ff0000;
+    border-right: 10px solid #ff0000;
+}
+
+.status0 {
+    border-left: 10px solid #231e24;
+}
+.status1 {
+    border-left: 10px solid #d108e4;
+}
+.status2 {
+    border-left: 10px solid #c74d07;
+}
+.status3 {
+    border-left: 10px solid #8f5600;
+}
+.status4 {
+    border-left: 10px solid #0063e6;
+}
+.status5 {
+    border-left: 10px solid #100197;
+}
+.status6 {
+    border-left: 10px solid var(--main-color-green);
+}
+.status7 {
+    border-left: 10px solid var(--main-color-red);
+}
 
 .full-height {
     height: 100%;
