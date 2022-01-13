@@ -5,6 +5,7 @@ const BASE_URL = "https://localhost:44349/api/"
 export const ENDPOINTS = {
     REGISTER: "account/register",
     LOGIN: "account/login",
+    LOGOUT: "account/logout",
     CLIENT: "Client/",
     USER: "user/",
     DEAL: "deal/",

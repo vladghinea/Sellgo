@@ -52,7 +52,7 @@ namespace El_Proyecte_Grande.Controllers
                 {
                     return Unauthorized();
                 }
-                return Ok(user);
+                return Ok(result);
             }
             catch (Exception e)
             {

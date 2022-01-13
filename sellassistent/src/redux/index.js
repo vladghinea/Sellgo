@@ -1,3 +1,3 @@
 export * from './Theme/ThemeActions'
 export * from './Users/UserActions'
-export * from './Login/LoginActions'
+export * from './Authentication/AuthActions'

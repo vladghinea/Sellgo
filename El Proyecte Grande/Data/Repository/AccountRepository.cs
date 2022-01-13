@@ -51,10 +51,13 @@ namespace El_Proyecte_Grande.Data.Repository
             }
             List<Claim> authClaims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, loginDto.Email),
+                new Claim("FirstName", user.FirstName ),
+                new Claim("LastName", user.LastName ),
+                new Claim(ClaimTypes.Email, loginDto.Email),
                 new Claim(ClaimTypes.Role, user.Position.ToString()),
-                //new Claim("Team", user.TeamId.ToString()),
-                //new Claim("ManagerTeam", user.Team.Manager.Email),
+                new Claim("Team", user.Team != null ? user.Team.ToString() : " "),
+                new Claim("TeamId", user.TeamId != null ? user.TeamId.ToString() : " "),
+                new Claim("ManagerTeam",  user.Team != null ? (user.Team.Manager.Email != null ? user.Team.Manager.Email : " ") : "" ),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             SymmetricSecurityKey authSigninKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));

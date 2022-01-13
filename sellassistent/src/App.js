@@ -1,13 +1,17 @@
-import React, {useState} from 'react'
+import React, {Fragment, useState} from 'react'
 import Layout from './components/layout/Layout'
 import LoginForm from './components/Account/LoginForm'
+
+import Modal from 'react-modal'
+import "./App.css"
+import "./modal.css"
 
 
 
 const App = () => {
 
 
-    const [user, setUser] = useState({name:"", email:"user@name.com"});
+    const [user, setUser] = useState({name:"", email:""});
     const [error, setError] = useState("")
 
 
@@ -19,10 +23,25 @@ const App = () => {
         console.log(details)
     }
 
+    const [ modalShow, setModalShow] = useState(true)
+
     return (
-        <div>
-            {(user.email != "") ? (<Layout />): (<LoginForm  Login={Login} error={error} />)}            
-        </div>
+        <Fragment>
+               
+                {(user.email === "") ? (
+                    <div>
+                        
+                        <button variant="primary" onClick={() => setModalShow(true)}>
+                                    Launch vertically centered modal
+                        </button>
+
+                        <LoginForm
+                        show={modalShow}
+                        onHide={() => setModalShow(false)} />         
+                    </div>
+                ):""}  
+            <Layout />          
+        </Fragment>
     )
 }
 
