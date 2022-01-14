@@ -14,44 +14,44 @@ const customTableHead = [
 
 const customTableBodyData=[
     {"Client":"Vlad",
-    "Company":"Home SRL",
+    "Company":"Fix Home Imob SRL",
     "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
+    "NextInterception":"18/02/2022",
     "Prority":"High",
-    "DealSize":"500.000 $"
+    "DealSize":"300.000 $"
     },
-    {"Client":"Vlad",
-    "Company":"Home SRL",
+    {"Client":"Lamine",
+    "Company":"Keit Kalon SRL",
     "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
+    "NextInterception":"18/01/2022",
     "Prority":"High",
-    "DealSize":"500.000 $"
+    "DealSize":"520.000 $"
     },
-    {"Client":"Vlad",
+    {"Client":"Radu",
+    "Company":"Company SRL",
+    "DealStatus":"Proposal Made",
+    "NextInterception":"26/02/2022",
+    "Prority":"Low",
+    "DealSize":"120.000 $"
+    },
+    {"Client":"Marius",
     "Company":"Home SRL",
     "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
+    "NextInterception":"17/02/2022",
+    "Prority":"Medium",
+    "DealSize":"90.000 $"
+    },
+    {"Client":"Stalone",
+    "Company":"Silvester SRL",
+    "DealStatus":"Proposal Made",
+    "NextInterception":"25/02/2022",
     "Prority":"High",
-    "DealSize":"500.000 $"
+    "DealSize":"240.000 $"
     },
-    {"Client":"Vlad",
-    "Company":"Home SRL",
+    {"Client":"Ema",
+    "Company":"Banc SRL",
     "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
-    "Prority":"High",
-    "DealSize":"500.000 $"
-    },
-    {"Client":"Vlad",
-    "Company":"Home SRL",
-    "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
-    "Prority":"High",
-    "DealSize":"500.000 $"
-    },
-    {"Client":"Vlad",
-    "Company":"Home SRL",
-    "DealStatus":"Proposal Made",
-    "NextInterception":"Tomorrow",
+    "NextInterception":"22/02/2022",
     "Prority":"High",
     "DealSize":"500.000 $"
     }
