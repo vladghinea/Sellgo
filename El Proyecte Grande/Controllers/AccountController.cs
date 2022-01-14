@@ -48,7 +48,7 @@ namespace El_Proyecte_Grande.Controllers
             {
                 ResponseLoginDto result = await _accountRepository.LoginUserAsync(loginDto);
                 User user = _appDb.Data.Users.Where(user => user.Email == loginDto.Email).Single();
-                if (string.IsNullOrEmpty(result.name))
+                if (string.IsNullOrEmpty(result.Name))
                 {
                     return Unauthorized();
                 }

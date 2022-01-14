@@ -54,8 +54,8 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         //Delete Client
-        [HttpDelete]
-        public async Task<IActionResult> DeleteDeal([FromQuery] int id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteDeal(int id)
         {
             Deal deal = _db.Data.Deals.Find(id);
             if (deal == null)
