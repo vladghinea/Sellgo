@@ -71,7 +71,7 @@ const Board = (props) => {
         e.preventDefault();
     };
     return (
-        <>
+        <>Priority : <span className="priority2">High</span><span className="priority1">Medium</span><span className="priority0">Low</span>
             {
                 props.headData.map((item,index) => 
                 <div 

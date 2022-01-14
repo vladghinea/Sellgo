@@ -30,7 +30,7 @@ const Card = ({deals,boardId,changePriority}) => {
                         onDoubleClick={() => changePriority(deal.id)}
 
                         >
-                            Deal:{deal.id} - ClientId:{deal.clientId} {incons.at(boardId)}
+                            Deal:{deal.id} - ClientId:{deal.clientId} {incons.at(boardId)} 
                         </div>):""                
             )}
         </>
