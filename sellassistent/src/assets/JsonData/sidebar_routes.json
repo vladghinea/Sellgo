@@ -11,8 +11,8 @@
        
     },
     {
-        "display_name": "Workboard",
-        "route": "/workboard",
+        "display_name": "Dashboard",
+        "route": "/Dashboard",
         "icon": "bx bx-store-alt"
     },
     {
