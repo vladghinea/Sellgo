@@ -1,77 +1,126 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from "react-router";
+import {  Modal } from 'react-bootstrap'
+import { connect } from "react-redux";
+import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
+
+    const { user, register } = props;
+    const [userState, setUserstate] = useState({});
+    const history = useHistory();
+    const [errorHandler, setErrorHandler] = useState({
+      hasError: false,
+      message: "",
+    });
+
     return (
-        <div className="sign-in-main">
-        <div className="container d-flex">
-          <div className="sign-in-container py-5 m-auto border">
-            <div className="sign-in-header">
-              <h4 className="font-weight-bold">Sign Up</h4>
-              <p className="sign-in-intro">
-                <span className="text-muted">New to Food Delivery App ? </span>
-                <span className="text-danger font-weight-bold">Sign In</span>
-              </p>
-              <div className="login-social-media py-3">
-                <button className="btn btn-primary btn-block btn-sm">
-                  Continue with Google
-                </button>
-              </div>
-            </div>
-            <form
-              // onSubmit={(event) => {
-              //   event.preventDefault();
-              //   register(userState, history, setErrorHandler);
-              // }}
-            >
-              <div className="form-group">
-                <div className="form-row">
-                  <div className="col">
-                    <label htmlFor="InputEmail">Name</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                      placeholder="Name"
-                      // onChange={(event) => {
-                      //   const name = event.target.value;
-                      //   setUserstate({ ...userState, ...{ name } });
-                      // }}
-                    />
+      <>
+      <Modal
+          {...props}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Register Form
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              <div className="container">
+              <div className="row">
+                  <div className="col-md-6 offset-md-3">
+                      <div className="signup-form">
+                          <form action="" className="mt-5 border p-4 bg-light shadow"
+                            onSubmit={(event) => {
+                            event.preventDefault();
+                            register(userState, history, setErrorHandler);
+                            }}
+                          >
+                              <h4 className="mb-5 text-secondary">Create Your Account</h4>
+                              <div className="row">
+                                  <div className="mb-3 col-md-6">
+                                      <label>First Name<span className="text-danger">*</span></label>
+                                      <input type="text" name="firstName" className="form-control" placeholder="Enter First Name" 
+                                          onChange={(event) => {
+                                          const firstName = event.target.value;
+                                          setUserstate({ ...userState, ...{ firstName } });
+                                        }}                                         
+                                      />
+                                  </div>
+          
+                                  <div className="mb-3 col-md-6">
+                                      <label>Last Name<span className="text-danger">*</span></label>
+                                      <input type="text" name="lastName" className="form-control" placeholder="Enter Last Name"
+                                        onChange={(event) => {
+                                          const lastName = event.target.value;
+                                          setUserstate({ ...userState, ...{ lastName } });
+                                        }}
+                                      />
+                                  </div>
+
+                                  <div className="mb-3 col-md-12">
+                                      <label>Email<span className="text-danger">*</span></label>
+                                      <input type="email" name="email" className="form-control" placeholder="Enter Email" 
+                                        onChange={(event) => {
+                                          const email = event.target.value;
+                                          setUserstate({ ...userState, ...{ email } });
+                                        }}
+                                      />
+                                  </div>    
+                                  <div className="mb-3 col-md-12">
+                                      <label>Password<span className="text-danger">*</span></label>
+                                      <input type="password" name="password" className="form-control" placeholder="Enter Password" 
+                                            onChange={(event) => {
+                                              const password = event.target.value;
+                                              setUserstate({ ...userState, ...{ password } });
+                                            }}
+                                      />
+                                  </div>
+                                  <div className="mb-3 col-md-12">
+                                      <label>Confirm Password<span className="text-danger">*</span></label>
+                                      <input type="password" name="confirmPassword" className="form-control" placeholder="Confirm Password" 
+                                        onChange={(event) => {
+                                          const confirmPassword = event.target.value;
+                                          setUserstate({ ...userState, ...{ confirmPassword, companyId: 1 } });
+                                        }}
+                                      />
+                                  </div>
+                                  <div className="col-md-12">
+                                    <button className="btn btn-primary float-end">Signup Now</button>
+                                  </div>
+                              </div>
+                          </form>
+                          <p className="text-center mt-3 text-secondary">If you have account, Please <a href="#">Login Now</a></p>
+                      </div>
                   </div>
-                </div>
+
+              
               </div>
-              <div className="form-group">
-                <label htmlFor="InputEmail">Email address</label>
-                <input
-                  type="email"
-                  className="form-control form-control-sm"
-                  // onChange={(event) => {
-                  //   const email = event.target.value;
-                  //   setUserstate({ ...userState, ...{ email } });
-                  // }}
-                />
-                <small id="emailHelp" className="form-text text-muted">
-                  We'll never share your email with anyone else.
-                </small>
-              </div>
-              <div className="form-group">
-                <label htmlFor="InputPassword1">Password</label>
-                <input
-                  type="password"
-                  className="form-control form-control-sm"
-                  // onChange={(event) => {
-                  //   const password = event.target.value;
-                  //   setUserstate({ ...userState, ...{ password } });
-                  // }}
-                />
-              </div>
-              <button type="submit" className="btn btn-danger btn-sm">
-                Submit
-              </button>
-            </form>
+              
           </div>
-        </div>
-      </div>
-    )
+
+          </Modal.Body>
+          <Modal.Footer>
+            <button onClick={props.onHide}>Close</button>
+          </Modal.Footer>
+      </Modal>
+    </>     
+  )
 }
 
-export default RegisterForm
+const mapStateToProps = (state) => {
+  return {
+    user: state.authRedux,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (userState, history, setErrorHandler) => dispatch(RegisterAuthAction(userState, history, setErrorHandler)),    
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)

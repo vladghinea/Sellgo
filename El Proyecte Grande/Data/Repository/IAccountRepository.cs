@@ -8,6 +8,6 @@ namespace El_Proyecte_Grande.Data.Repository
     public interface IAccountRepository
     {
         Task<IdentityResult> CreateUserByRegisterAsync(RegisterDto registerDto);
-        Task<string> LoginUserAsync(LoginDto loginDto);
+        Task<ResponseLoginDto> LoginUserAsync(LoginDto loginDto);
     }
 }

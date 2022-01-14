@@ -7,7 +7,9 @@ const authState = {
     name: "",
     expires_at: "",
     jwttoken: "",
-    authorities: [],
+    team: "",
+    teamManager: "",
+    role: ""
   },
 };
 const getAuthState = () => {

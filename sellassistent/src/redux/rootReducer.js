@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     themeRedux: ThemeReducer,
     userRedux: UserReducer,
     authRedux: AuthReducer,
-    authState: AuthReducer,
+    authRedux: AuthReducer,
     authError: AuthErrorReducer,
 })
 

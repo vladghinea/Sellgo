@@ -41,7 +41,7 @@ namespace El_Proyecte_Grande.Data.Repository
             return await _userManager.CreateAsync(user, registerDto.Password);
         }
 
-        public async Task<string> LoginUserAsync(LoginDto loginDto)
+        public async Task<ResponseLoginDto> LoginUserAsync(LoginDto loginDto)
         {
             var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false); //first false for RememberMe the second for blocking if attempt fails
             User user = await _signInManager.UserManager.FindByEmailAsync(loginDto.Email);
@@ -68,7 +68,16 @@ namespace El_Proyecte_Grande.Data.Repository
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256Signature)
                 );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            ResponseLoginDto response = new ResponseLoginDto(
+              $"{user.FirstName} {user.LastName}",
+              $"{DateTime.Now.AddDays(1)}",
+              new JwtSecurityTokenHandler().WriteToken(token),
+              user.Team != null ? user.Team.ToString() : "",
+              user.Team != null ? (user.Team.Manager.Email != null ? user.Team.Manager.Email : " ") : "",
+               user.Position.ToString()
+               );
+
+            return response;
         }
 
 

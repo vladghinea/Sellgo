@@ -94,7 +94,7 @@ export const fetchLoginFailure = (error) => {
         if (error.response) {
             dispatch(fetchLoginFailure(error));
         }
-        setErrorHandler({ hasError: true, message: error.response.data.message });
+        await setErrorHandler({ hasError: true, message: error.response });
       }
     };
   };
