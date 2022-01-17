@@ -3,20 +3,21 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers } from '../../redux/Users/UserActions'
 
-function UsersContainer ({ userData, fetchUsers }) {
+function UsersContainer ({ userdata, fetchUsers }) {
+
     useEffect(() => {
       fetchUsers()
     }, [])
-    return userData.loading ? (
-      <h2>Loading</h2>
-    ) : userData.error ? (
-      <h2>{userData.error}</h2>
+
+    return userdata.loading ? 
+      ( <h2>Loading</h2> ) : userdata.error ? (
+      <h2>{userdata.error}</h2>
     ) : (
       <div>
         <h2>Users List</h2>
         <div>
           {
-            userData.users.map((user, index) => <p key={index}>{user.firstName} {user.lastName}</p>)
+            userdata.users.map((user, index) => <p key={index}>{user.firstName} {user.lastName}</p>)
           }
         </div>
       </div>
@@ -25,7 +26,7 @@ function UsersContainer ({ userData, fetchUsers }) {
   
   const mapStateToProps = state => {
     return {
-      userData: state.userRedux
+      userdata: state.userRedux
     }
   }
   

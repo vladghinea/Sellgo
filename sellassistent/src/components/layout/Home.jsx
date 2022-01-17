@@ -36,8 +36,8 @@ const Home = () => {
                                 <div>
                                 <h3 className="float-md-start mb-0">Sellgo.</h3>
                                 <nav className="nav nav-masthead justify-content-center float-md-end">
-                                    <a className="nav-link active" aria-current="page" href="#" onClick={()=> setModalLogin(true)}>Sign in</a>
-                                    <a className="nav-link active"  aria-current="page" onClick={()=> setModalRegister(true)}>Register</a>
+                                    <a className="nav-link active" aria-current="page" href="#" onClick={()=> setModalLogin(true)}>Login</a>
+                                    <a className="nav-link active"  aria-current="page" href="#" onClick={()=> setModalRegister(true)}>Register</a>
                                     <a className="nav-link" href="#">About</a>
                                 </nav>
                                 </div>
@@ -47,7 +47,7 @@ const Home = () => {
                                 <h1>Sellgo.</h1>
                                 <p className="lead">Sellgo is Helping Sellers to create relationships and interact with their potential customers.<br/> A grate platform that will help you manage your workflow.                       </p>
                                 <p className="lead">
-                                <a href="#" className="signInBtn btn btn-lg fw-bold " onClick={()=> setModalLogin(true)} >Sing in to engage</a>
+                                <a href="#" className="signInBtn btn btn-lg fw-bold " onClick={()=> setModalLogin(true)} >engage</a>
                                 </p>
                             </main>
                             

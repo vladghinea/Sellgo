@@ -75,9 +75,11 @@ namespace El_Proyecte_Grande
 
             services.AddTransient<IAppDbRepository, AppDbRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
+
             services.AddControllers().AddNewtonsoftJson();
             services.AddCors(option =>
             {
+
                 option.AddDefaultPolicy(builder =>
                 {
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();

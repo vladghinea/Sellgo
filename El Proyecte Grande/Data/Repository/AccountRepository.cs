@@ -71,7 +71,7 @@ namespace El_Proyecte_Grande.Data.Repository
 
             ResponseLoginDto response = new ResponseLoginDto(
               $"{user.FirstName} {user.LastName}",
-              $"{DateTime.Now.AddDays(1).ToString("YYYY-MM-DDTHH:MM:SS")}",
+              $"{DateTime.Now.AddDays(1).ToString("r")}",
               new JwtSecurityTokenHandler().WriteToken(token),
               user.Team != null ? user.Team.ToString() : "",
               user.Team != null ? (user.Team.Manager.Email != null ? user.Team.Manager.Email : " ") : "",

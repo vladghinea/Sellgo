@@ -6,7 +6,7 @@ import { useSelector,} from 'react-redux'
 import Home from "./components/layout/Home";
 
 import "./App.css";
-import "./modal.css";
+//import "./modal.css";
 
 const App = () => {
     const guest = useSelector(state=> state.authRedux)

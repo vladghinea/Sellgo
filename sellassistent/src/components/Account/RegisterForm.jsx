@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import {  Modal } from 'react-bootstrap'
 import { connect } from "react-redux";
 import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
+import "./modal.css"
 
 const RegisterForm = (props) => {
 
@@ -16,19 +17,19 @@ const RegisterForm = (props) => {
 
     return (
       <>
-      <Modal
+      <Modal 
           {...props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header closeButton>
+          <Modal.Header  closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Register Form
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-              <div className="container">
+          <Modal.Body className="my-modal">
+              <div className="container " >
               <div className="row">
                   <div className="col-md-6 offset-md-3">
                       <div className="signup-form">

@@ -17,8 +17,8 @@ const getAuthState = () => {
   try {
     const authobj = JSON.parse(auth);
     const { expires_at, jwttoken } = authobj.user;
-    console.log(`verifica localstorage  Lamine -----> ${new Date(expires_at)} \n ${jwttoken}`)
-    if (new Date(expires_at) > new Date()) {
+    console.log(`verifica localstorage  Lamine -----> ${(new Date(authobj.user.expire_at))} \n ${jwttoken}`)
+    if (new Date(authobj.user.expire_at) > new Date()) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwttoken}`;
       return authobj;
     }

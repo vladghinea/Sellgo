@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
@@ -6,6 +6,7 @@ import { useSelector,} from 'react-redux'
 
 import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
 import { LoginAuthAction } from '../../redux/Authentication/AuthActions'
+import { LogOutAuthAction } from '../../redux/Authentication/AuthActions';
 import notifications from '../../assets/JsonData/notification.json'
 import user_image from '../../assets/images/tuat.png'
 import user_menu from '../../assets/JsonData/user_menus.json'
@@ -13,6 +14,7 @@ import user_menu from '../../assets/JsonData/user_menus.json'
 import Dropdown from '../dropdown/Dropdown'
 import ThemeMenu from '../thememenu/ThemeMenu'
 import "./topnav.css"
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 
@@ -48,12 +50,22 @@ const renderUserMenu = (item, index) => (
 
 const Topnav = (props) => {
 
+    
+    const history = useHistory();
+    const guest = useSelector(state=> state.authRedux)
     const curr_user = {
-        display_name: props.userName.name ,
+        display_name: guest.user.name ,
         image: user_image
     }
 
-    const guest = useSelector(state=> state.authRedux)
+    // useEffect(()=> {
+    //     guest.user.name= ""? Redirect("/") : ""
+    // },[guest])
+
+    
+  const routeChange = () =>{ 
+    window.location.reload()
+  }
 
     return (
         <div className='topnav'>
@@ -66,7 +78,11 @@ const Topnav = (props) => {
                     <div className="topnav__right-item">
                         { guest.user.name !== "" || guest.user.name !== null ? 
                             (
-                                <div><p className='me-4'>Logout</p></div>
+                                <div><button href="#" className='btn btn-primary'
+                                    onClick={() => {
+                                        props.logout(history);
+                                        routeChange()
+                                    }}>Logout</button></div>
                             )   :  ""
                         }
                     </div>
@@ -117,5 +133,13 @@ const mapStateToProps = (state) => {
 //       login: (loginState, history, setErrorHandler) => dispatch(LoginAuthAction(loginState, history, setErrorHandler)),    
 //     }
 //   }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      logout: (history) => {
+        dispatch(LogOutAuthAction(history));
+      },
+    };
+};
   
-export default  connect(mapStateToProps)(Topnav)
+export default  connect(mapStateToProps, mapDispatchToProps)(Topnav)

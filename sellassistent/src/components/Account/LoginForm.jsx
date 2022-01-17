@@ -6,8 +6,10 @@ import { LoginAuthAction } from '../../redux/Authentication/AuthActions'
 import { Link } from 'react-router-dom'
 
 
+
 const Login = (props) => { 
-  const { login } = props
+  
+ 
   const [errorHandler, setErrorHandler] = useState({
     hasError: false,
     message: "",
@@ -23,7 +25,7 @@ const Login = (props) => {
   
 
     return (      
-          <Modal
+          <Modal 
           {...props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
@@ -36,8 +38,8 @@ const Login = (props) => {
           </Modal.Header>
           <Modal.Body>
           <form className='modal-form' onSubmit={(event) => {
-                event.preventDefault();
-               login(loginState, history, setErrorHandler);               
+               event.preventDefault();
+               props.reduxlogin(loginState, history, setErrorHandler);               
                props.onHide();              
               }}>                          
                   <div className="mb-3">
@@ -78,14 +80,14 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
   return {
-    userData: state.authRedux
+    guest: state.authRedux
   }
 }
 
   
 const mapDispatchToProps = dispatch => {
   return {
-    login: (loginState, history, setErrorHandler) => dispatch(LoginAuthAction(loginState, history, setErrorHandler)),    
+    reduxlogin: (loginState, history, setErrorHandler) => dispatch(LoginAuthAction(loginState, history, setErrorHandler)),    
   }
 }
 

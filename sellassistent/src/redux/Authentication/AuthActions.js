@@ -99,6 +99,8 @@ export const fetchLoginFailure = (error) => {
       }
     };
   };
+
+  //For credetials backend
   // const LoginAuthAction = (loginState, history, setErrorHandler) => {
   //   return async (dispatch) => {
   //     try {
@@ -128,10 +130,10 @@ export const fetchLoginFailure = (error) => {
         type:  LOGOUT_REQUEST
     }
 }
-export const fetchLogoutSuccess = (data) => {
+export const fetchLogoutSuccess = () => {
     return{
         type: LOGOUT_SUCCESS,
-        payload: data
+        payload: ""
     }
 }
 export const fetchLogoutFailure = (error) => {
@@ -145,9 +147,9 @@ export const fetchLogoutFailure = (error) => {
     return async (dispatch) => {
       try {
         dispatch(fetchLogoutRequest)
-        const res = await CreateAPIEndPoint(ENDPOINTS.LOGOUT).fetchAll();
-        const { data } = res;
-        dispatch(fetchLogoutSuccess(data));
+        // const res = await CreateAPIEndPoint(ENDPOINTS.LOGOUT).fetchAll();
+        // const { data } = res;
+        dispatch(fetchLogoutSuccess());
         history.push("/");
       } catch (error) {
         if (error.response) {
