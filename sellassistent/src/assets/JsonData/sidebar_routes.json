@@ -20,6 +20,13 @@
         "display_name": "Users",
         "route": "/users",        
         "icon": "bx bx-user-pin"
+    },
+
+    {
+        "display_name": "Register",
+        "route": "/register",        
+        "icon": "bx bx-user-pin"
     }
+
 
 ]

@@ -20,6 +20,10 @@ const SidebarItems = props => {
         </div>
     )
 }
+const logoStyle = {
+    fontSize: 40,
+}
+    
 
 const Sidebar = props => {
 
@@ -28,7 +32,7 @@ const Sidebar = props => {
     return (
         <div className='sidebar'>
             <div className="sidebar__logo">
-                <img src={logo} alt="company logo" />
+                <p><span style={logoStyle }>Sellgo.</span></p>
             </div>
             {
                 sidebar_items.map((item, index)=> (

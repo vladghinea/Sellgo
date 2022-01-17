@@ -62,7 +62,7 @@ namespace El_Proyecte_Grande.Controllers
         }
 
         //Delete User
-        [HttpDelete]
+        [HttpDelete("id")]
         public async Task<IActionResult> DeleteUser([FromQuery] string id)
         {
 

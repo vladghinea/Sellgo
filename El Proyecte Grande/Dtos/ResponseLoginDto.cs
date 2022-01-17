@@ -10,7 +10,7 @@ namespace El_Proyecte_Grande.Dtos
         public ResponseLoginDto(string name, string expireAt, string jwttoken, string team, string teamManager, string role)
         {
             Name = name;
-            ExpireAt = expireAt;
+            Expire_at = expireAt;
             Jwttoken = jwttoken;
             Team = team;
             TeamManager = teamManager;
@@ -18,7 +18,7 @@ namespace El_Proyecte_Grande.Dtos
         }
 
         public string Name { get; set; }
-        public string ExpireAt { get; set; }
+        public string Expire_at { get; set; }
 
         public string Jwttoken { get; set; }
 

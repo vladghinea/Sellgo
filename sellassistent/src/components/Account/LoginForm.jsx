@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router";
 import {  Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
@@ -16,7 +16,11 @@ const Login = (props) => {
   const [loginState, setLoginState] = useState({});
 
   const history = useHistory();
-
+  const routeChange = () =>{ 
+    let path = `Pipeline`; 
+    history.push(path);
+  }
+  
 
     return (      
           <Modal
@@ -33,7 +37,8 @@ const Login = (props) => {
           <Modal.Body>
           <form className='modal-form' onSubmit={(event) => {
                 event.preventDefault();
-               login(loginState, history, setErrorHandler);
+               login(loginState, history, setErrorHandler);               
+               props.onHide();              
               }}>                          
                   <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -56,12 +61,9 @@ const Login = (props) => {
                   </div>
                   <div className="mb-3 form-check">
                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" htmlFfor="exampleCheck1">Check me out</label>
-                  </div>
-                  <div className="mb-3 form-check">
-                         <button onClick={()=> props.showRegister} > Register</button>
-                  </div>
-                  <button type="submit" className="btn btn-primary">Submit</button>
+                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                  </div>                  
+                  <button type="submit"  className="btn btn-primary">Submit</button>
                 </form>
           </Modal.Body>
           <Modal.Footer>

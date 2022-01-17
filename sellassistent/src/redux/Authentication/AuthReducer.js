@@ -17,6 +17,7 @@ const getAuthState = () => {
   try {
     const authobj = JSON.parse(auth);
     const { expires_at, jwttoken } = authobj.user;
+    console.log(`verifica localstorage  Lamine -----> ${new Date(expires_at)} \n ${jwttoken}`)
     if (new Date(expires_at) > new Date()) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwttoken}`;
       return authobj;
@@ -27,6 +28,7 @@ const getAuthState = () => {
   }
 };
 const newAuth = getAuthState();
+console.log(`verifica newAuth  Lamine -----> ${newAuth} `)
 const authreducer = (state = newAuth, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:

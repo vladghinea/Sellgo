@@ -27,6 +27,10 @@
     background-color: var(--main-bg);
 }
 
+.logout{
+    color: var(--text-color)
+}
+
 .topnav__search > i {
     font-size: 1.5rem;
     position: absolute;

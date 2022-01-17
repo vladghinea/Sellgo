@@ -2,7 +2,8 @@ import React, { Fragment, useState ,useEffect} from "react";
 import Layout from "./components/layout/Layout";
 import LoginForm from "./components/Account/LoginForm";
 import RegisterForm from "./components/Account/RegisterForm"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector,} from 'react-redux'
+import Home from "./components/layout/Home";
 
 import "./App.css";
 import "./modal.css";
@@ -12,28 +13,29 @@ const App = () => {
     
 
     const [user, setUser] = useState({ name: "", email: "" });
-    const Logout = () => {
-        console.log("Logout");
-    };
+    
 
-    const Login = (details) => {
-        console.log(details);
-    };
+  
 
     const [modalShow, setModalShow] = useState(true);
-    const [modalRegisterShow, setModalRegisterShow] = useState(false);
+  
+
+    const [pageShow, setPageShow] = useState(<Home/>)
 
     useEffect(()=>{
         setUser({name: guest.user.name, email: `${guest.user.name}`})
-        setModalShow("false")
-        setModalRegisterShow("false")
+        
+        user.email != "" ? setPageShow(<Layout userName={user} />) : setPageShow(<Home />)
     },[guest])
-
+ console.log(guest.user.email)
+ console.log(user.email)
     return (
         <Fragment>
-            {user.email === "" ? (
+            {pageShow}
+            {/* {user.email === "" ? (
                 <div>
-                    <button
+                    <Home /> */}
+                    {/* <button
                         variant="primary"
                         className="d-none"
                         onClick={() => setModalShow(true)}
@@ -47,15 +49,15 @@ const App = () => {
                         }}
                         onHide={() => setModalShow(false)}
                     />
-                    {/* <RegisterForm 
+                     <RegisterForm 
                         show={modalRegisterShow}
                         onHide={() => setModalRegisterShow(false)}
                     /> */}
-                </div>
+                {/* </div>
             ) : (
-                ""
-            )}
-            <Layout userName={user} />
+                <Layout userName={user} />
+            )} */}
+            
         </Fragment>
     );
 };

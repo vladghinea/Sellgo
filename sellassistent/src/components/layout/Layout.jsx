@@ -1,17 +1,13 @@
 import React, {useEffect} from 'react'
 
-
 import './layout.css'
 
 import Sidebar from '../sidebar/Sidebar'
 import Topnav from '../topnav/Topnav' 
 import Routes from '../Routes'
 
-
 import {BrowserRouter, Route} from 'react-router-dom'
-
 import { useSelector, useDispatch } from 'react-redux'
-
 import ThemeAction from '../../redux/Theme/ThemeActions'
 
 const Layout = ({userName}) => {
@@ -21,7 +17,6 @@ const Layout = ({userName}) => {
 
     useEffect(() => {
         const themeClass =  localStorage.getItem('themeMode', 'theme-mode-light')
-
         const colorClass =  localStorage.getItem('colorMode', 'theme-mode-light')
 
         dispatch(ThemeAction.setMode(themeClass))

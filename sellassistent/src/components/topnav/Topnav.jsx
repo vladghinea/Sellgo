@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from "react-redux";
+import { useHistory } from "react-router";
+import { useSelector,} from 'react-redux'
 
-import "./topnav.css"
+import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
+import { LoginAuthAction } from '../../redux/Authentication/AuthActions'
 import notifications from '../../assets/JsonData/notification.json'
 import user_image from '../../assets/images/tuat.png'
 import user_menu from '../../assets/JsonData/user_menus.json'
 
 import Dropdown from '../dropdown/Dropdown'
 import ThemeMenu from '../thememenu/ThemeMenu'
+import "./topnav.css"
 
 
 
@@ -38,21 +43,36 @@ const renderUserMenu = (item, index) => (
     </Link>
 )
 
+
+
+
 const Topnav = (props) => {
+
     const curr_user = {
         display_name: props.userName.name ,
         image: user_image
     }
+
+    const guest = useSelector(state=> state.authRedux)
+
     return (
         <div className='topnav'>
             <div className="topnav__search">
                 <input type="text" placeholder='Search here...' />
                 <i className='bx bx-search'></i>
             </div>
+           
             <div className="topnav__right">
+                    <div className="topnav__right-item">
+                        { guest.user.name !== "" || guest.user.name !== null ? 
+                            (
+                                <div><p className='me-4'>Logout</p></div>
+                            )   :  ""
+                        }
+                    </div>
                 <div className="topnav__right-item">
                     {/* Dropdown here */}
-                    <Dropdown
+                    <Dropdown                        
                         customToggle={() => renderUserToggle(curr_user)}
                         contentData={user_menu} 
                         renderItems={(item, index) => renderUserMenu(item, index)}
@@ -68,6 +88,7 @@ const Topnav = (props) => {
                     />
                     {/* Dropdown here */}
                 </div>
+                
                 <div className="topnav__right-item">
                     {/* theme setting */}
                     <ThemeMenu 
@@ -79,4 +100,22 @@ const Topnav = (props) => {
     )
 }
 
-export default Topnav
+const mapStateToProps = (state) => {
+    return {
+      user: state.authRedux,
+    };
+  };
+  
+//   const mapDispatchToProps = dispatch => {
+//     return {
+//       register: (userState, history, setErrorHandler) => dispatch(RegisterAuthAction(userState, history, setErrorHandler)),    
+//     };
+//   };
+
+//   const mapDispatchToProps = dispatch => {
+//     return {
+//       login: (loginState, history, setErrorHandler) => dispatch(LoginAuthAction(loginState, history, setErrorHandler)),    
+//     }
+//   }
+  
+export default  connect(mapStateToProps)(Topnav)

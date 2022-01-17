@@ -44,8 +44,9 @@ const RegisterForm = (props) => {
                                       <label>First Name<span className="text-danger">*</span></label>
                                       <input type="text" name="firstName" className="form-control" placeholder="Enter First Name" 
                                           onChange={(event) => {
-                                          const firstName = event.target.value;
+                                          const firstName = event.target.value;                                          
                                           setUserstate({ ...userState, ...{ firstName } });
+                                          console.log(userState)
                                         }}                                         
                                       />
                                   </div>
@@ -66,6 +67,7 @@ const RegisterForm = (props) => {
                                         onChange={(event) => {
                                           const email = event.target.value;
                                           setUserstate({ ...userState, ...{ email } });
+                                          console.log(userState)
                                         }}
                                       />
                                   </div>    
@@ -84,6 +86,7 @@ const RegisterForm = (props) => {
                                         onChange={(event) => {
                                           const confirmPassword = event.target.value;
                                           setUserstate({ ...userState, ...{ confirmPassword, companyId: 1 } });
+                                          console.log(userState)
                                         }}
                                       />
                                   </div>
@@ -118,7 +121,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (userState, history, setErrorHandler) => dispatch(RegisterAuthAction(userState, history, setErrorHandler)),    
+    register: (userState, history, setErrorHandler) => dispatch(RegisterAuthAction(userState, history, setErrorHandler)),    
   };
 };
 

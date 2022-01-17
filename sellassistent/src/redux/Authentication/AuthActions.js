@@ -45,8 +45,9 @@ const RegisterAuthAction = (userState, history, setErrorHandler) => {
       try { 
         dispatch(fetchRegisterRequest)         
         const res = await CreateAPIEndPoint(ENDPOINTS.REGISTER).create(userState);
-        const { data } = res;
+        const { data } = res;       
         dispatch(fetchRegisterSuccess(data));
+        console.log(`Lamine --> fetch register data: ${userState}\n \t and history: ${history}\n \t and errorHandler: ${setErrorHandler}\n \t on ${CreateAPIEndPoint(ENDPOINTS.REGISTER)} with response ${data}`)
         history.push("/");
       } catch (error) {
         if (error.response) {
@@ -86,7 +87,7 @@ export const fetchLoginFailure = (error) => {
     return async (dispatch) => {
       try {
         dispatch(fetchLoginRequest);
-        const res = await CreateAPIEndPoint(ENDPOINTS.LOGIN).create(loginState);
+        const res = await CreateAPIEndPoint(ENDPOINTS.LOGIN).create(loginState,{withCredentials: true,});
         const { data } = res;
         dispatch(fetchLoginSuccess(data));
         history.push("/");
@@ -98,6 +99,27 @@ export const fetchLoginFailure = (error) => {
       }
     };
   };
+  // const LoginAuthAction = (loginState, history, setErrorHandler) => {
+  //   return async (dispatch) => {
+  //     try {
+  //       dispatch(fetchLoginRequest);
+  //       const res = await fetch("https://localhost:44349/api/account/login", {
+  //         method: 'POST',
+  //         headers: {'Content-Type': 'application/json'},
+  //         credentials: 'include',
+  //         body: JSON.stringify(loginState)
+  //       });
+  //       const { data } = res;
+  //       dispatch(fetchLoginSuccess(data));
+  //       history.push("/");
+  //     } catch (error) {
+  //       if (error.response) {
+  //           dispatch(fetchLoginFailure(error));
+  //       }
+  //       await setErrorHandler({ hasError: true, message: error.response });
+  //     }
+  //   };
+  // };
 
 
 
