@@ -13,7 +13,10 @@ const RegisterForm = (props) => {
     const [errorHandler, setErrorHandler] = useState({
       hasError: false,
       message: "",
-    });
+    }); 
+    const routeChange = () =>{ 
+      window.location.reload()
+    }
 
     return (
       <>
@@ -36,7 +39,8 @@ const RegisterForm = (props) => {
                           <form action="" className="mt-5 border p-4 bg-light shadow"
                             onSubmit={(event) => {
                             event.preventDefault();
-                            register(userState, history, setErrorHandler);
+                            register(userState,  setErrorHandler);
+                            routeChange();
                             }}
                           >
                               <h4 className="mb-5 text-secondary">Create Your Account</h4>

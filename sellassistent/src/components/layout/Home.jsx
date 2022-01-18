@@ -11,7 +11,7 @@ const Home = () => {
     
 
     const guest = useSelector(state=> state.authRedux)
-    
+    console.log(guest)
 
     const [user, setUser] = useState({ name: "", email: "" });
    
@@ -26,7 +26,7 @@ const Home = () => {
     
     return (
        <>
-           {user.email === "" ? (
+           {guest.user.id === "" ? (
             <>
                
                     <div className="h-100 text-center text-white bg-dark">

@@ -8,7 +8,7 @@ import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
 import { LoginAuthAction } from '../../redux/Authentication/AuthActions'
 import { LogOutAuthAction } from '../../redux/Authentication/AuthActions';
 import notifications from '../../assets/JsonData/notification.json'
-import user_image from '../../assets/images/tuat.png'
+import user_image from '../../assets/images/profile2.jpg'
 import user_menu from '../../assets/JsonData/user_menus.json'
 
 import Dropdown from '../dropdown/Dropdown'

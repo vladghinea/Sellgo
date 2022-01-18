@@ -28,9 +28,6 @@ const App = () => {
             ? setPageShow(<Layout userName={user} />)
             : setPageShow(<Home />);
     }, [guest]);
-    console.log(user.name);
-    console.log(user.email);
-    console.log(user.id);
     return (
         <Fragment>
             {pageShow}
