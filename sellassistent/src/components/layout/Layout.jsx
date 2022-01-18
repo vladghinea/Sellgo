@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ThemeAction from '../../redux/Theme/ThemeActions'
 
 const Layout = ({userName}) => {
+    const user = useSelector(state=> state.authRedux);
 
     const themeReducer = useSelector(state => state.themeRedux)
     const dispatch = useDispatch()

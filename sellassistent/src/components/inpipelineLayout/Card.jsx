@@ -1,8 +1,6 @@
 import React from "react";
-import {  ENDPOINTS } from "../../api/Index"
 
 const Card = ({deals,boardId,changePriority}) => {
-
     const incons = ["⭕️","🔆️","⚠️","🟡","☢️","😵","✅","❌","🟣","⚫️","⚪️","🟤"];
     const dragStart = (e) => {
         const target = e.target;
@@ -13,7 +11,7 @@ const Card = ({deals,boardId,changePriority}) => {
     const dragOver = (e) => {
         e.stopPropagation();
     };
-
+    
 
     return (
         <>
@@ -28,7 +26,6 @@ const Card = ({deals,boardId,changePriority}) => {
                         onDragOver={dragOver}
                         // onDoubleClick={() =>updatePriority(deal.id)}
                         onDoubleClick={() => changePriority(deal.id)}
-
                         >
                             Deal:{deal.id} - ClientId:{deal.clientId} {incons.at(boardId)} 
                         </div>):""                

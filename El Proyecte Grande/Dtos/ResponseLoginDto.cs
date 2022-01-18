@@ -7,8 +7,9 @@ namespace El_Proyecte_Grande.Dtos
 {
     public class ResponseLoginDto
     {
-        public ResponseLoginDto(string name, string expireAt, string jwttoken, string team, string teamManager, string role)
+        public ResponseLoginDto(string id,string name, string expireAt, string jwttoken, string team, string teamManager, string role)
         {
+            Id = id;
             Name = name;
             Expire_at = expireAt;
             Jwttoken = jwttoken;
@@ -17,6 +18,7 @@ namespace El_Proyecte_Grande.Dtos
             Role = role;
         }
 
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Expire_at { get; set; }
 

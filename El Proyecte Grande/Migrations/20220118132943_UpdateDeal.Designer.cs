@@ -4,14 +4,16 @@ using El_Proyecte_Grande;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace El_Proyecte_Grande.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220118132943_UpdateDeal")]
+    partial class UpdateDeal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -414,6 +416,9 @@ namespace El_Proyecte_Grande.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -481,6 +486,8 @@ namespace El_Proyecte_Grande.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("Email")
                         .IsUnique()
@@ -777,10 +784,16 @@ namespace El_Proyecte_Grande.Migrations
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.User", b =>
                 {
+                    b.HasOne("El_Proyecte_Grande.Models.Company", "Company")
+                        .WithMany("UserEmployees")
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("El_Proyecte_Grande.Models.Team", "Team")
                         .WithMany("Sellers")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Company");
 
                     b.Navigation("Team");
                 });
@@ -859,6 +872,8 @@ namespace El_Proyecte_Grande.Migrations
                     b.Navigation("Empmloyees");
 
                     b.Navigation("Teams");
+
+                    b.Navigation("UserEmployees");
                 });
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.Deal", b =>

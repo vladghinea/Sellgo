@@ -26,8 +26,6 @@ namespace El_Proyecte_Grande.Models
         //Client (OneToMany)
         public virtual List<Client> Empmloyees { get; set; }
 
-        //User (OneToMany)
-        public virtual List<User> UserEmployees { get; set; }
 
         //Team (OneToMany)
         public List<Team> Teams { get; set; }

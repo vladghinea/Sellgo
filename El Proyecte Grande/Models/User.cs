@@ -37,11 +37,6 @@ namespace El_Proyecte_Grande.Models
         //Deal (OneToMany)
         public virtual List<Deal> Deals { get; set; }
 
-        //Company (ManyToOne)        
-        public int? CompanyId { get; set; }
-        [ForeignKey("CompanyId")]
-        public Company Company { get; set; }
-
         //Team (ManyToOne)
         public int? TeamId { get; set; }
         [ForeignKey("TeamId")]

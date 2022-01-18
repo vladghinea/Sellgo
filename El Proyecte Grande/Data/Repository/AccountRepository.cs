@@ -35,7 +35,6 @@ namespace El_Proyecte_Grande.Data.Repository
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
                 UserName = registerDto.Email,
-                CompanyId = registerDto.CompanyId,
                 Password = Utils.Helper.HashPassword(registerDto.Password)
             };
             return await _userManager.CreateAsync(user, registerDto.Password);
@@ -51,6 +50,7 @@ namespace El_Proyecte_Grande.Data.Repository
             }
             List<Claim> authClaims = new List<Claim>()
             {
+                new Claim("Id", user.Id ),
                 new Claim("FirstName", user.FirstName ),
                 new Claim("LastName", user.LastName ),
                 new Claim(ClaimTypes.Email, loginDto.Email),
@@ -70,6 +70,7 @@ namespace El_Proyecte_Grande.Data.Repository
                 );
 
             ResponseLoginDto response = new ResponseLoginDto(
+                $"{ user.Id }",
               $"{user.FirstName} {user.LastName}",
               $"{DateTime.Now.AddDays(1).ToString("r")}",
               new JwtSecurityTokenHandler().WriteToken(token),

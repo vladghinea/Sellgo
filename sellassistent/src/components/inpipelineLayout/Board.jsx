@@ -2,15 +2,16 @@ import Card from "./Card";
 import React from "react";
 import {useEffect ,useState} from 'react'
 import {  ENDPOINTS } from "../../api/Index"
+import { useSelector} from 'react-redux'
 
 const Board = (props) => {
-    const [deals, setDeals] = useState([]);
+    const user = useSelector(state=> state.authRedux);
 
+    const [deals, setDeals] = useState([]);
     useEffect(() => {
         const fetchDeals = async () => {
-            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}`);
-            const data = await res.json();
-
+            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`);
+            let data = await res.json();
             setDeals(data);
         };
         fetchDeals();
@@ -66,12 +67,13 @@ const Board = (props) => {
             body: JSON.stringify(updDeal),
         });
     }
+    
 
     const dragOver = (e) => {
         e.preventDefault();
     };
     return (
-        <>Priority : <span className="priority2">High</span><span className="priority1">Medium</span><span className="priority0">Low</span>
+        <><span>Priority: <b style={{color : "red"}}>High</b>, <b style={{color : "yellow"}}>Medium</b>, <b style={{color : "#00c8e2"}}>Low</b></span>
             {
                 props.headData.map((item,index) => 
                 <div 

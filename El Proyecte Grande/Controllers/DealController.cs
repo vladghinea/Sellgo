@@ -31,7 +31,14 @@ namespace El_Proyecte_Grande.Controllers
             List<Deal> result = await services.GetDealsList();
             return result;
         }
+        //GET Client
 
+        [HttpGet("dealsforuser/{id}")]
+        public async Task<List<Deal>> GetDealOfUser([FromRoute] string id)
+        {
+            List<Deal> result = await services.GetDealsForUser(id);
+            return result;
+        }
 
 
         //GET Client

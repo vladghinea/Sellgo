@@ -25,6 +25,12 @@ namespace El_Proyecte_Grande.Services
             return result;
         }
 
+        public async Task<List<Deal>> GetDealsForUser(string id)
+        {
+            var result = await _db.Data.Deals.Where(deal => deal.UserId == id).ToListAsync();
+            return result;
+        }
+
 
         public async Task<Deal> GetDealById(int id)
         {
