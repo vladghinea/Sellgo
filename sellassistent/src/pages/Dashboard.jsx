@@ -1,25 +1,33 @@
 import Board from "../components/inDashboardLayout/Bord"
+
+import StatusCard from "../components/status-card/StatusCard"
+
 import statusCard from '../assets/JsonData/status-card-data.json'
- 
-const Dashboard =()=>{
+
+
+const Dashboard = () => {
     return (
         <div>
-            <h2>Dashboard Page </h2>
+            <h2 className="page-header">Dashboard</h2>
             <div className='row'>
                 <div className="col-6">
                     <div className="row">
                         {
-                            statusCard.map((item,index)=>(
-                                <div>
-                                    {}
-                                    {item.title}
-                                </div>
-                            ))
-                        }
+                        statusCard.map((item, index) => (
+                            <div className="col-6">
+                                <StatusCard
+                                    icon={item.icon}
+                                    count={item.count}
+                                    title={item.title}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
+                <div className="col-6">
+                    <div className="card full-height"></div>
+                </div>
             </div>
-            <Board></Board>
         </div>
     )
 }
