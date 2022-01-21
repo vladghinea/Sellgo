@@ -39,7 +39,7 @@
     --topnav-height: 110px;
     --transition-cubic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-#root{
+#root {
     height: 100%;
 }
 
@@ -48,7 +48,6 @@
     margin: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    
 }
 
 body {
@@ -110,6 +109,16 @@ input:focus {
 .priority2 {
     border-left: 10px solid #ff0000;
     border-right: 10px solid #ff0000;
+}
+
+.colorpriority0 {
+    color: #d2f702;
+}
+.colorpriority1 {
+    color: #00c8e2;
+}
+.colorpriority2 {
+    color: #ff1414;
 }
 
 .status0 {
