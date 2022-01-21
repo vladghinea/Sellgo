@@ -3,9 +3,10 @@ import {Route, Switch} from 'react-router-dom'
 
 import Pipeline from '../pages/Pipeline'
 import Users from '../pages/Users'
-import Dashboard from '../pages/Dashboard'
+import Workboard from '../pages/Workboard'
 import RegisterForm from './Account/RegisterForm'
 import App from '../App'
+import Dashboard from '../pages/Dashboard'
 
 
 const Routes = () => {
@@ -14,9 +15,9 @@ const Routes = () => {
             <Route path='/pipeline' component={Pipeline } />  
             <Route path='/users' component={Users } /> 
             <Route path='/register' component={RegisterForm } />   
-            <Route path='/dashboard'component={Dashboard}/>
+            <Route path='/workboard'component={Workboard}/>
             <Route path='/app'component={App}/>
-
+            <Route path='/dashboard' component ={Dashboard} />
         </Switch>
     )
 }
