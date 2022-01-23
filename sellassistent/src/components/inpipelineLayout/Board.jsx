@@ -9,7 +9,8 @@ const Board = (props) => {
 
     const [deals, setDeals] = useState([]);
     useEffect(() => {
-        const fetchDeals = async () => {
+ 
+       const fetchDeals = async () => {
             const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`);
             let data = await res.json();
             setDeals(data);
@@ -22,7 +23,6 @@ const Board = (props) => {
 
         return data;
     };
-
     const updateDeal = async (id,statusId) => {
         const taskToToggle = await fetchDeal(id);
         const updTask = { ...taskToToggle, status: statusId };

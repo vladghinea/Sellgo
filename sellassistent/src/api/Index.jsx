@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState, useEffect } from 'react';
 
 const BASE_URL = "https://localhost:44349/api/"
 
@@ -24,4 +25,24 @@ export const CreateAPIEndPoint = endpoint => {
         update: (id, updateRecord) => axios.put(url + id, updateRecord),
         delete: id => axios.delete(url + id)
     }
+}
+
+export function useFetch(url) {
+    const [response, setResponse] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [hasError, setHasError] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        fetch(url)
+            .then((res) => {
+            setResponse(res.data)
+            console.log(response)
+            setLoading(false)
+        })
+            .catch(() => {
+                setHasError(true)
+                setLoading(false)
+            })
+    }, [ url ])
+    return [ response, loading, hasError ]
 }
