@@ -18,7 +18,6 @@ const Dashboard = () => {
     const [deals, setDeals] = useState();
     const [products, setProducts] = useState();
     const [clients, setClients] = useState();
-    const [tableBody, setTableBody] = useState();
 
     useEffect(() => {
         const fetchDeals = async () => {
@@ -71,7 +70,7 @@ const Dashboard = () => {
                 }
             )
         })
-        setTableBody(tableBodyData)
+        return tableBodyData;
     }
     const sumOfSealdDeals = () => {
         let temp = [];
@@ -158,12 +157,38 @@ const Dashboard = () => {
             'Client',
             'nr Of seald deals ',
             'total '
+        ],
+        body: [
+            {
+                "username": "john doe",
+                "order": "490",
+                "price": "$15,870"
+            },
+            {
+                "username": "frank iva",
+                "order": "250",
+                "price": "$12,251"
+            },
+            {
+                "username": "anthony baker",
+                "order": "120",
+                "price": "$10,840"
+            },
+            {
+                "username": "frank iva",
+                "order": "110",
+                "price": "$9,251"
+            },
+            {
+                "username": "anthony baker",
+                "order": "80",
+                "price": "$8,840"
+            }
         ]
-        
     }
     return (
         <div>
-            
+            {(deals,clients,products) && console.log(tableDataSealdDeals)}
             <h2 className="page-header">Dashboard</h2>
             <div className='row'>
                 <div className="col-6">
@@ -199,7 +224,7 @@ const Dashboard = () => {
                             <Table
                                 headData={topCustomers.head}
                                 renderHead={(item, index) => renderCusomerHead(item, index)}
-                                bodyData={(deals && products && clients) && tableDataSealdDeals()}
+                                bodyData={topCustomers.body}
                                 renderBody={(item, index) => renderCusomerBody(item, index)}
                             />
                         </div>
