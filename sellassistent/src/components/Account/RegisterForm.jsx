@@ -51,7 +51,7 @@ const RegisterForm = (props) => {
                                           onChange={(event) => {
                                           const firstName = event.target.value;                                          
                                           setUserstate({ ...userState, ...{ firstName } });
-                                          console.log(userState)
+                                          
                                         }}                                         
                                       />
                                   </div>
@@ -72,7 +72,7 @@ const RegisterForm = (props) => {
                                         onChange={(event) => {
                                           const email = event.target.value;
                                           setUserstate({ ...userState, ...{ email } });
-                                          console.log(userState)
+                                          
                                         }}
                                       />
                                   </div>    
@@ -91,7 +91,7 @@ const RegisterForm = (props) => {
                                         onChange={(event) => {
                                           const confirmPassword = event.target.value;
                                           setUserstate({ ...userState, ...{ confirmPassword, companyId: 1 } });
-                                          console.log(userState)
+                                          
                                         }}
                                       />
                                   </div>

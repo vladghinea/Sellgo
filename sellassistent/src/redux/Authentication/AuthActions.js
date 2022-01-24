@@ -46,8 +46,7 @@ const RegisterAuthAction = (userState, history, setErrorHandler) => {
         dispatch(fetchRegisterRequest)         
         const res = await CreateAPIEndPoint(ENDPOINTS.REGISTER).create(userState);
         const { data } = res;       
-        dispatch(fetchRegisterSuccess(data));
-        console.log(`Lamine --> fetch register data: ${userState}\n \t and history: ${history}\n \t and errorHandler: ${setErrorHandler}\n \t on ${CreateAPIEndPoint(ENDPOINTS.REGISTER)} with response ${data}`)
+        dispatch(fetchRegisterSuccess(data));       
         history.push("/");
       } catch (error) {
         if (error.response) {

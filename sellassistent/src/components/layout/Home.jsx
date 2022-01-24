@@ -12,7 +12,7 @@ const Home = () => {
     
 
     const guest = useSelector(state=> state.authRedux)
-    console.log(guest)
+    
 
     const [user, setUser] = useState({ name: "", email: "" });
    

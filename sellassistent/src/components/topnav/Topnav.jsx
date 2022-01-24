@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { useSelector,} from 'react-redux'
 
-import {RegisterAuthAction} from '../../redux/Authentication/AuthActions'
-import { LoginAuthAction } from '../../redux/Authentication/AuthActions'
+
 import { LogOutAuthAction } from '../../redux/Authentication/AuthActions';
 import notifications from '../../assets/JsonData/notification.json'
 import user_image from '../../assets/images/profile2.jpg'
@@ -14,7 +13,7 @@ import user_menu from '../../assets/JsonData/user_menus.json'
 import Dropdown from '../dropdown/Dropdown'
 import ThemeMenu from '../thememenu/ThemeMenu'
 import "./topnav.css"
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 
 
@@ -58,9 +57,7 @@ const Topnav = (props) => {
         image: user_image
     }
 
-    // useEffect(()=> {
-    //     guest.user.name= ""? Redirect("/") : ""
-    // },[guest])
+    const mainColor = { backgroundColor: 'var(--main-color)'}
 
     
   const routeChange = () =>{ 
@@ -78,7 +75,7 @@ const Topnav = (props) => {
                     <div className="topnav__right-item">
                         { guest.user.name !== "" || guest.user.name !== null ? 
                             (
-                                <div><button href="#" className='btn btn-primary'
+                                <div><button href="#" className='btn' style={mainColor}
                                     onClick={() => {
                                         props.logout(history);
                                         routeChange()

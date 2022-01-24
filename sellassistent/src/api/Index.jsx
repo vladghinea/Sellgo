@@ -17,7 +17,7 @@ export const ENDPOINTS = {
 
 export const CreateAPIEndPoint = endpoint => {
     let url = BASE_URL + endpoint;
-    console.log(url);
+   
     return{
         fetchAll: () => axios.get(url),
         fetchById: id => axios.get(url + id),
@@ -36,7 +36,7 @@ export function useFetch(url) {
         fetch(url)
             .then((res) => {
             setResponse(res.data)
-            console.log(response)
+           
             setLoading(false)
         })
             .catch(() => {
