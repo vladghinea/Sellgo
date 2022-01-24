@@ -4,17 +4,19 @@ import HeadBoard from '../components/workboard/HeadBoard';
 
 
 const Workboard = () => {
-  return <div className="container">            
+  return <div>            
            <HeadBoard />
-           <br />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
-            <DealBoard />
+          <br />
+           <div  className="container scroll">
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+              <DealBoard />
+            </div>
 
          </div>;
 };

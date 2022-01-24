@@ -2,7 +2,7 @@ import React from 'react';
 import "./dealBoard.css"
 
 const DealBoard = () => {
-  return < div className="container card">
+  return < div className="container card pillcard">
                 <div className='row'>
                     <div className='col pill pillClient'>
                          <div className='pillText'>clients </div>
