@@ -27,6 +27,15 @@ export const CreateAPIEndPoint = endpoint => {
     }
 }
 
+
+
+// const fetchDeals = async (user) => {
+//     const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`);
+//     let data = await res.json();
+//     setDeals(data);
+// };
+
+
 export function useFetch(url) {
     const [response, setResponse] = useState(null)
     const [loading, setLoading] = useState(false)
