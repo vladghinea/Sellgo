@@ -1,37 +1,41 @@
-import { CreateAPIEndPoint, ENDPOINTS } from '../../api/Index'
+import { CreateAPIEndPoint, ENDPOINTS } from "../../api/Index";
 
-import { FETCH_DEALS_FAILURE, FETCH_DEALS_REQUEST, FETCH_DEALS_SUCCESS } from "./DealTypes"
+import {
+    FETCH_DEALS_FAILURE,
+    FETCH_DEALS_REQUEST,
+    FETCH_DEALS_SUCCESS,
+} from "./DealTypes";
 
 export const fetchDealsRequest = () => {
-    return{
-        type: FETCH_DEALS_REQUEST
-    }
-}
+    return {
+        type: FETCH_DEALS_REQUEST,
+    };
+};
 export const fetchDealsSuccess = (deals) => {
-    return{
+    return {
         type: FETCH_DEALS_SUCCESS,
-        payload: deals
-    }
-}
+        payload: deals,
+    };
+};
 export const fetchDealsFailure = (error) => {
-    return{
+    return {
         type: FETCH_DEALS_FAILURE,
-        payload: error
-    }
-}
+        payload: error,
+    };
+};
 
-export const fetchDeals = () => {
-   
+export const fetchDeals = (id) => {
     return (dispatch) => {
-        dispatch(fetchDealsRequest)
-        CreateAPIEndPoint(ENDPOINTS.DEAL).fetchAll()
-        .then(response => {
-            const deals = response.data;
-            dispatch(fetchDealsSuccess(deals))
-        })
-        .catch(error => {
-            const errorMsg = error.message; 
-            dispatch(fetchDealsFailure(errorMsg))
-        })
-    }
-}
+        dispatch(fetchDealsRequest);
+        CreateAPIEndPoint(ENDPOINTS.DEAL)
+            .getDealsPerUser(id)
+            .then((response) => {
+                const deals = response.data;
+                dispatch(fetchDealsSuccess(deals));
+            })
+            .catch((error) => {
+                const errorMsg = error.message;
+                dispatch(fetchDealsFailure(errorMsg));
+            });
+    };
+};

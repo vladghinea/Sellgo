@@ -1,19 +1,15 @@
-import Chart from 'react-apexcharts'
+import Chart from "react-apexcharts";
 import React from "react";
-import StatusCard from "../components/status-card/StatusCard"
+import StatusCard from "../components/status-card/StatusCard";
 
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Table from '../components/table/Table'
-import { useSelector } from 'react-redux'
-import { ENDPOINTS } from "../api/Index"
-
-
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Table from "../components/table/Table";
+import { useSelector } from "react-redux";
+import { ENDPOINTS } from "../api/Index";
 
 const Dashboard = () => {
-
-    const user = useSelector(state => state.authRedux)
+    const user = useSelector((state) => state.authRedux);
 
     const [deals, setDeals] = useState();
     const [products, setProducts] = useState();
@@ -21,12 +17,16 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchDeals = async () => {
-            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`);
+            const res = await fetch(
+                `${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`
+            );
             let data = await res.json();
             setDeals(data);
         };
         const fetchProducts = async (id) => {
-            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.PRODUCT}`);
+            const res = await fetch(
+                `${ENDPOINTS.BASE_URL}${ENDPOINTS.PRODUCT}`
+            );
             const data = await res.json();
             setProducts(data);
         };
@@ -41,173 +41,207 @@ const Dashboard = () => {
     }, []);
 
     const sumOfDealInProcess = () => {
-        let temp = []
-        let sum = 0
-        let valueList = []
-        deals.filter(deal => deal.status !== 6 && deal.UserId === user.id ).forEach(element => { temp.push(element.id) });
-        products.forEach(product => {
+        let temp = [];
+        let sum = 0;
+        let valueList = [];
+        deals
+            .filter((deal) => deal.status !== 6 && deal.UserId === user.id)
+            .forEach((element) => {
+                temp.push(element.id);
+            });
+        products.forEach((product) => {
             if (temp.includes(product.dealId)) {
-                sum += product.actualPrice
+                sum += product.actualPrice;
                 valueList.push(product.actualPrice);
             }
         });
 
         // console.log(temp, sum, valueList)
         return [sum, valueList];
-    }
+    };
 
     const tableDataSealdDeals = () => {
-        let tableBodyData = []
+        let tableBodyData = [];
 
-        clients.forEach(client => {
-            tableBodyData.push(
-                {
-                    "name": client.firstName + " " + client.lastName,
-                    "nr Of seald deals": deals.filter(deal => deal.status !== 6 && deal.clientId === client.id).map(deal =>deal.id),
-                    "total": products.filter(product => product.id in deals
-                                            .filter(deal => deal.status !== 6 && deal.clientId === client.id)
-                                            .map(deal =>deal.id))
-                                    .map(price => price.actualPrice)
-                                    .reduce((accumulator, current) => accumulator + current, 0)
-                }
-            )
-        })
+        clients.forEach((client) => {
+            tableBodyData.push({
+                name: client.firstName + " " + client.lastName,
+                "nr Of seald deals": deals
+                    .filter(
+                        (deal) =>
+                            deal.status !== 6 && deal.clientId === client.id
+                    )
+                    .map((deal) => deal.id),
+                total: products
+                    .filter(
+                        (product) =>
+                            product.id in
+                            deals
+                                .filter(
+                                    (deal) =>
+                                        deal.status !== 6 &&
+                                        deal.clientId === client.id
+                                )
+                                .map((deal) => deal.id)
+                    )
+                    .map((price) => price.actualPrice)
+                    .reduce((accumulator, current) => accumulator + current, 0),
+            });
+        });
         return tableBodyData;
-    }
+    };
     const sumOfSealdDeals = () => {
         let temp = [];
         let sum = 0;
-        let valueList = []
-        deals.filter(deal => deal.status === 6 && deal.UserId === user.id).forEach(element => { temp.push(element.id) });
+        let valueList = [];
+        deals
+            .filter((deal) => deal.status === 6 && deal.UserId === user.id)
+            .forEach((element) => {
+                temp.push(element.id);
+            });
 
-        products.forEach(product => {
-            console.log(product.dealId)
-            console.log(temp)
+        products.forEach((product) => {
             if (temp.includes(product.dealId)) {
                 sum += product.actualPrice;
-                valueList.push(product.actualPrice)
+                valueList.push(product.actualPrice);
             }
         });
-                console.log(temp, sum, valueList)
 
         return [sum, valueList];
-    }
+    };
 
-    const statusCard =
-        [
-            {
-                "icon": "bx bxs-face",
-                "count": `$${(deals && products) && sumOfDealInProcess()[0]}`,
-                "title": "Deals in Prorcess total value"
-            },
-            {
-                "icon": "bx bx-cart",
-                "count": `${deals && Object.keys(deals.filter(deal => deal.status !== 6)).length}`,
-                "title": "No. of Deals in Progress"
-            },
-            {
-                "icon": "bx bx-dollar-circle",
-                "count": `$${(deals && products ) && sumOfSealdDeals()[0]}`,
-                "title": `Seald Deals total value`
-            },
-            {
-                "icon": "bx bx-receipt",
-                "count": `${deals && Object.keys(deals.filter(deal => deal.status === 6)).length}`,
-                "title": "No. of Seald Deals"
-            }
-        ]
+    const statusCard = [
+        {
+            icon: "bx bxs-face",
+            count: `$${deals && products && sumOfDealInProcess()[0]}`,
+            title: "Deals in Prorcess total value",
+        },
+        {
+            icon: "bx bx-cart",
+            count: `${
+                deals &&
+                Object.keys(deals.filter((deal) => deal.status !== 6)).length
+            }`,
+            title: "No. of Deals in Progress",
+        },
+        {
+            icon: "bx bx-dollar-circle",
+            count: `$${deals && products && sumOfSealdDeals()[0]}`,
+            title: `Seald Deals total value`,
+        },
+        {
+            icon: "bx bx-receipt",
+            count: `${
+                deals &&
+                Object.keys(deals.filter((deal) => deal.status === 6)).length
+            }`,
+            title: "No. of Seald Deals",
+        },
+    ];
 
     const chartOptions = {
-        series: [{
-            name: 'Deals in Process',
-            data: (deals, products, clients) && sumOfDealInProcess()[1]? sumOfDealInProcess()[1] : []
-        }, {
-            name: 'Seald Deals',
-            data: (deals, products, clients) && sumOfSealdDeals()[1] ? sumOfSealdDeals()[1] :[]
-        }],
+        series: [
+            {
+                name: "Deals in Process",
+                data:
+                    (deals, products, clients) && sumOfDealInProcess()[1]
+                        ? sumOfDealInProcess()[1]
+                        : [],
+            },
+            {
+                name: "Seald Deals",
+                data:
+                    (deals, products, clients) && sumOfSealdDeals()[1]
+                        ? sumOfSealdDeals()[1]
+                        : [],
+            },
+        ],
         options: {
-            color: ['#6ab04c', '#2980b9'],
+            color: ["#6ab04c", "#2980b9"],
             chart: {
-                background: 'transparent'
+                background: "transparent",
             },
             dataLabels: {
-                enabled: false
+                enabled: false,
             },
             stroke: {
-                curve: 'smooth'
+                curve: "smooth",
             },
             xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+                categories: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                ],
             },
             legend: {
-                position: 'top'
+                position: "top",
             },
             grid: {
-                show: false
-            }
-        }
-    }
-    const renderCusomerHead = (item, index) => (
-        <th key={index}>{item}</th>
-    )
-    
+                show: false,
+            },
+        },
+    };
+    const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
+
     const renderCusomerBody = (item, index) => (
         <tr key={index}>
             <td>{item.username}</td>
             <td>{item.order}</td>
             <td>{item.price}</td>
         </tr>
-    )
+    );
     const topCustomers = {
-        head: [
-            'Client',
-            'nr Of seald deals ',
-            'total '
-        ],
+        head: ["Client", "nr Of seald deals ", "total "],
         body: [
             {
-                "username": "john doe",
-                "order": "490",
-                "price": "$15,870"
+                username: "john doe",
+                order: "490",
+                price: "$15,870",
             },
             {
-                "username": "frank iva",
-                "order": "250",
-                "price": "$12,251"
+                username: "frank iva",
+                order: "250",
+                price: "$12,251",
             },
             {
-                "username": "anthony baker",
-                "order": "120",
-                "price": "$10,840"
+                username: "anthony baker",
+                order: "120",
+                price: "$10,840",
             },
             {
-                "username": "frank iva",
-                "order": "110",
-                "price": "$9,251"
+                username: "frank iva",
+                order: "110",
+                price: "$9,251",
             },
             {
-                "username": "anthony baker",
-                "order": "80",
-                "price": "$8,840"
-            }
-        ]
-    }
+                username: "anthony baker",
+                order: "80",
+                price: "$8,840",
+            },
+        ],
+    };
     return (
         <div>
             <h2 className="page-header">Dashboard</h2>
-            <div className='row'>
+            <div className="row">
                 <div className="col-6">
                     <div className="row">
-                        {
-                            statusCard.map((item, index) => (
-                                <div className="col-6" key={index}>
-                                    <StatusCard
-                                        icon={item.icon}
-                                        count={item.count}
-                                        title={item.title}
-                                    />
-                                </div>
-                            ))}
+                        {statusCard.map((item, index) => (
+                            <div className="col-6" key={index}>
+                                <StatusCard
+                                    icon={item.icon}
+                                    count={item.count}
+                                    title={item.title}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="col-6">
@@ -215,12 +249,12 @@ const Dashboard = () => {
                         <Chart
                             options={chartOptions}
                             series={chartOptions.series}
-                            type='line'
-                            height='100%'
+                            type="line"
+                            height="100%"
                         />
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-6">
                     <div className="card">
                         <div className="card__header">
                             <h3>top customers</h3>
@@ -228,20 +262,23 @@ const Dashboard = () => {
                         <div className="card__body">
                             <Table
                                 headData={topCustomers.head}
-                                renderHead={(item, index) => renderCusomerHead(item, index)}
+                                renderHead={(item, index) =>
+                                    renderCusomerHead(item, index)
+                                }
                                 bodyData={topCustomers.body}
-                                renderBody={(item, index) => renderCusomerBody(item, index)}
+                                renderBody={(item, index) =>
+                                    renderCusomerBody(item, index)
+                                }
                             />
                         </div>
                         <div className="card__footer">
-                            <Link to='/'>view all</Link>
+                            <Link to="/">view all</Link>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Dashboard
+export default Dashboard;

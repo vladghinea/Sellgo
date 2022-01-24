@@ -1,29 +1,32 @@
 import Card from "./Card";
 import React from "react";
-import {useEffect ,useState} from 'react'
-import {  ENDPOINTS } from "../../api/Index"
-import { useSelector} from 'react-redux'
+import { useEffect, useState } from "react";
+import { ENDPOINTS } from "../../api/Index";
+import { connect, useSelector } from "react-redux";
+import { fetchDeals } from "../../redux/Deals/DealActions";
 
 const Board = (props) => {
-    const user = useSelector(state=> state.authRedux);
+    const userId = useSelector((state) => state.authRedux).user.id;
+    // console.log(props.deals.deals);
+    // const [deals, setDeals] = useState([]);
 
-    const [deals, setDeals] = useState([]);
     useEffect(() => {
- 
-       const fetchDeals = async () => {
-            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`);
-            let data = await res.json();
-            setDeals(data);
-        };
-        fetchDeals();
-    });
+        // const fetchDeals = async () => {
+        //     const res = await fetch(
+        //         `${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`
+        //     );
+        //     let data = await res.json();
+        //     setDeals(data);
+        // };
+        props.fetchDeals(userId);
+    }, []);
     const fetchDeal = async (id) => {
         const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}${id}`);
         const data = await res.json();
 
         return data;
     };
-    const updateDeal = async (id,statusId) => {
+    const updateDeal = async (id, statusId) => {
         const taskToToggle = await fetchDeal(id);
         const updTask = { ...taskToToggle, status: statusId };
 
@@ -34,27 +37,28 @@ const Board = (props) => {
             },
             body: JSON.stringify(updTask),
         });
+        props.fetchDeals(userId);
     };
 
     const drop = async (e) => {
         e.preventDefault();
         const card_id = e.dataTransfer.getData("card_id");
-        const statusId = e.target.getAttribute("statusid")
-
-        /// DRAG AN DROP ON FRONTEND
+        const statusId = e.target.getAttribute("statusid");
+        console.log(card_id);
+        // // / DRAG AN DROP ON FRONTEND
         // const card = document.getElementById(card_id);
         // card.style.display = "block";
         // e.target.appendChild(card);
-        
-        updateDeal(card_id,statusId)
-        
+
+        updateDeal(card_id, statusId);
+        props.fetchDeals(userId);
     };
-    const changePriority = async (id) =>{
+    const changePriority = async (id) => {
         const dealToChangePriority = await fetchDeal(id);
         let priority = 0;
         if (dealToChangePriority.priority === 0) {
             priority = 1;
-        }else if (dealToChangePriority.priority === 1) {
+        } else if (dealToChangePriority.priority === 1) {
             priority = 2;
         }
 
@@ -66,29 +70,51 @@ const Board = (props) => {
             },
             body: JSON.stringify(updDeal),
         });
-    }
-    
+        props.fetchDeals(userId);
+    };
 
     const dragOver = (e) => {
         e.preventDefault();
     };
     return (
-        <><span>Priority: <b style={{color : "red"}}>High</b>, <b style={{color : "yellow"}}>Medium</b>, <b style={{color : "#00c8e2"}}>Low</b></span>
-            {
-                props.headData.map((item,index) => 
-                <div 
-                    key={index}
+        <>
+            <span>
+                Priority: <b style={{ color: "red" }}>High</b>,{" "}
+                <b style={{ color: "yellow" }}>Medium</b>,{" "}
+                <b style={{ color: "#00c8e2" }}>Low</b>
+            </span>
+            {props.headData.map((item, index) => (
+                <div
+                    key={`status-${index}`}
                     statusid={index}
                     draggable="false"
                     onDrop={drop}
                     onDragOver={dragOver}
-                    className="card col-3"> {item}  
-                        <Card deals={deals} boardId={index} changePriority={changePriority} />
+                    className="card col-3"
+                >
+                    {" "}
+                    {item}
+                    <Card
+                        deals={props.deals.deals}
+                        boardId={index}
+                        changePriority={changePriority}
+                    />
                 </div>
-                )
-            }   
+            ))}
         </>
     );
 };
 
-export default Board;
+const mapStateToProps = (state) => {
+    return {
+        deals: state.dealsRedux,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchDeals: (userId) => dispatch(fetchDeals(userId)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

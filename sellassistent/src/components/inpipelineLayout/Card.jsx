@@ -34,6 +34,7 @@ const Card = ({ deals, boardId, changePriority }) => {
             {deals.map((deal) =>
                 deal.status == boardId ? (
                     <Tippy
+                        key={`tippy-${deal.id}`}
                         content={
                             <span className={`colorpriority${deal.priority}`}>
                                 {prioritys.at(deal.priority)}
@@ -41,7 +42,7 @@ const Card = ({ deals, boardId, changePriority }) => {
                         }
                     >
                         <div
-                            key={deal.id}
+                            key={`status-${deal.id}`}
                             id={deal.id}
                             className={`card priority${deal.priority}`}
                             draggable="true"
