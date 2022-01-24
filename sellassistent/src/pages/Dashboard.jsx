@@ -188,14 +188,13 @@ const Dashboard = () => {
     }
     return (
         <div>
-            {(deals,clients,products) && console.log(tableDataSealdDeals)}
             <h2 className="page-header">Dashboard</h2>
             <div className='row'>
                 <div className="col-6">
                     <div className="row">
                         {
                             statusCard.map((item, index) => (
-                                <div className="col-6">
+                                <div className="col-6" key={index}>
                                     <StatusCard
                                         icon={item.icon}
                                         count={item.count}

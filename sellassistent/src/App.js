@@ -26,7 +26,7 @@ const App = () => {
         user.email !== ""
             ? setPageShow(<Layout userName={user} />)
             : setPageShow(<Home />);
-    }, [guest, user]);
+    }, [guest]);
     return (
         <Fragment>
             {pageShow}           
