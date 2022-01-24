@@ -1,0 +1,39 @@
+.pill{
+   height: 120px;
+   font-weight: 600;
+   text-align: center;      
+}
+.headpill{
+    text-align: center;    
+}
+.pillText{
+    margin-top: 50px
+}
+.pillClient{
+ background-color: darkseagreen;
+ color:darkslategray;
+}
+.pillCompany{
+ background-color: gray;
+ color: white; 
+}
+.pillDealStatus{
+ background-color: indigo;
+ color: white;
+}
+.pillInterception{
+ background-color: yellow;
+ color:darkslategray;
+}
+.pillPriority{
+ background-color: violet;
+ color:darkslategray;
+}
+.PillDealSize{
+ background-color: yellowgreen;
+ color:darkslategray;
+}
+.pillProduct{
+ background-color: thistle;
+ color:darkslategray;
+}

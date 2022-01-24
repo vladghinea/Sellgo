@@ -3,20 +3,22 @@ import { Route, Switch } from "react-router-dom";
 
 import Pipeline from "../pages/Pipeline";
 import Users from "../pages/Users";
-import Workboard from "../pages/Workboard";
+import Clients from "../pages/Clients";
 import RegisterForm from "./Account/RegisterForm";
 import App from "../App";
 import Dashboard from "../pages/Dashboard";
+import Workboard from "../pages/Workboard";
 
 const Routes = () => {
     return (
-        <Switch>
+        <Switch>            
             <Route path="/pipeline" component={Pipeline} />
             <Route path="/users" component={Users} />
             <Route path="/register" component={RegisterForm} />
-            <Route path="/workboard" component={Workboard} />
+            <Route path="/clients" component={Clients} />
             <Route path="/app" component={App} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/workboard" component={Workboard} />
         </Switch>
     );
 };

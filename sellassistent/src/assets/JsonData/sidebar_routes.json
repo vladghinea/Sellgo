@@ -4,11 +4,7 @@
         "route": "/dashboard",
         "icon": "bx bxs-bolt"
     },
-    {
-        "display_name": "Home",
-        "route": "/",
-        "icon": "bx bx-category-alt"
-    },
+   
     {
         "display_name": "Pipeline",
         "route": "/pipeline",
@@ -18,6 +14,11 @@
     {
         "display_name": "Workboard",
         "route": "/workboard",
+        "icon": "bx bx-category-alt"
+    },
+    {
+        "display_name": "Clients",
+        "route": "/clients",
         "icon": "bx bx-store-alt"
     },
    
