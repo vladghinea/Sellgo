@@ -19,6 +19,7 @@ const Board = (props) => {
         //     setDeals(data);
         // };
         props.fetchDeals(userId);
+        console.log(11);
     }, []);
     const fetchDeal = async (id) => {
         const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}${id}`);
@@ -44,7 +45,6 @@ const Board = (props) => {
         e.preventDefault();
         const card_id = e.dataTransfer.getData("card_id");
         const statusId = e.target.getAttribute("statusid");
-        console.log(card_id);
         // // / DRAG AN DROP ON FRONTEND
         // const card = document.getElementById(card_id);
         // card.style.display = "block";

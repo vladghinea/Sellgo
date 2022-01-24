@@ -1,32 +1,32 @@
 import {
-    FETCH_DEALS_FAILURE,
-    FETCH_DEALS_REQUEST,
-    FETCH_DEALS_SUCCESS,
-} from "./DealTypes";
+    FETCH_CLIENTS_FAILURE,
+    FETCH_CLIENTS_REQUEST,
+    FETCH_CLIENTS_SUCCESS,
+} from "./ClientTypes";
 
 const initialState = {
     loading: false,
-    products: [],
+    clients: [],
     error: "",
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_DEALS_REQUEST:
+        case FETCH_CLIENTS_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case FETCH_DEALS_SUCCESS:
+        case FETCH_CLIENTS_SUCCESS:
             return {
                 loading: true,
-                deals: action.payload,
+                clients: action.payload,
                 error: "",
             };
-        case FETCH_DEALS_FAILURE:
+        case FETCH_CLIENTS_FAILURE:
             return {
                 loading: true,
-                deals: [],
+                clients: [],
                 error: action.payload,
             };
         default:

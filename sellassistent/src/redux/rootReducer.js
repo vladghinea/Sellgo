@@ -5,8 +5,9 @@ import AuthErrorReducer from "./Authentication/AuthErrorReducer";
 import CompanyReducer from "./Companies/CompanyReducer";
 import CustomerReducer from "./Customers/CustomerReducer";
 import DealReducer from "./Deals/DealReducer";
-import ProductReducer from "./Products/ProductReducer"
-import {combineReducers} from "redux"
+import ProductReducer from "./Products/ProductReducer";
+import ClientReducer from "./Clients/ClientReducer";
+import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
     themeRedux: ThemeReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     companiesRedux: CompanyReducer,
     customersRedux: CustomerReducer,
     dealsRedux: DealReducer,
-    productsRedux: ProductReducer
-})
+    productsRedux: ProductReducer,
+    clientsRedux: ClientReducer,
+});
 
-export default rootReducer
+export default rootReducer;

@@ -31,35 +31,39 @@ const Card = ({ deals, boardId, changePriority }) => {
 
     return (
         <>
-            {deals.map((deal) =>
-                deal.status == boardId ? (
-                    <Tippy
-                        key={`tippy-${deal.id}`}
-                        content={
-                            <span className={`colorpriority${deal.priority}`}>
-                                {prioritys.at(deal.priority)}
-                            </span>
-                        }
-                    >
-                        <div
-                            key={`status-${deal.id}`}
-                            id={deal.id}
-                            className={`card priority${deal.priority}`}
-                            draggable="true"
-                            onDragStart={dragStart}
-                            onDragOver={dragOver}
-                            // onDoubleClick={() =>updatePriority(deal.id)}
-                            onDoubleClick={() => changePriority(deal.id)}
-                            style={{ cursor: "pointer" }}
-                        >
-                            Deal:{deal.id} - ClientId:{deal.clientId}{" "}
-                            {incons.at(boardId)}
-                        </div>
-                    </Tippy>
-                ) : (
-                    ""
-                )
-            )}
+            {deals !== undefined
+                ? deals.map((deal) =>
+                      deal.status == boardId ? (
+                          <Tippy
+                              key={`tippy-${deal.id}`}
+                              content={
+                                  <span
+                                      className={`colorpriority${deal.priority}`}
+                                  >
+                                      {prioritys.at(deal.priority)}
+                                  </span>
+                              }
+                          >
+                              <div
+                                  key={`status-${deal.id}`}
+                                  id={deal.id}
+                                  className={`card priority${deal.priority}`}
+                                  draggable="true"
+                                  onDragStart={dragStart}
+                                  onDragOver={dragOver}
+                                  // onDoubleClick={() =>updatePriority(deal.id)}
+                                  onDoubleClick={() => changePriority(deal.id)}
+                                  style={{ cursor: "pointer" }}
+                              >
+                                  Deal:{deal.id} - ClientId:{deal.clientId}{" "}
+                                  {incons.at(boardId)}
+                              </div>
+                          </Tippy>
+                      ) : (
+                          ""
+                      )
+                  )
+                : ""}
         </>
     );
 };

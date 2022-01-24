@@ -8,7 +8,7 @@ export const ENDPOINTS = {
     REGISTER: "account/register",
     LOGIN: "account/login",
     LOGOUT: "account/logout",
-    CLIENT: "Client/",
+    CLIENT: "client/",
     USER: "user/",
     DEAL: "deal/",
     PRODUCT: "product/",

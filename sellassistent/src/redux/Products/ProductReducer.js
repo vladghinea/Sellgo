@@ -1,32 +1,37 @@
-import { FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS } from "./ProductTypes"
+import {
+    FETCH_PRODUCTS_FAILURE,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+} from "./ProductTypes";
 
 const initialState = {
     loading: false,
     products: [],
-    error: ''
-}
+    error: "",
+};
 
 const reducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case FETCH_PRODUCTS_REQUEST:
             return {
                 ...state,
-                loading: true
-            }
+                loading: true,
+            };
         case FETCH_PRODUCTS_SUCCESS:
-            return {                
-                loading: false,
+            return {
+                loading: true,
                 products: action.payload,
-                error: ''
-            }
+                error: "",
+            };
         case FETCH_PRODUCTS_FAILURE:
             return {
-                loading: false,
+                loading: true,
                 products: [],
-                error: action.payload
-            }
-        default: return state
+                error: action.payload,
+            };
+        default:
+            return state;
     }
-}
+};
 
-export default reducer
+export default reducer;

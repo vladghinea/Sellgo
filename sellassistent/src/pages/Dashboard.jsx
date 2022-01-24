@@ -2,59 +2,40 @@ import Chart from "react-apexcharts";
 import React from "react";
 import StatusCard from "../components/status-card/StatusCard";
 
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../components/table/Table";
 import { useSelector } from "react-redux";
-import { ENDPOINTS } from "../api/Index";
 
 const Dashboard = () => {
     const user = useSelector((state) => state.authRedux);
 
-    const [deals, setDeals] = useState();
-    const [products, setProducts] = useState();
-    const [clients, setClients] = useState();
-
-    useEffect(() => {
-        const fetchDeals = async () => {
-            const res = await fetch(
-                `${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}dealsforuser/${user.user.id}`
-            );
-            let data = await res.json();
-            setDeals(data);
-        };
-        const fetchProducts = async (id) => {
-            const res = await fetch(
-                `${ENDPOINTS.BASE_URL}${ENDPOINTS.PRODUCT}`
-            );
-            const data = await res.json();
-            setProducts(data);
-        };
-        const fetchClients = async (id) => {
-            const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.CLIENT}`);
-            const data = await res.json();
-            setClients(data);
-        };
-        fetchDeals();
-        fetchProducts();
-        fetchClients();
-    }, []);
+    let deals = useSelector((state) => state.dealsRedux).deals;
+    let products = useSelector((state) => state.productsRedux).products;
+    let clients = useSelector((state) => state.clientsRedux).clients;
 
     const sumOfDealInProcess = () => {
         let temp = [];
         let sum = 0;
         let valueList = [];
-        deals
-            .filter((deal) => deal.status !== 6 && deal.UserId === user.id)
-            .forEach((element) => {
-                temp.push(element.id);
+        if (deals !== undefined) {
+            deals
+                .filter((deal) => deal.status !== 6 && deal.UserId === user.id)
+                .forEach((element) => {
+                    temp.push(element.id);
+                });
+        } else {
+            deals = [];
+        }
+        if (products !== undefined) {
+            products.forEach((product) => {
+                if (temp.includes(product.dealId)) {
+                    sum += product.actualPrice;
+                    valueList.push(product.actualPrice);
+                }
             });
-        products.forEach((product) => {
-            if (temp.includes(product.dealId)) {
-                sum += product.actualPrice;
-                valueList.push(product.actualPrice);
-            }
-        });
+        } else {
+            products = [];
+        }
 
         // console.log(temp, sum, valueList)
         return [sum, valueList];
@@ -199,33 +180,34 @@ const Dashboard = () => {
     );
     const topCustomers = {
         head: ["Client", "nr Of seald deals ", "total "],
-        body: [
-            {
-                username: "john doe",
-                order: "490",
-                price: "$15,870",
-            },
-            {
-                username: "frank iva",
-                order: "250",
-                price: "$12,251",
-            },
-            {
-                username: "anthony baker",
-                order: "120",
-                price: "$10,840",
-            },
-            {
-                username: "frank iva",
-                order: "110",
-                price: "$9,251",
-            },
-            {
-                username: "anthony baker",
-                order: "80",
-                price: "$8,840",
-            },
-        ],
+        body: tableDataSealdDeals(),
+        // body: [
+        //     {
+        //         username: "john doe",
+        //         order: "490",
+        //         price: "$15,870",
+        //     },
+        //     {
+        //         username: "frank iva",
+        //         order: "250",
+        //         price: "$12,251",
+        //     },
+        //     {
+        //         username: "anthony baker",
+        //         order: "120",
+        //         price: "$10,840",
+        //     },
+        //     {
+        //         username: "frank iva",
+        //         order: "110",
+        //         price: "$9,251",
+        //     },
+        //     {
+        //         username: "anthony baker",
+        //         order: "80",
+        //         price: "$8,840",
+        //     },
+        // ],
     };
     return (
         <div>

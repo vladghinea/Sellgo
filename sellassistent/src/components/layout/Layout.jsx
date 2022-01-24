@@ -10,8 +10,10 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { fetchDeals } from "../../redux/Deals/DealActions";
 import ThemeAction from "../../redux/Theme/ThemeActions";
+import { fetchClients } from "../../redux/Clients/ClientActions";
+import { fetchProducts } from "../../redux/Products/ProductActions";
 
-const Layout = ({ userName, fetchDeals }) => {
+const Layout = ({ userName, fetchDeals, fetchProducts, fetchClients }) => {
     const user = useSelector((state) => state.authRedux);
 
     const themeReducer = useSelector((state) => state.themeRedux);
@@ -28,8 +30,9 @@ const Layout = ({ userName, fetchDeals }) => {
 
         dispatch(ThemeAction.setMode(themeClass));
         dispatch(ThemeAction.setColor(colorClass));
-        console.log(1);
         fetchDeals(user.user.id);
+        fetchProducts();
+        fetchClients();
     }, [dispatch]);
 
     return (
@@ -56,12 +59,16 @@ const Layout = ({ userName, fetchDeals }) => {
 const mapStateToProps = (state) => {
     return {
         deals: state.dealsRedux,
+        products: state.productsRedux,
+        clients: state.clientsRedux,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchDeals: (userId) => dispatch(fetchDeals(userId)),
+        fetchProducts: () => dispatch(fetchProducts()),
+        fetchClients: () => dispatch(fetchClients()),
     };
 };
 

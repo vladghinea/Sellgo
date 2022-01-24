@@ -5,13 +5,12 @@ import { fetchUsers } from "../../redux/Users/UserActions";
 import { useSelector } from "react-redux";
 import { fetchDeals } from "../../redux/Deals/DealActions";
 
-function UsersContainer({ userdata, fetchDeals }) {
-    const userId = useSelector((state) => state.authRedux).user.id;
+function UsersContainer({ userdata, fetchUsers }) {
     useEffect(() => {
-        fetchDeals(userId);
+        fetchUsers();
     }, []);
-    // console.log(userdata);
-    // return <div>ok</div>;
+    console.log(userdata);
+
     return userdata.loading ? (
         <h2>Loading</h2>
     ) : userdata.error ? (
@@ -20,10 +19,8 @@ function UsersContainer({ userdata, fetchDeals }) {
         <div>
             <h2>Users List</h2>
             <div>
-                {userdata.deals.map((user, index) => (
-                    <p key={index}>
-                        {user.id} {user.priority}
-                    </p>
+                {userdata.users.map((user, index) => (
+                    <p key={index}>{user.firstName}</p>
                 ))}
             </div>
         </div>
@@ -32,13 +29,13 @@ function UsersContainer({ userdata, fetchDeals }) {
 
 const mapStateToProps = (state) => {
     return {
-        userdata: state.dealsRedux,
+        userdata: state.userRedux,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchDeals: (userId) => dispatch(fetchDeals(userId)),
+        fetchUsers: () => dispatch(fetchUsers()),
     };
 };
 
