@@ -114,10 +114,10 @@ const Dashboard = () => {
     const chartOptions = {
         series: [{
             name: 'Deals in Process',
-            data: (deals, products, clients) && sumOfDealInProcess()[1]
+            data: (deals, products, clients) && sumOfDealInProcess()[1]? sumOfDealInProcess()[1] : []
         }, {
             name: 'Seald Deals',
-            data: (deals, products, clients) && sumOfSealdDeals()[1]
+            data: (deals, products, clients) && sumOfSealdDeals()[1] ? sumOfSealdDeals()[1] :[]
         }],
         options: {
             color: ['#6ab04c', '#2980b9'],
