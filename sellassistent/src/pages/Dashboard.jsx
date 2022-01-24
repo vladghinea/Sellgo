@@ -44,13 +44,15 @@ const Dashboard = () => {
         let temp = []
         let sum = 0
         let valueList = []
-        deals.filter(deal => deal.status !== 6).forEach(element => { temp.push(element.id) });
+        deals.filter(deal => deal.status !== 6 && deal.UserId === user.id ).forEach(element => { temp.push(element.id) });
         products.forEach(product => {
-            if (product.dealId in temp) {
+            if (temp.includes(product.dealId)) {
                 sum += product.actualPrice
                 valueList.push(product.actualPrice);
             }
         });
+
+        // console.log(temp, sum, valueList)
         return [sum, valueList];
     }
 
@@ -76,14 +78,18 @@ const Dashboard = () => {
         let temp = [];
         let sum = 0;
         let valueList = []
-        deals.filter(deal => deal.status === 6).forEach(element => { temp.push(element.id) });
+        deals.filter(deal => deal.status === 6 && deal.UserId === user.id).forEach(element => { temp.push(element.id) });
 
         products.forEach(product => {
-            if (!(product.dealId in temp)) {
+            console.log(product.dealId)
+            console.log(temp)
+            if (temp.includes(product.dealId)) {
                 sum += product.actualPrice;
                 valueList.push(product.actualPrice)
             }
         });
+                console.log(temp, sum, valueList)
+
         return [sum, valueList];
     }
 
@@ -91,7 +97,7 @@ const Dashboard = () => {
         [
             {
                 "icon": "bx bxs-face",
-                "count": `$${(deals, products, clients) && sumOfDealInProcess()[0]}`,
+                "count": `$${(deals && products) && sumOfDealInProcess()[0]}`,
                 "title": "Deals in Prorcess total value"
             },
             {
@@ -101,7 +107,7 @@ const Dashboard = () => {
             },
             {
                 "icon": "bx bx-dollar-circle",
-                "count": `$${(deals, products, clients) && sumOfSealdDeals()[0]}`,
+                "count": `$${(deals && products ) && sumOfSealdDeals()[0]}`,
                 "title": `Seald Deals total value`
             },
             {

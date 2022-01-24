@@ -24,7 +24,7 @@ export const fetchUsers = () => {
    
     return (dispatch) => {
         dispatch(fetchCustomersRequest)
-        CreateAPIEndPoint(ENDPOINTS.CUSTOMER).fetchAll()
+        CreateAPIEndPoint(`${ENDPOINTS.BASE_URL}${ENDPOINTS.PRODUCT}`).fetchAll()
         .then(response => {
             const customers = response.data;
             dispatch(fetchCustomersSuccess(customers))
