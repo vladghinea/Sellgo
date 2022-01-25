@@ -12,6 +12,7 @@ namespace El_Proyecte_Grande.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public DateTime Date { get; set; }
         public LocationTypes Location { get; set; }
         public Address Address { get; set; }
@@ -20,6 +21,7 @@ namespace El_Proyecte_Grande.Models
 
         //Relationship
         //Deal (ManyToOne)
+        [Required]
         public int DealId { get; set; }
         [ForeignKey("DealId")]
         public Deal Deal { get; set; }

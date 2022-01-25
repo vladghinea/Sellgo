@@ -30,6 +30,9 @@ namespace El_Proyecte_Grande.Models
         [Phone(ErrorMessage = "Invalid Phone Number")]
         [Column(TypeName = "varchar(30)")]
         public string PhoneNumber { get; set; }
+        [Required]
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
         public DateTime DateOfBirth { get; set; }
 
         [MaxLength(30)]
