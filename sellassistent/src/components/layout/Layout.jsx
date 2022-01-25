@@ -12,8 +12,16 @@ import { fetchDeals } from "../../redux/Deals/DealActions";
 import ThemeAction from "../../redux/Theme/ThemeActions";
 import { fetchClients } from "../../redux/Clients/ClientActions";
 import { fetchProducts } from "../../redux/Products/ProductActions";
-
-const Layout = ({ userName, fetchDeals, fetchProducts, fetchClients }) => {
+import { fetchCompanies } from "../../redux/Companies/CompanyActions";
+import { fetchInterceptions } from "../../redux/Interceptions/InterceptionActions";
+const Layout = ({
+    userName,
+    fetchDeals,
+    fetchProducts,
+    fetchClients,
+    fetchCompanies,
+    fetchInterceptions,
+}) => {
     const user = useSelector((state) => state.authRedux);
 
     const themeReducer = useSelector((state) => state.themeRedux);
@@ -33,6 +41,8 @@ const Layout = ({ userName, fetchDeals, fetchProducts, fetchClients }) => {
         fetchDeals(user.user.id);
         fetchProducts();
         fetchClients();
+        fetchCompanies();
+        fetchInterceptions();
     }, [dispatch]);
 
     return (
@@ -61,6 +71,7 @@ const mapStateToProps = (state) => {
         deals: state.dealsRedux,
         products: state.productsRedux,
         clients: state.clientsRedux,
+        companies: state.companiesRedux,
     };
 };
 
@@ -69,6 +80,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchDeals: (userId) => dispatch(fetchDeals(userId)),
         fetchProducts: () => dispatch(fetchProducts()),
         fetchClients: () => dispatch(fetchClients()),
+        fetchCompanies: () => dispatch(fetchCompanies()),
+        fetchInterceptions: () => dispatch(fetchInterceptions()),
     };
 };
 

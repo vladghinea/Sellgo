@@ -13,6 +13,7 @@ export const ENDPOINTS = {
     DEAL: "deal/",
     PRODUCT: "product/",
     COMPANY: "Company/",
+    INTERCEPTION: "Interception/",
 };
 
 export const CreateAPIEndPoint = (endpoint) => {

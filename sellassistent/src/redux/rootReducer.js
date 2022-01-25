@@ -7,6 +7,7 @@ import CustomerReducer from "./Customers/CustomerReducer";
 import DealReducer from "./Deals/DealReducer";
 import ProductReducer from "./Products/ProductReducer";
 import ClientReducer from "./Clients/ClientReducer";
+import InterceptionReducer from "./Interceptions/InterceptionReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     dealsRedux: DealReducer,
     productsRedux: ProductReducer,
     clientsRedux: ClientReducer,
+    interceptionsRedux: InterceptionReducer,
 });
 
 export default rootReducer;
