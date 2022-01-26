@@ -16,7 +16,7 @@ import ClientCareDateOfInterest from "./FormsClient/ClientCareDateOfInterest";
 
 const Routes = () => {
     return (
-        <Switch>            
+        <Switch>
             <Route path="/pipeline" component={Pipeline} />
             <Route path="/users" component={Users} />
             <Route path="/register" component={RegisterForm} />
@@ -24,11 +24,16 @@ const Routes = () => {
             <Route path="/app" component={App} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/workboard" component={Workboard} />
+
             <Route path="/clientform" component={ClientForm} />
-            <Route path="/clientprofessionalform" component={ClientProfessionalForm} />
+            <Route
+                path="/clientprofessionalform"
+                component={ClientProfessionalForm}
+            />
             <Route path="/clientpersonalform" component={ClientPersonalForm} />
             <Route path="/clientcareform" component={ClientCareForm} />
             <Route path="/clientcaredoi" component={ClientCareDateOfInterest} />
+            <Route path="/" component={Dashboard} />
         </Switch>
     );
 };

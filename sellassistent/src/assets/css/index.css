@@ -241,7 +241,7 @@ input:focus {
     overflow-x: auto;
 }
 .scroll::-webkit-scrollbar {
-    width: 12px; /* width of the entire scrollbar */
+    width: 8px; /* width of the entire scrollbar */
 }
 
 .scroll::-webkit-scrollbar-track {
@@ -249,7 +249,7 @@ input:focus {
 }
 
 .scroll::-webkit-scrollbar-thumb {
-    background-color: rgb(97, 97, 100); /* color of the scroll thumb */
+    background-color: rgba(97, 97, 100, 0.048); /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
     border: 2px solid var(--main-color); /* creates padding around scroll thumb */
 }

@@ -95,7 +95,7 @@ const Dashboard = () => {
         {
             icon: "bx bxs-face",
             count: `$${deals && products && sumOfDealInProcess()[0]}`,
-            title: "Deals in Prorcess total value",
+            title: "Deals in Process total value",
         },
         {
             icon: "bx bx-cart",

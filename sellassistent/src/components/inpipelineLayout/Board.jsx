@@ -21,6 +21,7 @@ const Board = (props) => {
         props.fetchDeals(userId);
         console.log(11);
     }, []);
+
     const fetchDeal = async (id) => {
         const res = await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.DEAL}${id}`);
         const data = await res.json();

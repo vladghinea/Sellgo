@@ -1,8 +1,11 @@
 import React from "react";
 import Tippy from "@tippy.js/react";
 import "tippy.js/dist/tippy.css";
+import { useSelector } from "react-redux";
 
 const Card = ({ deals, boardId, changePriority }) => {
+    let products = useSelector((state) => state.productsRedux).products;
+    let clients = useSelector((state) => state.clientsRedux).clients;
     const incons = [
         "⭕️",
         "🔆️",
@@ -55,7 +58,17 @@ const Card = ({ deals, boardId, changePriority }) => {
                                   onDoubleClick={() => changePriority(deal.id)}
                                   style={{ cursor: "pointer" }}
                               >
-                                  Deal:{deal.id} - ClientId:{deal.clientId}{" "}
+                                  {clients.map((client) => {
+                                      return client.id === deal.clientId
+                                          ? client.firstName
+                                          : null;
+                                  })}
+                                  {" - "}
+                                  {products.map((product) => {
+                                      return product.dealId === deal.id
+                                          ? `${product.name} $${product.actualPrice}`
+                                          : null;
+                                  })}{" "}
                                   {incons.at(boardId)}
                               </div>
                           </Tippy>

@@ -21,7 +21,10 @@ const DealBoard = () => {
     let interceptions = useSelector(
         (state) => state.interceptionsRedux
     ).interceptions;
-    const myData = [].concat(deals).sort((a, b) => b.priority - a.priority); //sortare dupa prioritate
+    let myData = undefined;
+    if (deals !== undefined) {
+        myData = [].concat(deals).sort((a, b) => b.priority - a.priority); //sortare dupa prioritate
+    }
     console.log("data");
     console.log(myData);
     console.log("interceptions");
