@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import React from "react";
 import "./dealBoard.css";
-import { format } from "date-fns";
+
 
 const DealBoard = () => {
     const statuses = [

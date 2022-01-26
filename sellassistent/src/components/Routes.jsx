@@ -8,6 +8,11 @@ import RegisterForm from "./Account/RegisterForm";
 import App from "../App";
 import Dashboard from "../pages/Dashboard";
 import Workboard from "../pages/Workboard";
+import ClientForm from "./FormsClient/ClientForm";
+import ClientProfessionalForm from "./FormsClient/ClientProfessionalForm";
+import ClientPersonalForm from "./FormsClient/ClientPersonalForm";
+import ClientCareForm from "./FormsClient/ClientCareForm";
+import ClientCareDateOfInterest from "./FormsClient/ClientCareDateOfInterest";
 
 const Routes = () => {
     return (
@@ -19,6 +24,11 @@ const Routes = () => {
             <Route path="/app" component={App} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/workboard" component={Workboard} />
+            <Route path="/clientform" component={ClientForm} />
+            <Route path="/clientprofessionalform" component={ClientProfessionalForm} />
+            <Route path="/clientpersonalform" component={ClientPersonalForm} />
+            <Route path="/clientcareform" component={ClientCareForm} />
+            <Route path="/clientcaredoi" component={ClientCareDateOfInterest} />
         </Switch>
     );
 };
