@@ -26,8 +26,11 @@ export const CreateAPIEndPoint = (endpoint) => {
         update: (id, updateRecord) => axios.put(url + id, updateRecord),
         delete: (id) => axios.delete(url + id),
         getDealsPerUser: (id) => axios.get(url + "dealsforuser/" + id),
-        getPersonalApproachPerClient:(clientid) => axiox.get(url+clientid),
-        getIndividualPersonalApproachPerClient:(clientid, id) => axiox.get(url+clientid +"/"+id),
+        getInterceptionWithCloseDate: () => axios.get(url + "closedate"),
+        getPersonalApproachPerClient: (clientid) => axios.get(url + clientid),
+        getIndividualPersonalApproachPerClient: (clientid, id) =>
+            axios.get(url + clientid + "/" + id),
+        getInterceptionWithCloseDate: () => axios.get(url + "closedate"),
     };
 };
 

@@ -39,3 +39,18 @@ export const fetchInterceptions = () => {
             });
     };
 };
+export const fetchInterceptionsWithClosestDate = () => {
+    return (dispatch) => {
+        dispatch(fetchInterceptionsRequest);
+        CreateAPIEndPoint(ENDPOINTS.INTERCEPTION)
+            .getInterceptionWithCloseDate()
+            .then((response) => {
+                const interceptions = response.data;
+                dispatch(fetchInterceptionsSuccess(interceptions));
+            })
+            .catch((error) => {
+                const errorMsg = error.message;
+                dispatch(fetchInterceptionsFailure(errorMsg));
+            });
+    };
+};

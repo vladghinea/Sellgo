@@ -2,6 +2,7 @@
 using El_Proyecte_Grande.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,5 +51,36 @@ namespace El_Proyecte_Grande.Services
             return interception;
 
         }
+
+        public async Task<List<Interception>> GetInterceptionsOfUserWithCloseDate()
+        {
+            var deals = await _db.Data.Deals.Select(deal => deal).ToListAsync();
+
+            var allInterceptions = await _db.Data.Interceptions.Select(interception => interception).ToListAsync();
+
+            DateTime now = DateTime.Now;
+            
+            List<Interception> interceptions = new();
+
+            foreach (var deal in deals)
+            {
+                var result = allInterceptions.Where(inter => inter.DealId == deal.Id).OrderBy(inter => Convert.ToDateTime(inter.Date)).FirstOrDefault();
+                if (result != null)
+                {
+                    interceptions.Add(result);
+                }
+                
+            }
+                return interceptions.Select(inter => new Interception { 
+                    Id = inter.Id,
+                    Date = inter.Date,
+                    Location =inter.Location,
+                    Address =inter.Address,
+                    OnlineMeet = inter.OnlineMeet,
+                    DealId = inter.DealId,
+                    Deal = null
+                    }).ToList();
+        }
+
     }
 }

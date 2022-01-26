@@ -40,7 +40,17 @@ namespace El_Proyecte_Grande.Controllers
         {
             return await serviceInterception.GetInterceptionById(id);
         }
+        //Get Interceptions
+        [HttpGet]
+        [Route("closedate")]
+        public async Task<List<Interception>> GetInterceptionsOfUserWithCloseDate()
+        {
 
+            var result = await serviceInterception.GetInterceptionsOfUserWithCloseDate();
+            return result;
+        }
+
+        
         //Add Interception
         [HttpPost]
         public async Task<IActionResult> AddInterception([FromBody] Interception interception)

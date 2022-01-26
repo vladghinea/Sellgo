@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import React from "react";
 import "./dealBoard.css";
 
-
 const DealBoard = () => {
     const statuses = [
         "To Contact",
@@ -22,6 +21,9 @@ const DealBoard = () => {
     let interceptions = useSelector(
         (state) => state.interceptionsRedux
     ).interceptions;
+    const myData = [].concat(deals).sort((a, b) => b.priority - a.priority); //sortare dupa prioritate
+    console.log("data");
+    console.log(myData);
     console.log("interceptions");
     console.log(interceptions);
     console.log("companies");
@@ -33,8 +35,8 @@ const DealBoard = () => {
     console.log("Clients");
     console.log(clients);
 
-    if (deals !== undefined) {
-        return deals.map((deal) => (
+    if (myData !== undefined) {
+        return myData.map((deal) => (
             <div className="container card pillcard">
                 <div className="row">
                     <div className="col pill pillClient">

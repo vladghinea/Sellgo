@@ -13,14 +13,14 @@ import ThemeAction from "../../redux/Theme/ThemeActions";
 import { fetchClients } from "../../redux/Clients/ClientActions";
 import { fetchProducts } from "../../redux/Products/ProductActions";
 import { fetchCompanies } from "../../redux/Companies/CompanyActions";
-import { fetchInterceptions } from "../../redux/Interceptions/InterceptionActions";
+import { fetchInterceptionsWithClosestDate } from "../../redux/Interceptions/InterceptionActions";
 const Layout = ({
     userName,
     fetchDeals,
     fetchProducts,
     fetchClients,
     fetchCompanies,
-    fetchInterceptions,
+    fetchInterceptionsWithClosestDate,
 }) => {
     const user = useSelector((state) => state.authRedux);
 
@@ -42,7 +42,7 @@ const Layout = ({
         fetchProducts();
         fetchClients();
         fetchCompanies();
-        fetchInterceptions();
+        fetchInterceptionsWithClosestDate();
     }, [dispatch]);
 
     return (
@@ -81,7 +81,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchProducts: () => dispatch(fetchProducts()),
         fetchClients: () => dispatch(fetchClients()),
         fetchCompanies: () => dispatch(fetchCompanies()),
-        fetchInterceptions: () => dispatch(fetchInterceptions()),
+        fetchInterceptionsWithClosestDate: () =>
+            dispatch(fetchInterceptionsWithClosestDate()),
     };
 };
 
