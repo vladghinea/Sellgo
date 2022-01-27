@@ -13,6 +13,8 @@ import ClientProfessionalForm from "./FormsClient/ClientProfessionalForm";
 import ClientPersonalForm from "./FormsClient/ClientPersonalForm";
 import ClientCareForm from "./FormsClient/ClientCareForm";
 import ClientCareDateOfInterest from "./FormsClient/ClientCareDateOfInterest";
+import CompanyForm from "./FormsCompany/CompanyForm";
+import DealForm from "./FormsDeal/DealForm";
 
 const Routes = () => {
     return (
@@ -32,7 +34,12 @@ const Routes = () => {
             />
             <Route path="/clientpersonalform" component={ClientPersonalForm} />
             <Route path="/clientcareform" component={ClientCareForm} />
-            <Route path="/clientcaredoi" component={ClientCareDateOfInterest} />
+            <Route
+                path="/clientcaredateofinterestform"
+                component={ClientCareDateOfInterest}
+            />
+            <Route path="/companyform" component={CompanyForm} />
+            <Route path="/dealform" component={DealForm} />
             <Route path="/" component={Dashboard} />
         </Switch>
     );
