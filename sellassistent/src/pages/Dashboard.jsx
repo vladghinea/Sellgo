@@ -7,6 +7,7 @@ import Table from "../components/table/Table";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+    const themeReducer = useSelector((state) => state.themeRedux.mode);
     const user = useSelector((state) => state.authRedux);
     let deals = useSelector((state) => state.dealsRedux).deals;
     let products = useSelector((state) => state.productsRedux).products;
@@ -168,7 +169,7 @@ const Dashboard = () => {
                 curve: "smooth",
             },
             xaxis: {
-                categories: [
+                category: [
                     "Jan",
                     "Feb",
                     "Mar",
@@ -201,6 +202,7 @@ const Dashboard = () => {
         head: ["Client", "No. of Deals", "Total "],
         body: tableDataSealdDeals(),
     };
+
     return (
         console.log(tableDataSealdDeals()),
         (
@@ -223,7 +225,17 @@ const Dashboard = () => {
                     <div className="col-6">
                         <div className="card full-height">
                             <Chart
-                                options={chartOptions}
+                                options={
+                                    themeReducer === "theme-mode-dark"
+                                        ? {
+                                              ...chartOptions.options,
+                                              theme: { mode: "dark" },
+                                          }
+                                        : {
+                                              ...chartOptions.options,
+                                              theme: { mode: "light" },
+                                          }
+                                }
                                 series={chartOptions.series}
                                 type="line"
                                 height="100%"
