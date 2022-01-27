@@ -1,9 +1,12 @@
 .stheme-menu {
     /* position: fixed; */
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    
+
+    padding-right: 90px;
+    margin-right: 10px;
+
     width: auto;
     height: auto;
     /* padding: 20px; */
@@ -14,23 +17,17 @@
 }
 
 .stheme-menu.active {
-    right: 0;
-}
-
-.stheme-menu__close {
-    position: absolute;
-    top: 17px;
-    right: 20px;
-    background-color: transparent;
-    font-size: 1.5rem;
 }
 
 .stheme-menu__select {
     margin-top: 40px;
+
+    display: flex;
 }
 
 .smode-list {
-    margin-top: 20px;
+    margin-top: 0px;
+    margin-left: 20px;
 }
 
 .smode-list > li {
@@ -53,8 +50,7 @@
     justify-content: center;
     margin-right: 10px;
     font-size: 1.5rem;
-    border-color: brown;
-    border-width: 4px;
+    border: 1px solid rgba(131, 124, 124, 0.418);
 }
 
 .smode-list__color > i {

@@ -27,8 +27,8 @@
     background-color: var(--main-bg);
 }
 
-.logout{
-    color: var(--text-color)
+.logout {
+    color: var(--text-color);
 }
 
 .topnav__search > i {
@@ -83,8 +83,16 @@
     font-weight: 600;
 }
 
-.my-center{
-    margin: auto;
-    width: 50%;
+.my-center {
+    /* margin: auto;
+    width: 50%; */
 }
-
+.Modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color: papayawhip;
+    border-radius: 10%;
+}

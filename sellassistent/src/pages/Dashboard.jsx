@@ -52,12 +52,9 @@ const Dashboard = () => {
         clients.forEach((client) => {
             tableBodyData.push({
                 name: client.firstName + " " + client.lastName,
-                dealsNo: deals
-                    .filter(
-                        (deal) =>
-                            deal.status === 6 && client.id === deal.clientId
-                    )
-                    .length,
+                dealsNo: deals.filter(
+                    (deal) => deal.status === 6 && client.id === deal.clientId
+                ).length,
                 total: products
                     .filter(
                         (product) =>
@@ -65,7 +62,8 @@ const Dashboard = () => {
                             deals
                                 .filter(
                                     (deal) =>
-                                        deal.status === 6 && client.id === deal.clientId
+                                        deal.status === 6 &&
+                                        client.id === deal.clientId
                                 )
                                 .map((deal) => deal.id)
                     )
@@ -175,7 +173,7 @@ const Dashboard = () => {
             grid: {
                 show: false,
             },
-        }
+        },
     };
     const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
 
