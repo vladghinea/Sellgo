@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const Dashboard = () => {
     const user = useSelector((state) => state.authRedux);
-
     let deals = useSelector((state) => state.dealsRedux).deals;
     let products = useSelector((state) => state.productsRedux).products;
     let clients = useSelector((state) => state.clientsRedux).clients;
@@ -73,7 +72,7 @@ const Dashboard = () => {
         });
 
         tableBodyData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
-        return tableBodyData.filter((x) => x.dealsNo != 0);
+        return tableBodyData.filter((x) => x.dealsNo !== 0);
     };
 
     function containsObject(obj, list) {
@@ -91,32 +90,6 @@ const Dashboard = () => {
         let temp = [];
         let sum = 0;
         let valueList = [];
-        deals
-            .filter((deal) => deal.status === 6 && deal.UserId === user.id)
-            .forEach((element) => {
-                temp.push(element.id);
-            });
-
-        products.forEach((product) => {
-            if (temp.includes(product.dealId)) {
-                sum += product.actualPrice;
-                valueList.push(product.actualPrice);
-            }
-        });
-
-        return [sum, valueList];
-    };
-    const sumOfSealdDealsbyClient = () => {
-        let temp = [];
-        let sum = 0;
-        let valueList = [];
-
-        deals
-            .filter((deal) => deal.status === 6 && deal.UserId === user.id)
-            .forEach((element) => {
-                temp.push(element.id);
-            });
-
         deals
             .filter((deal) => deal.status === 6 && deal.UserId === user.id)
             .forEach((element) => {
@@ -229,57 +202,60 @@ const Dashboard = () => {
         body: tableDataSealdDeals(),
     };
     return (
-        <div>
-            <h2 className="page-header">Dashboard</h2>
-            <div className="row">
-                <div className="col-6">
-                    <div className="row">
-                        {statusCard.map((item, index) => (
-                            <div className="col-6" key={index}>
-                                <StatusCard
-                                    icon={item.icon}
-                                    count={item.count}
-                                    title={item.title}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="card full-height">
-                        <Chart
-                            options={chartOptions}
-                            series={chartOptions.series}
-                            type="line"
-                            height="100%"
-                        />
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="card">
-                        <div className="card__header">
-                            <h3>top customers</h3>
+        console.log(tableDataSealdDeals()),
+        (
+            <div>
+                <h2 className="page-header">Dashboard</h2>
+                <div className="row">
+                    <div className="col-6">
+                        <div className="row">
+                            {statusCard.map((item, index) => (
+                                <div className="col-6" key={index}>
+                                    <StatusCard
+                                        icon={item.icon}
+                                        count={item.count}
+                                        title={item.title}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                        <div className="card__body">
-                            <Table
-                                headData={topCustomers.head}
-                                renderHead={(item, index) =>
-                                    renderCusomerHead(item, index)
-                                }
-                                bodyData={topCustomers.body}
-                                renderBody={(item, index) =>
-                                    renderCusomerBody(item, index)
-                                }
-                                limit={3}
+                    </div>
+                    <div className="col-6">
+                        <div className="card full-height">
+                            <Chart
+                                options={chartOptions}
+                                series={chartOptions.series}
+                                type="line"
+                                height="100%"
                             />
                         </div>
-                        <div className="card__footer">
-                            <Link to="/">view all</Link>
+                    </div>
+                    <div className="col-6">
+                        <div className="card">
+                            <div className="card__header">
+                                <h3>top customers</h3>
+                            </div>
+                            <div className="card__body">
+                                <Table
+                                    headData={topCustomers.head}
+                                    renderHead={(item, index) =>
+                                        renderCusomerHead(item, index)
+                                    }
+                                    bodyData={topCustomers.body}
+                                    renderBody={(item, index) =>
+                                        renderCusomerBody(item, index)
+                                    }
+                                    limit={3}
+                                />
+                            </div>
+                            <div className="card__footer">
+                                <Link to="/clients">view all</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        )
     );
 };
 

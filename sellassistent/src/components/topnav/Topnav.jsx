@@ -15,7 +15,6 @@ import ThemeMenu from "../thememenu/ThemeMenu";
 import "./topnav.css";
 import ColorSettings from "../colorSettings/ColorSettings";
 
-
 const renderNotificationItem = (item, index) => (
     <div className="notification-item" key={index}>
         <i className={item.icon}></i>
@@ -43,10 +42,8 @@ const renderUserToggle = (user) => (
 
 const Topnav = (props) => {
     const [show, setShow] = useState(false);
-
     const renderUserMenu = (item, index) => (
-        <Link
-            to=""
+        <a
             key={index}
             onClick={item.content === "Settings" ? () => setShow(true) : {}}
         >
@@ -54,7 +51,7 @@ const Topnav = (props) => {
                 <i className={item.icon}></i>
                 <span>{item.content}</span>
             </div>
-        </Link>
+        </a>
     );
 
     const history = useHistory();
@@ -79,9 +76,8 @@ const Topnav = (props) => {
                     show={show}
                 >
                     <div className="my-center">
-                    <ColorSettings />
+                        <ColorSettings />
                     </div>
-                
                 </Modaltest>
             </div>
 
