@@ -19,7 +19,12 @@ const Dashboard = () => {
         let valueList = [];
         if (deals !== undefined) {
             deals
-                .filter((deal) => deal.status !== 6 && deal.UserId === user.id)
+                .filter(
+                    (deal) =>
+                        deal.status !== 6 &&
+                        deal.status !== 7 &&
+                        deal.UserId === user.id
+                )
                 .forEach((element) => {
                     temp.push(element.id);
                 });
@@ -47,12 +52,12 @@ const Dashboard = () => {
         clients.forEach((client) => {
             tableBodyData.push({
                 name: client.firstName + " " + client.lastName,
-                "nr Of seald deals": deals
+                dealsNo: deals
                     .filter(
                         (deal) =>
-                            deal.status !== 6 && deal.clientId === client.id
+                            deal.status === 6 && client.id === deal.clientId
                     )
-                    .map((deal) => deal.id),
+                    .length,
                 total: products
                     .filter(
                         (product) =>
@@ -60,8 +65,7 @@ const Dashboard = () => {
                             deals
                                 .filter(
                                     (deal) =>
-                                        deal.status !== 6 &&
-                                        deal.clientId === client.id
+                                        deal.status === 6 && client.id === deal.clientId
                                 )
                                 .map((deal) => deal.id)
                     )
@@ -101,7 +105,11 @@ const Dashboard = () => {
             icon: "bx bx-cart",
             count: `${
                 deals &&
-                Object.keys(deals.filter((deal) => deal.status !== 6)).length
+                Object.keys(
+                    deals.filter(
+                        (deal) => deal.status !== 6 && deal.status !== 7
+                    )
+                ).length
             }`,
             title: "No. of Deals in Progress",
         },
@@ -167,47 +175,20 @@ const Dashboard = () => {
             grid: {
                 show: false,
             },
-        },
+        }
     };
     const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
 
     const renderCusomerBody = (item, index) => (
         <tr key={index}>
-            <td>{item.username}</td>
-            <td>{item.order}</td>
-            <td>{item.price}</td>
+            <td>{item.name}</td>
+            <td>{item.dealsNo}</td>
+            <td>{item.total}</td>
         </tr>
     );
     const topCustomers = {
-        head: ["Client", "nr Of seald deals ", "total "],
+        head: ["Client", "No. of Deals", "Total "],
         body: tableDataSealdDeals(),
-        // body: [
-        //     {
-        //         username: "john doe",
-        //         order: "490",
-        //         price: "$15,870",
-        //     },
-        //     {
-        //         username: "frank iva",
-        //         order: "250",
-        //         price: "$12,251",
-        //     },
-        //     {
-        //         username: "anthony baker",
-        //         order: "120",
-        //         price: "$10,840",
-        //     },
-        //     {
-        //         username: "frank iva",
-        //         order: "110",
-        //         price: "$9,251",
-        //     },
-        //     {
-        //         username: "anthony baker",
-        //         order: "80",
-        //         price: "$8,840",
-        //     },
-        // ],
     };
     return (
         <div>
@@ -240,6 +221,7 @@ const Dashboard = () => {
                     <div className="card">
                         <div className="card__header">
                             <h3>top customers</h3>
+                            {console.log(tableDataSealdDeals())}
                         </div>
                         <div className="card__body">
                             <Table
