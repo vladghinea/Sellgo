@@ -55,28 +55,69 @@ const Dashboard = () => {
                 dealsNo: deals.filter(
                     (deal) => deal.status === 6 && client.id === deal.clientId
                 ).length,
-                total: products
-                    .filter(
-                        (product) =>
-                            product.id in
-                            deals
-                                .filter(
-                                    (deal) =>
-                                        deal.status === 6 &&
-                                        client.id === deal.clientId
-                                )
-                                .map((deal) => deal.id)
+                total: products.filter((product) =>
+                    containsObject(
+                        product.dealId,
+
+                        deals
+                            .filter(
+                                (deal) =>
+                                    deal.status === 6 &&
+                                    client.id === deal.clientId
+                            )
+                            .map((deal) => deal.id)
                     )
-                    .map((price) => price.actualPrice)
-                    .reduce((accumulator, current) => accumulator + current, 0),
+                )
+                .map((product) => product.actualPrice)
+                .reduce((accumulator, current) => accumulator + current, 0),
             });
         });
+
         return tableBodyData;
     };
+    console.log(tableDataSealdDeals());
+
+    function containsObject(obj, list) {
+        var i;
+        for (i = 0; i < list.length; i++) {
+            if (list[i] === obj) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     const sumOfSealdDeals = () => {
         let temp = [];
         let sum = 0;
         let valueList = [];
+        deals
+            .filter((deal) => deal.status === 6 && deal.UserId === user.id)
+            .forEach((element) => {
+                temp.push(element.id);
+            });
+
+        products.forEach((product) => {
+            if (temp.includes(product.dealId)) {
+                sum += product.actualPrice;
+                valueList.push(product.actualPrice);
+            }
+        });
+
+        return [sum, valueList];
+    };
+    const sumOfSealdDealsbyClient = () => {
+        let temp = [];
+        let sum = 0;
+        let valueList = [];
+
+        deals
+            .filter((deal) => deal.status === 6 && deal.UserId === user.id)
+            .forEach((element) => {
+                temp.push(element.id);
+            });
+
         deals
             .filter((deal) => deal.status === 6 && deal.UserId === user.id)
             .forEach((element) => {
@@ -219,7 +260,6 @@ const Dashboard = () => {
                     <div className="card">
                         <div className="card__header">
                             <h3>top customers</h3>
-                            {console.log(tableDataSealdDeals())}
                         </div>
                         <div className="card__body">
                             <Table

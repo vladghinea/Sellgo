@@ -46,6 +46,7 @@ const Topnav = (props) => {
 
     const renderUserMenu = (item, index) => (
         <Link
+            to=""
             key={index}
             onClick={item.content === "Settings" ? () => setShow(true) : {}}
         >

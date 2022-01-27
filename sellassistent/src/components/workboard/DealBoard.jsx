@@ -25,18 +25,18 @@ const DealBoard = () => {
     if (deals !== undefined) {
         myData = [].concat(deals).sort((a, b) => b.priority - a.priority); //sortare dupa prioritate
     }
-    console.log("data");
-    console.log(myData);
-    console.log("interceptions");
-    console.log(interceptions);
-    console.log("companies");
-    console.log(companies);
-    console.log("products");
-    console.log(products);
-    console.log("deals");
-    console.log(deals);
-    console.log("Clients");
-    console.log(clients);
+    // console.log("data");
+    // console.log(myData);
+    // console.log("interceptions");
+    // console.log(interceptions);
+    // console.log("companies");
+    // console.log(companies);
+    // console.log("products");
+    // console.log(products);
+    // console.log("deals");
+    // console.log(deals);
+    // console.log("Clients");
+    // console.log(clients);
 
     if (myData !== undefined) {
         return myData.map((deal) => (
