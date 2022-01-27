@@ -53,32 +53,28 @@ const Dashboard = () => {
                 dealsNo: deals.filter(
                     (deal) => deal.status === 6 && client.id === deal.clientId
                 ).length,
-                total: products.filter((product) =>
-                    containsObject(
-                        product.dealId,
+                total: products
+                    .filter((product) =>
+                        containsObject(
+                            product.dealId,
 
-                        deals
-                            .filter(
-                                (deal) =>
-                                    deal.status === 6 &&
-                                    client.id === deal.clientId
-                            )
-                            .map((deal) => deal.id)
+                            deals
+                                .filter(
+                                    (deal) =>
+                                        deal.status === 6 &&
+                                        client.id === deal.clientId
+                                )
+                                .map((deal) => deal.id)
+                        )
                     )
-                )
-                .map((product) => product.actualPrice)
-                .reduce((accumulator, current) => accumulator + current, 0),
+                    .map((product) => product.actualPrice)
+                    .reduce((accumulator, current) => accumulator + current, 0),
             });
         });
 
         tableBodyData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
-        const _tableBodyData = tableBodyData.slice(0, 3);
-        return _tableBodyData;
+        return tableBodyData.filter((x) => x.dealsNo != 0);
     };
-
-   
-    
-
 
     function containsObject(obj, list) {
         var i;
@@ -274,6 +270,7 @@ const Dashboard = () => {
                                 renderBody={(item, index) =>
                                     renderCusomerBody(item, index)
                                 }
+                                limit={3}
                             />
                         </div>
                         <div className="card__footer">
