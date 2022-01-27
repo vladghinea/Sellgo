@@ -118,7 +118,7 @@ const Clients = () => {
     );
 
     return (
-        <div>
+        <div className="container">
             <h2 className="page-header">All Clients</h2>
 
             <div className="row">
