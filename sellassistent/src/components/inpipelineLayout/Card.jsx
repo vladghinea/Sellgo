@@ -32,49 +32,69 @@ const Card = ({ deals, boardId, changePriority }) => {
 
     const prioritys = ["Low Priority", "Medium Priority", "High Priority"];
 
+    const nrOfDealsAndSumOfDeals = (deal) => {
+        let body = [];
+        body.sum = 0;
+        body.count = 0;
+        body.names = "";
+        products.forEach((element) => {
+            if (element.dealId === deal.id) {
+                body.sum += element.actualPrice;
+                body.count += 1;
+                body.names += element.name + " ";
+            }
+        });
+
+        return body;
+    };
+
     return (
         <>
             {deals !== undefined
                 ? deals.map((deal) =>
-                      deal.status == boardId ? (
-                          <Tippy
-                              key={`tippy-${deal.id}`}
-                              content={
-                                  <span
-                                      className={`colorpriority${deal.priority}`}
-                                  >
-                                      {prioritys.at(deal.priority)}
-                                  </span>
-                              }
-                          >
-                              <div
-                                  key={`status-${deal.id}`}
-                                  id={deal.id}
-                                  className={`card priority${deal.priority}`}
-                                  draggable="true"
-                                  onDragStart={dragStart}
-                                  onDragOver={dragOver}
-                                  // onDoubleClick={() =>updatePriority(deal.id)}
-                                  onDoubleClick={() => changePriority(deal.id)}
-                                  style={{ cursor: "pointer" }}
-                              >
-                                  {clients.map((client) => {
-                                      return client.id === deal.clientId
-                                          ? client.firstName
-                                          : null;
-                                  })}
-                                  {" - "}
-                                  {products.map((product) => {
-                                      return product.dealId === deal.id
-                                          ? `${product.name} $${product.actualPrice}`
-                                          : null;
-                                  })}{" "}
-                                  {incons.at(boardId)}
-                              </div>
-                          </Tippy>
-                      ) : (
-                          ""
-                      )
+                      deal.status == boardId
+                          ? (console.log(nrOfDealsAndSumOfDeals(deal)),
+                            (
+                                <Tippy
+                                    key={`tippy-${deal.id}`}
+                                    content={
+                                        <span
+                                            className={`colorpriority${deal.priority}`}
+                                        >
+                                            {prioritys.at(deal.priority)}
+                                        </span>
+                                    }
+                                >
+                                    <div
+                                        key={`status-${deal.id}`}
+                                        id={deal.id}
+                                        className={`card priority${deal.priority}`}
+                                        draggable="true"
+                                        onDragStart={dragStart}
+                                        onDragOver={dragOver}
+                                        // onDoubleClick={() =>updatePriority(deal.id)}
+                                        onDoubleClick={() =>
+                                            changePriority(deal.id)
+                                        }
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        {clients.map((client) => {
+                                            return client.id === deal.clientId
+                                                ? client.firstName
+                                                : null;
+                                        })}
+                                        {" - "}
+                                        {nrOfDealsAndSumOfDeals(deal).count}
+                                        {nrOfDealsAndSumOfDeals(deal).count >= 2
+                                            ? "products ="
+                                            : "product ="}
+                                        {nrOfDealsAndSumOfDeals(deal).sum}
+                                        {"$ "}
+                                        {incons.at(boardId)}
+                                    </div>
+                                </Tippy>
+                            ))
+                          : ""
                   )
                 : ""}
         </>
