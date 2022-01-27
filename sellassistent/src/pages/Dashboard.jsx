@@ -41,8 +41,6 @@ const Dashboard = () => {
         } else {
             products = [];
         }
-
-        // console.log(temp, sum, valueList)
         return [sum, valueList];
     };
 
@@ -73,9 +71,14 @@ const Dashboard = () => {
             });
         });
 
+        tableBodyData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
+
         return tableBodyData;
     };
-    console.log(tableDataSealdDeals());
+
+   
+    
+
 
     function containsObject(obj, list) {
         var i;
