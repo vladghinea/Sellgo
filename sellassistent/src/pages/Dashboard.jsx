@@ -72,8 +72,8 @@ const Dashboard = () => {
         });
 
         tableBodyData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
-
-        return tableBodyData;
+        const _tableBodyData = tableBodyData.slice(0, 3);
+        return _tableBodyData;
     };
 
    
