@@ -48,32 +48,69 @@ const Dashboard = () => {
         let tableBodyData = [];
 
         clients.forEach((client) => {
-            tableBodyData.push({
-                name: client.firstName + " " + client.lastName,
-                dealsNo: deals.filter(
-                    (deal) => deal.status === 6 && client.id === deal.clientId
-                ).length,
-                total: products
-                    .filter((product) =>
-                        containsObject(
-                            product.dealId,
+            client.UserId === user.id &&
+                tableBodyData.push({
+                    name: client.firstName + " " + client.lastName,
+                    dealsNo: deals.filter(
+                        (deal) =>
+                            deal.status === 6 && client.id === deal.clientId
+                    ).length,
+                    total: products
+                        .filter((product) =>
+                            containsObject(
+                                product.dealId,
 
-                            deals
-                                .filter(
-                                    (deal) =>
-                                        deal.status === 6 &&
-                                        client.id === deal.clientId
-                                )
-                                .map((deal) => deal.id)
+                                deals
+                                    .filter(
+                                        (deal) =>
+                                            deal.status === 6 &&
+                                            client.id === deal.clientId
+                                    )
+                                    .map((deal) => deal.id)
+                            )
                         )
-                    )
-                    .map((product) => product.actualPrice)
-                    .reduce((accumulator, current) => accumulator + current, 0),
-            });
+                        .map((product) => product.actualPrice)
+                        .reduce(
+                            (accumulator, current) => accumulator + current,
+                            0
+                        ),
+                });
         });
 
         tableBodyData.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
-        return tableBodyData.filter((x) => x.dealsNo !== 0);
+        return tableBodyData.filter((x) => x.total !== 0);
+    };
+    const tableDatatopDeals = () => {
+        let tableBodyData = [];
+        deals &&
+            clients &&
+            products &&
+            deals.forEach((deal) => {
+                tableBodyData.push({
+                    name:
+                        clients.filter(
+                            (client) => client.id === deal.clientId
+                        )[0].firstName +
+                        " " +
+                        clients.filter(
+                            (client) => client.id === deal.clientId
+                        )[0].lastName,
+
+                    dealValue: products
+                        .filter((product) => deal.id === product.dealId)
+                        .map((product) => product.actualPrice)
+                        .reduce(
+                            (accumulator, current) => accumulator + current,
+                            0
+                        ),
+
+                    status: deal.status,
+                });
+            });
+        tableBodyData.sort(
+            (a, b) => parseFloat(b.dealValue) - parseFloat(a.dealValue)
+        );
+        return tableBodyData.filter((x) => x.dealValue !== 0);
     };
 
     function containsObject(obj, list) {
@@ -191,83 +228,120 @@ const Dashboard = () => {
     };
     const renderCusomerHead = (item, index) => <th key={index}>{item}</th>;
 
-    const renderCusomerBody = (item, index) => (
+    const renderCusomerBodyForTopCustomersTable = (item, index) => (
         <tr key={index}>
             <td>{item.name}</td>
             <td>{item.dealsNo}</td>
             <td>{item.total}</td>
         </tr>
     );
+    const renderCusomerBodyForTopDealsTable = (item, index) => (
+        <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.dealValue}</td>
+            <td>{item.status}</td>
+        </tr>
+    );
     const topCustomers = {
         head: ["Client", "No. of Deals", "Total "],
         body: tableDataSealdDeals(),
     };
+    const topDeals = {
+        head: ["Client", "Value", "status"],
+        body: tableDatatopDeals(),
+    };
 
     return (
-        console.log(tableDataSealdDeals()),
-        (
-            <div>
-                <h2 className="page-header">Dashboard</h2>
-                <div className="row">
-                    <div className="col-6">
-                        <div className="row">
-                            {statusCard.map((item, index) => (
-                                <div className="col-6" key={index}>
-                                    <StatusCard
-                                        icon={item.icon}
-                                        count={item.count}
-                                        title={item.title}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="col-6">
-                        <div className="card full-height">
-                            <Chart
-                                options={
-                                    themeReducer === "theme-mode-dark"
-                                        ? {
-                                              ...chartOptions.options,
-                                              theme: { mode: "dark" },
-                                          }
-                                        : {
-                                              ...chartOptions.options,
-                                              theme: { mode: "light" },
-                                          }
-                                }
-                                series={chartOptions.series}
-                                type="line"
-                                height="100%"
-                            />
-                        </div>
-                    </div>
-                    <div className="col-6">
-                        <div className="card">
-                            <div className="card__header">
-                                <h3>top customers</h3>
-                            </div>
-                            <div className="card__body">
-                                <Table
-                                    headData={topCustomers.head}
-                                    renderHead={(item, index) =>
-                                        renderCusomerHead(item, index)
-                                    }
-                                    bodyData={topCustomers.body}
-                                    renderBody={(item, index) =>
-                                        renderCusomerBody(item, index)
-                                    }
-                                    limit={3}
+        <div>
+            <h2 className="page-header">Dashboard</h2>
+            <div className="row">
+                <div className="col-6">
+                    <div className="row">
+                        {statusCard.map((item, index) => (
+                            <div className="col-6" key={index}>
+                                <StatusCard
+                                    icon={item.icon}
+                                    count={item.count}
+                                    title={item.title}
                                 />
                             </div>
-                            <div className="card__footer">
-                                <Link to="/clients">view all</Link>
-                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="col-6">
+                    <div className="card full-height">
+                        <Chart
+                            options={
+                                themeReducer === "theme-mode-dark"
+                                    ? {
+                                          ...chartOptions.options,
+                                          theme: { mode: "dark" },
+                                      }
+                                    : {
+                                          ...chartOptions.options,
+                                          theme: { mode: "light" },
+                                      }
+                            }
+                            series={chartOptions.series}
+                            type="line"
+                            height="100%"
+                        />
+                    </div>
+                </div>
+                <div className="col-6">
+                    <div className="card">
+                        <div className="card__header">
+                            <h3>top customers</h3>
+                        </div>
+                        <div className="card__body">
+                            <Table
+                                headData={topCustomers.head}
+                                renderHead={(item, index) =>
+                                    renderCusomerHead(item, index)
+                                }
+                                bodyData={topCustomers.body}
+                                renderBody={(item, index) =>
+                                    renderCusomerBodyForTopCustomersTable(
+                                        item,
+                                        index
+                                    )
+                                }
+                                limit={3}
+                            />
+                        </div>
+                        <div className="card__footer">
+                            <Link to="/clients">view all</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-6">
+                    <div className="card">
+                        <div className="card__header">
+                            <h3>top deals</h3>
+                        </div>
+                        <div className="card__body">
+                            <Table
+                                headData={topDeals.head}
+                                renderHead={(item, index) =>
+                                    renderCusomerHead(item, index)
+                                }
+                                bodyData={topDeals.body}
+                                renderBody={(item, index) =>
+                                    renderCusomerBodyForTopDealsTable(
+                                        item,
+                                        index
+                                    )
+                                }
+                                limit={3}
+                            />
+                        </div>
+                        <div className="card__footer">
+                            <Link to="/clients">view all</Link>
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        </div>
     );
 };
 
