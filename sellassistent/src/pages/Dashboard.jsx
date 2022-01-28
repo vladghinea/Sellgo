@@ -13,6 +13,7 @@ const Dashboard = () => {
     let products = useSelector((state) => state.productsRedux).products;
     let clients = useSelector((state) => state.clientsRedux).clients;
 
+    const prioritys = ["Low", "Medium", "High"];
     const sumOfDealInProcess = () => {
         let temp = [];
         let sum = 0;
@@ -104,7 +105,7 @@ const Dashboard = () => {
                             0
                         ),
 
-                    status: deal.status,
+                    priority: prioritys.at(deal.priority),
                 });
             });
         tableBodyData.sort(
@@ -122,7 +123,7 @@ const Dashboard = () => {
         }
 
         return false;
-    }
+    };
 
     const sumOfSealdDeals = () => {
         let temp = [];
@@ -146,12 +147,12 @@ const Dashboard = () => {
 
     const statusCard = [
         {
-            icon: "bx bxs-face",
+            icon: "bx bx-dollar-circle",
             count: `$${deals && products && sumOfDealInProcess()[0]}`,
             title: "Deals in Process total value",
         },
         {
-            icon: "bx bx-cart",
+            icon: "bx bxs-face-mask",
             count: `${
                 deals &&
                 Object.keys(
@@ -168,7 +169,7 @@ const Dashboard = () => {
             title: `Seald Deals total value`,
         },
         {
-            icon: "bx bx-receipt",
+            icon: 'bx bxs-face-mask',
             count: `${
                 deals &&
                 Object.keys(deals.filter((deal) => deal.status === 6)).length
@@ -176,7 +177,7 @@ const Dashboard = () => {
             title: "No. of Seald Deals",
         },
     ];
-
+ 
     const chartOptions = {
         series: [
             {
@@ -239,7 +240,7 @@ const Dashboard = () => {
         <tr key={index}>
             <td>{item.name}</td>
             <td>{item.dealValue}</td>
-            <td>{item.status}</td>
+            <td>{item.priority}</td>
         </tr>
     );
     const topCustomers = {
@@ -247,7 +248,7 @@ const Dashboard = () => {
         body: tableDataSealdDeals(),
     };
     const topDeals = {
-        head: ["Client", "Value", "status"],
+        head: ["Client", "Value", "priority"],
         body: tableDatatopDeals(),
     };
 
