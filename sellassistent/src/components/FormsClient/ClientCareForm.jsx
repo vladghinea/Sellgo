@@ -38,6 +38,7 @@ const ClientCareForm = () => {
                         </label>
                         <select id="clientGender" className="form-select">
                             <option selected>Choose...</option>
+                            <option> self</option>
                             <option> Daughter</option>
                             <option> Son</option>
                             <option>LivePartner</option>
