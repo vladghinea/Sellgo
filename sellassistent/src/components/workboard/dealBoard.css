@@ -97,7 +97,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        violet,
         var(--second-color)
     );
     position: absolute;
@@ -123,7 +123,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        orange,
         var(--second-color)
     );
     position: absolute;
@@ -149,7 +149,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        rgb(180, 47, 47),
         var(--second-color)
     );
     position: absolute;
@@ -175,7 +175,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        rgb(0, 255, 34),
         var(--second-color)
     );
     position: absolute;
@@ -201,7 +201,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        rgb(224, 224, 103),
         var(--second-color)
     );
     position: absolute;
@@ -227,7 +227,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        rgb(141, 194, 116),
         var(--second-color)
     );
     position: absolute;
@@ -254,7 +254,7 @@
     border-radius: 50%;
     background-image: linear-gradient(
         to top right,
-        var(--main-color),
+        pink,
         var(--second-color)
     );
     position: absolute;
