@@ -21,9 +21,7 @@ namespace El_Proyecte_Grande.Models
         [ForeignKey("CareId")]
         public Care Care { get; set; }
 
-        //Company (One To Many)
 
-        //Client (One To Many)
 
     }
 }

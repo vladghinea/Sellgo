@@ -129,27 +129,15 @@ namespace El_Proyecte_Grande.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("El_Proyecte_Grande.Models.Client_Deal", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DealId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "DealId");
-
-                    b.HasIndex("DealId");
-
-                    b.ToTable("Client_Deals");
-                });
-
             modelBuilder.Entity("El_Proyecte_Grande.Models.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CUI")
                         .HasMaxLength(50)
@@ -208,6 +196,12 @@ namespace El_Proyecte_Grande.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
@@ -218,6 +212,10 @@ namespace El_Proyecte_Grande.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("UserId");
 
@@ -284,7 +282,7 @@ namespace El_Proyecte_Grande.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("ActualPrice")
+                    b.Property<decimal?>("ActualPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Benefits")
@@ -663,25 +661,6 @@ namespace El_Proyecte_Grande.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("El_Proyecte_Grande.Models.Client_Deal", b =>
-                {
-                    b.HasOne("El_Proyecte_Grande.Models.Deal", "Deal")
-                        .WithMany("Clients")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("El_Proyecte_Grande.Models.Client", "Client")
-                        .WithMany("Deals")
-                        .HasForeignKey("DealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Deal");
-                });
-
             modelBuilder.Entity("El_Proyecte_Grande.Models.DateOfInterest", b =>
                 {
                     b.HasOne("El_Proyecte_Grande.Models.Care", "Care")
@@ -695,9 +674,21 @@ namespace El_Proyecte_Grande.Migrations
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.Deal", b =>
                 {
+                    b.HasOne("El_Proyecte_Grande.Models.Client", "Client")
+                        .WithMany("Deals")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("El_Proyecte_Grande.Models.Company", null)
+                        .WithMany("Deals")
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("El_Proyecte_Grande.Models.User", null)
                         .WithMany("Deals")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.Interception", b =>
@@ -860,6 +851,8 @@ namespace El_Proyecte_Grande.Migrations
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.Company", b =>
                 {
+                    b.Navigation("Deals");
+
                     b.Navigation("Empmloyees");
 
                     b.Navigation("Teams");
@@ -867,8 +860,6 @@ namespace El_Proyecte_Grande.Migrations
 
             modelBuilder.Entity("El_Proyecte_Grande.Models.Deal", b =>
                 {
-                    b.Navigation("Clients");
-
                     b.Navigation("Interceptions");
 
                     b.Navigation("Products");

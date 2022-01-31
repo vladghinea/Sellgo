@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import "./Modaltest.css";
 
 const Modaltest = (props) => {
+    
     const closeOnEscapeKeyDown = (e) => {
         if ((e.charCode || e.keyCode) === 27) {
             props.onClose();

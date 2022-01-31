@@ -15,6 +15,7 @@ import ClientCareForm from "./FormsClient/ClientCareForm";
 import ClientCareDateOfInterest from "./FormsClient/ClientCareDateOfInterest";
 import CompanyForm from "./FormsCompany/CompanyForm";
 import DealForm from "./FormsDeal/DealForm";
+import Home from "./layout/Home";
 
 const Routes = () => {
     return (
@@ -26,6 +27,7 @@ const Routes = () => {
             <Route path="/app" component={App} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/workboard" component={Workboard} />
+            <Route path="/home" component={Home} />
 
             <Route path="/clientform" component={ClientForm} />
             <Route

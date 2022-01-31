@@ -16,7 +16,7 @@ namespace El_Proyecte_Grande.Models
         public string Description { get; set; }
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal ActualPrice { get; set; }
+        public decimal? ActualPrice { get; set; }
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal MinimPrice { get; set; }

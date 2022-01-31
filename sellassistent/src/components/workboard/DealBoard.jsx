@@ -77,6 +77,9 @@ const DealBoard = () => {
                     </div>
                     <div className="col pill pillInterception">
                         {interceptions.map((interception) => {
+                            console.log(
+                                `${interception.dealId} === ${deal.id} prority: ${deal.priority}`
+                            );
                             return interception.dealId === deal.id ? (
                                 <div
                                     className="pillText"

@@ -23,7 +23,18 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<List<Company>> GetCompaniesList()
         {
-            var result = await _db.Data.Companies.Select(client => client).ToListAsync();
+            var result = await _db.Data.Companies.Select(company => new Company
+            {
+                Id = company.Id,
+                Name = company.Name,
+                CUI = company.CUI,
+                Email = company.Email,
+                Address = company.Address,
+                Logo = company.Logo,
+                Empmloyees = company.Empmloyees,
+                Deals = company.Deals,
+                Teams = company.Teams
+            }).ToListAsync();
             return result;
         }
 

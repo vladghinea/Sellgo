@@ -45,7 +45,13 @@ const Topnav = (props) => {
     const renderUserMenu = (item, index) => (
         <a
             key={index}
-            onClick={item.content === "Settings" ? () => setShow(true) : {}}
+            onClick={
+                item.content === "Settings"
+                    ? () => setShow(true)
+                    : item.content === "Logout"
+                    ? () => routeChange()
+                    : {}
+            }
         >
             <div className="notification-item">
                 <i className={item.icon}></i>
@@ -64,6 +70,7 @@ const Topnav = (props) => {
     const mainColor = { backgroundColor: "var(--main-color)" };
 
     const routeChange = () => {
+        props.logout(history);
         window.location.reload();
     };
 

@@ -18,7 +18,7 @@ namespace El_Proyecte_Grande
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(entity => { entity.HasIndex(user => user.Email).IsUnique(); });
-            // modelBuilder.Entity<Client>(entity => { entity.HasIndex(client => client.Email).IsUnique(); });
+
 
             modelBuilder.Entity<Team>().HasMany(team => team.Sellers)
                 .WithOne(user => user.Team)
@@ -29,19 +29,6 @@ namespace El_Proyecte_Grande
                 .WithOne().HasForeignKey<Team>(team => team.ManagerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Client_Deal>().HasKey(clientDeal => new
-            {
-                clientDeal.ClientId,
-                clientDeal.DealId,
-            });
-
-            modelBuilder.Entity<Client_Deal>().HasOne(client => client.Client)
-                .WithMany(clientDeal => clientDeal.Deals).HasForeignKey(clientDeal => clientDeal.DealId);
-
-            modelBuilder.Entity<Client_Deal>().HasOne(client => client.Deal)
-               .WithMany(clientDeal => clientDeal.Clients).HasForeignKey(clientDeal => clientDeal.ClientId);
-
-
 
             base.OnModelCreating(modelBuilder);
         }
@@ -51,7 +38,6 @@ namespace El_Proyecte_Grande
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Deal> Deals { get; set; }
-        public DbSet<Client_Deal> Client_Deals { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Interception> Interceptions { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }

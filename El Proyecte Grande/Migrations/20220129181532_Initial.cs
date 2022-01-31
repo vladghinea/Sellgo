@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace El_Proyecte_Grande.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace El_Proyecte_Grande.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CUI = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Logo = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
@@ -68,10 +69,10 @@ namespace El_Proyecte_Grande.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PhoneNumber = table.Column<string>(type: "varchar(30)", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true)
+                    Gender = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +82,7 @@ namespace El_Proyecte_Grande.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -303,39 +304,27 @@ namespace El_Proyecte_Grande.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Priority = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Deals", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Client_Deals",
-                columns: table => new
-                {
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    DealId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client_Deals", x => new { x.ClientId, x.DealId });
                     table.ForeignKey(
-                        name: "FK_Client_Deals_Clients_DealId",
-                        column: x => x.DealId,
+                        name: "FK_Deals_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_Deals_Deals_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Deals",
+                        name: "FK_Deals_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -399,7 +388,6 @@ namespace El_Proyecte_Grande.Migrations
                     Password = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
                     TeamId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -419,12 +407,6 @@ namespace El_Proyecte_Grande.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Team_TeamId",
                         column: x => x.TeamId,
@@ -471,11 +453,6 @@ namespace El_Proyecte_Grande.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CompanyId",
-                table: "AspNetUsers",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_Email",
                 table: "AspNetUsers",
                 column: "Email",
@@ -500,11 +477,6 @@ namespace El_Proyecte_Grande.Migrations
                 column: "PersonalApproachId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_Deals_DealId",
-                table: "Client_Deals",
-                column: "DealId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Clients_CompanyId",
                 table: "Clients",
                 column: "CompanyId");
@@ -515,9 +487,19 @@ namespace El_Proyecte_Grande.Migrations
                 column: "CareId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deals_UserId1",
+                name: "IX_Deals_ClientId",
                 table: "Deals",
-                column: "UserId1");
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deals_CompanyId",
+                table: "Deals",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deals_UserId",
+                table: "Deals",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interceptions_AddressId",
@@ -604,9 +586,9 @@ namespace El_Proyecte_Grande.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Deals_AspNetUsers_UserId1",
+                name: "FK_Deals_AspNetUsers_UserId",
                 table: "Deals",
-                column: "UserId1",
+                column: "UserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -639,9 +621,6 @@ namespace El_Proyecte_Grande.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Client_Deals");
 
             migrationBuilder.DropTable(
                 name: "DateOfInterest");

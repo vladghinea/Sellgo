@@ -17,18 +17,21 @@ namespace El_Proyecte_Grande.Services
         {
             _db = db;
         }
-        public async Task<List<PersonalApproach>> GetPersonalApproachList(int clientid)
+        public async Task<PersonalApproach> GetPersonalApproachList(int clientid)
         {
-            var result = await _db.Data.PersonalApproaches.Where(approach => approach.ClientId == clientid).ToListAsync();
+            var result = await _db.Data.PersonalApproaches.Where(approach => approach.ClientId == clientid).SingleAsync();
             return result;
         }
-        public async Task<PersonalApproach> GetPersonalApproachById(int clientid, int id)
-        {
-            PersonalApproach result = await _db.Data.PersonalApproaches
-                .Where(approach => approach.ClientId == clientid)
-                .FirstOrDefaultAsync(approach => approach.Id == id);
 
-            return result;
+
+        //Add Personal Approach Service 
+        public async Task<PersonalApproach> AddPersonalApproach([FromBody] PersonalApproach personalApproach)
+        {
+
+            await _db.Data.PersonalApproaches.AddAsync(personalApproach);
+            await _db.Data.SaveChangesAsync();
+            return personalApproach;
+
         }
 
         public async Task<string> DeletePersonalApproach(int id)
@@ -39,14 +42,6 @@ namespace El_Proyecte_Grande.Services
             return $"Deal with {id} got delete";
         }
 
-        //Add Client      
-        public async Task<PersonalApproach> AddPersonalApproach([FromBody] PersonalApproach personalApproach)
-        {
 
-            await _db.Data.PersonalApproaches.AddAsync(personalApproach);
-            await _db.Data.SaveChangesAsync();
-            return personalApproach;
-
-        }
     }
 }

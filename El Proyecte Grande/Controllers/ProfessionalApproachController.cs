@@ -17,10 +17,10 @@ namespace El_Proyecte_Grande.Controllers
         public IAppDbRepository _db;
         private ServiceProfessionalApproach _serviceProfessionalApproach;
 
-        public ProfessionalApproachController(IAppDbRepository db, ServiceProfessionalApproach serviceProfessionalApproach)
+        public ProfessionalApproachController(IAppDbRepository db)
         {
             _db = db;
-            _serviceProfessionalApproach = serviceProfessionalApproach;
+            _serviceProfessionalApproach = new ServiceProfessionalApproach(_db);
         }
 
         [HttpGet]
@@ -30,12 +30,7 @@ namespace El_Proyecte_Grande.Controllers
             return await _serviceProfessionalApproach.GetProfessionalApproachList(clientid);
         }
 
-        [HttpGet]
-        [Route("{clientid}/{id}")]
-        public async Task<ProfessionalApproach> GetProfessionalApproachById([FromRoute] int clientid, int id)
-        {
-            return await _serviceProfessionalApproach.GetProfessionalApproachById(clientid, id);
-        }
+
 
         [HttpPost]
         public async Task<IActionResult> AddProfessionalApproach([FromBody] ProfessionalApproach personalApproach)

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 //import { useSelector, useDispatch } from 'react-redux'
 import { connect } from "react-redux";
 import { fetchUsers } from "../../redux/Users/UserActions";
-import DealForm from "../FormsDeal/DealForm";
+
 import { useSelector } from "react-redux";
 import { fetchDeals } from "../../redux/Deals/DealActions";
 
@@ -24,7 +24,6 @@ function UsersContainer({ userdata, fetchUsers }) {
                     <p key={index}>{user.firstName}</p>
                 ))}
             </div>
-            <DealForm />
         </div>
     );
 }

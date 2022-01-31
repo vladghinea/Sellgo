@@ -28,7 +28,24 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<Client> GetClientById(int id)
         {
-            Client result = await _db.Data.Clients.FirstOrDefaultAsync(x => x.Id == id);
+            Client result = await _db.Data.Clients.Select(client => new Client
+            {
+                Id = client.Id,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                Email = client.Email,
+                PhoneNumber = client.PhoneNumber,
+                CompanyId = client.CompanyId,
+                Company = client.Company,
+                DateOfBirth = client.DateOfBirth,
+                Position = client.Position,
+                Gender = client.Gender,
+                Address = client.Address,
+                ProfessionalApproach = client.ProfessionalApproach,
+                PersonalApproach = client.PersonalApproach,
+                Deals = client.Deals,
+                SocialMedias = client.SocialMedias
+            }).FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
         }

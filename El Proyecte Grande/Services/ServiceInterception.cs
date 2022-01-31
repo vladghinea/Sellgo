@@ -2,6 +2,7 @@
 using El_Proyecte_Grande.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,19 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<List<Interception>> GetInterceptions()
         {
-            var result = await _db.Data.Interceptions.Select(interception => interception).ToListAsync();
+            var result = await _db.Data.Interceptions.Select(inter =>
+            new Interception
+            {
+                Id = inter.Id,
+                Date = inter.Date,
+                Location = inter.Location,
+                Address = inter.Address,
+                OnlineMeet = inter.OnlineMeet,
+                DealId = inter.DealId,
+
+
+            }
+            ).ToListAsync();
             return result;
         }
 
@@ -59,7 +72,7 @@ namespace El_Proyecte_Grande.Services
             var allInterceptions = await _db.Data.Interceptions.Select(interception => interception).ToListAsync();
 
             DateTime now = DateTime.Now;
-            
+
             List<Interception> interceptions = new();
 
             foreach (var deal in deals)
@@ -69,17 +82,17 @@ namespace El_Proyecte_Grande.Services
                 {
                     interceptions.Add(result);
                 }
-                
+
             }
-                return interceptions.Select(inter => new Interception { 
-                    Id = inter.Id,
-                    Date = inter.Date,
-                    Location =inter.Location,
-                    Address =inter.Address,
-                    OnlineMeet = inter.OnlineMeet,
-                    DealId = inter.DealId,
-                    Deal = null
-                    }).ToList();
+            return interceptions.Select(inter => new Interception
+            {
+                Id = inter.Id,
+                Date = inter.Date,
+                Location = inter.Location,
+                Address = inter.Address,
+                OnlineMeet = inter.OnlineMeet,
+                DealId = inter.DealId,
+            }).ToList();
         }
 
     }

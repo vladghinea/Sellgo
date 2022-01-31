@@ -20,11 +20,13 @@ namespace El_Proyecte_Grande.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [MaxLength(100)]
         public string Email { get; set; }
+        public string Address { get; set; }
         public byte[] Logo { get; set; }
 
         //Relationship
         //Client (OneToMany)
         public virtual List<Client> Empmloyees { get; set; }
+        public virtual List<Deal> Deals { get; set; }
 
 
         //Team (OneToMany)

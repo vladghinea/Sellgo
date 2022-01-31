@@ -24,9 +24,11 @@ namespace El_Proyecte_Grande.Models
         public string Geolocation { get; set; }
 
         //Relationship
-        //Client (OneToOne)
+        //Client (OneToOne)        
         public int ClientId { get; set; }
         [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }
+
+
     }
 }

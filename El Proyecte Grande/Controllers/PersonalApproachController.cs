@@ -18,25 +18,20 @@ namespace El_Proyecte_Grande.Controllers
         public IAppDbRepository _db;
         private ServicePersonalApproach _servicePersonalApproach;
 
-        public PersonalApproachController(IAppDbRepository db, ServicePersonalApproach servicePersonalApproach)
+        public PersonalApproachController(IAppDbRepository db)
         {
             _db = db;
-            _servicePersonalApproach = servicePersonalApproach;
+            _servicePersonalApproach = new ServicePersonalApproach(_db);
         }
 
         [HttpGet]
         [Route("{clientid:int}")]
-        public async Task<List<PersonalApproach>> GetPersonalApproach([FromRoute] int clientid)
+        public async Task<PersonalApproach> GetPersonalApproach([FromRoute] int clientid)
         {
             return await _servicePersonalApproach.GetPersonalApproachList(clientid);
         }
 
-        [HttpGet]
-        [Route("{clientid}/{id}")]
-        public async Task<PersonalApproach> GetPersonalApproachById([FromRoute] int clientid, int id)
-        {
-            return await _servicePersonalApproach.GetPersonalApproachById(clientid, id);
-        }
+
 
         [HttpPost]
         public async Task<IActionResult> AddPersonalApproach([FromBody] PersonalApproach personalApproach)
@@ -48,10 +43,11 @@ namespace El_Proyecte_Grande.Controllers
 
             return Ok(await _servicePersonalApproach.AddPersonalApproach(personalApproach));
 
-
         }
 
+
         [HttpDelete]
+        [Route("{clientid:int}/{id}")]
         public async Task<IActionResult> DeletePersonalApproach([FromQuery] int clientid, int id)
         {
 

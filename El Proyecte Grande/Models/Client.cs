@@ -32,6 +32,7 @@ namespace El_Proyecte_Grande.Models
         public string PhoneNumber { get; set; }
         [Required]
         public int CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
         public Company Company { get; set; }
         public DateTime DateOfBirth { get; set; }
 
@@ -45,7 +46,9 @@ namespace El_Proyecte_Grande.Models
         //Relationship
 
         //Deal (OneToManyToManyToOne)
-        public virtual List<Client_Deal> Deals { get; set; }
+
+        public virtual List<Deal> Deals { get; set; }
+
 
         //SocialMedia (OneToMany)
         public virtual List<SocialMedia> SocialMedias { get; set; }

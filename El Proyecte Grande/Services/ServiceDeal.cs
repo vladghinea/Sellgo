@@ -21,7 +21,18 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<List<Deal>> GetDealsList()
         {
-            var result = await _db.Data.Deals.Select(client => client).ToListAsync();
+            var result = await _db.Data.Deals.Select(deal => new Deal
+            {
+                Id = deal.Id,
+                UserId = deal.UserId,
+                Priority = deal.Priority,
+                Status = deal.Status,
+                ClientId = deal.ClientId,
+                Client = deal.Client,
+                Interceptions = deal.Interceptions,
+                Products = deal.Products,
+                Company = deal.Client.Company.Name
+            }).ToListAsync();
             return result;
         }
 

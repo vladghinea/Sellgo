@@ -1,16 +1,13 @@
-import React from 'react'
-import UserContainer from '../components/Data/UserContainer'
-import ClientForm from '../components/FormsClient/ClientForm'
-
+import React from "react";
+import UserContainer from "../components/Data/UserContainer";
+import ClientForm from "../components/FormsClient/ClientForm";
 
 const Users = () => {
     return (
         <div>
-            <UserContainer /> 
-            <ClientForm />         
-
+            <UserContainer />
         </div>
-    )
-}
+    );
+};
 
-export default Users
+export default Users;

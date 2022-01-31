@@ -22,14 +22,6 @@ namespace El_Proyecte_Grande.Services
             var result = await _db.Data.ProfessionalApproaches.Where(approach => approach.ClientId == clientid).ToListAsync();
             return result;
         }
-        public async Task<ProfessionalApproach> GetProfessionalApproachById(int clientid, int id)
-        {
-            ProfessionalApproach result = await _db.Data.ProfessionalApproaches
-                .Where(approach => approach.ClientId == clientid)
-                .FirstOrDefaultAsync(approach => approach.Id == id);
-
-            return result;
-        }
 
         public async Task<string> DeleteProfessionalApproach(int id)
         {

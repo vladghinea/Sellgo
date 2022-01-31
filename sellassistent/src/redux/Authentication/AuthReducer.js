@@ -1,8 +1,14 @@
 import axios from "axios";
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTER_SUCCESS } from "./AuthTypes";
+import {
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    LOGOUT_SUCCESS,
+    REGISTER_SUCCESS,
+} from "./AuthTypes";
 
 const authState = {
     isLoggedIn: false,
+    err: "",
     user: {
         id: "",
         name: "",
@@ -18,7 +24,7 @@ const getAuthState = () => {
     try {
         const authobj = JSON.parse(auth);
         const { expires_at, jwttoken } = authobj.user;
-       
+
         if (new Date(authobj.user.expire_at) > new Date()) {
             axios.defaults.headers.common[
                 "Authorization"
@@ -59,6 +65,22 @@ const authreducer = (state = newAuth, action) => {
             ] = `Bearer ${action.payload.jwttoken}`;
             localStorage.setItem("auth", JSON.stringify(loginAuthState));
             return loginAuthState;
+        case LOGIN_FAILED:
+            const errAuthState = {
+                isLoggedIn: false,
+                user: {
+                    id: "",
+                    name: "",
+                    expires_at: "",
+                    jwttoken: "",
+                    team: "",
+                    teamManager: "",
+                    role: "",
+                },
+                msg: action.payload,
+            };
+
+            return errAuthState;
 
         default:
             return state;
