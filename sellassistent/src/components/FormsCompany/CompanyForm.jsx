@@ -1,129 +1,122 @@
-import React from "react";
+import { ENDPOINTS } from "../../api/Index";
+import React, { useState, useEffect } from "react";
 
 const CompanyForm = () => {
-    return (  <div className="container">
-        <h3>add Company</h3>
-        <div className="container card">
-            <form className="row g-3">
-                <div className="col-md-6">
-                    <label htmlFor="companyName" className="form-label">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="companyName"
-                        placeholder="AiG S.A."
-                    />
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="companyCUI" className="form-label">
-                        CUI
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="companyCUI"
-                        placeholder="742105"
-                    />
-                </div>
-                <div className="col-6">
-                    <label htmlFor="clientCompany" className="form-label">
-                        Employees
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="clientCompany"
-                        placeholder="employ list"
-                    />
-                </div>
-                <div className="col-6">
-                    <label htmlFor="companyDomain" className="form-label">
-                        Domain
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="companyDomain"
-                        placeholder="insurance"
-                    />
-                </div>
-                <div className="col-6">
-                    <label htmlFor="companyEmail" className="form-label">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="companyEmail"
-                        placeholder="contact@exemple.com"
-                    />
-                </div>
-                <div className="col-6">
-                    <label htmlFor="companyPhone" className="form-label">
-                        Phone
-                    </label>
-                    <input
-                        type="tel"
-                        className="form-control"
-                        id="companyPhone"
-                        placeholder="+40 0700 261 291"
-                    />
-                </div>
-                <div className="col-3">
-                    <label htmlFor="clientCity" className="form-label">
-                        City
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="clientCity"
-                        placeholder="Bucharest"
-                    />
-                </div>
-                <div className="col-9">
-                    <label htmlFor="clientAddressStreet" className="form-label">
-                        Street
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="clientAddressStreet"
-                        placeholder="134 Magheru St"
-                    />
-                </div>
-                <div className="col-9">
-                    <label htmlFor="clientAddressNote" className="form-label">
-                        Address Note
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="clientAddressNote"
-                        placeholder="Apartment, studio, or floor"
-                    />
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="clientGeolocation" className="form-label">
-                        Geolocation
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="clientGeolocation"
-                        placeholder="44.445463,26.097701"
-                    />
-                </div>
+    const [name, setName] = useState("Unknown"); //done
+    const [cui, setCui] = useState("12341234"); // done
+    const [email, setEmail] = useState("contact@exemple.com"); //done
+    const [address, setAddress] = useState(
+        "Bucharest str Maica Domnului nr 11"
+    ); //done
+    const [company, setCompany] = useState({ name, cui, email, address }); // done
 
-                <br />
-                <div className="col-12">
-                    <button type="submit" className="btn btn-primary">
-                        Save all info
-                    </button>
-                </div>
-            </form>
-        </div>
+    useEffect(() => {
+        setCompany({ name, cui, email, address });
+    }, [name, cui, email, address]);
+
+    const addCompany = async (company) => {
+        console.log(company);
+        await fetch(`${ENDPOINTS.BASE_URL}${ENDPOINTS.COMPANY}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(company),
+        });
+        window.location.replace("/");
+    };
+
+    return (
+        <div className="container">
+            <h3>Add Company</h3>
+            <div className="container card">
+                <form
+                    className="row g-3"
+                    onSubmit={(event) => {
+                        event.preventDefault();
+
+                        addCompany(company);
+                    }}
+                >
+                    <div className="col-md-6">
+                        <label htmlFor="companyName" className="form-label">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="companyName"
+                            placeholder="AiG S.A."
+                            onChange={(event) => {
+                                event.preventDefault();
+                                const companyName = event.target.value;
+                                setName(companyName);
+                                setCompany({ name, cui, email, address });
+                            }}
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="companyCUI" className="form-label">
+                            CUI
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="companyCUI"
+                            placeholder="742105"
+                            onChange={(event) => {
+                                event.preventDefault();
+                                const companyCUI = event.target.value;
+                                setCui(companyCUI);
+                                setCompany({ name, cui, email, address });
+                            }}
+                        />
+                    </div>
+
+                    <div className="col-6">
+                        <label htmlFor="companyEmail" className="form-label">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="companyEmail"
+                            placeholder="contact@exemple.com"
+                            onChange={(event) => {
+                                event.preventDefault();
+                                const companyEmail = event.target.value;
+                                setEmail(companyEmail);
+                                setCompany({ name, cui, email, address });
+                            }}
+                        />
+                    </div>
+
+                    <div className="col-3">
+                        <label htmlFor="companyAddress" className="form-label">
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="companyAddress"
+                            placeholder="Bucharest str Maica Domnului nr 11"
+                            onChange={(event) => {
+                                event.preventDefault();
+                                const companyAddress = event.target.value;
+                                setAddress(companyAddress);
+                                setCompany({ name, cui, email, address });
+                            }}
+                        />
+                    </div>
+
+                    <br />
+                    <div className="col-12">
+                        <button type="submit" className="btn btn-primary">
+                            Save all info
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

@@ -77,7 +77,7 @@ namespace El_Proyecte_Grande.Services
 
             foreach (var deal in deals)
             {
-                var result = allInterceptions.Where(inter => inter.DealId == deal.Id).OrderBy(inter => Convert.ToDateTime(inter.Date)).FirstOrDefault();
+                var result = allInterceptions.Where(inter => inter.DealId == deal.Id).Where(inter => inter.Date > DateTime.Now).OrderBy(inter => Convert.ToDateTime(inter.Date)).FirstOrDefault();
                 if (result != null)
                 {
                     interceptions.Add(result);

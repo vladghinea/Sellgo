@@ -1,5 +1,5 @@
 import Chart from "react-apexcharts";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StatusCard from "../components/status-card/StatusCard";
 
 import { Link } from "react-router-dom";
@@ -83,7 +83,11 @@ const Dashboard = () => {
     };
     const tableDatatopDeals = () => {
         let tableBodyData = [];
-        if (deals.length != 0 && clients.length != 0 && products.length != 0) {
+        if (
+            deals.length !== 0 &&
+            clients.length !== 0 &&
+            products.length !== 0
+        ) {
             deals &&
                 clients &&
                 products &&
@@ -255,7 +259,9 @@ const Dashboard = () => {
         body: tableDatatopDeals(),
     };
 
-    return deals.length != 0 && clients.length != 0 && products.length != 0 ? (
+    return deals.length !== 0 &&
+        clients.length !== 0 &&
+        products.length !== 0 ? (
         <div>
             <h2 className="page-header">Dashboard</h2>
             <div className="row">

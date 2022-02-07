@@ -39,7 +39,7 @@ namespace El_Proyecte_Grande.Models
         [MaxLength(30)]
         public string Position { get; set; }
         public GenderTypes Gender { get; set; }
-        public Address Address { get; set; }
+        public string Address { get; set; }
         public ProfessionalApproach ProfessionalApproach { get; set; }
         public PersonalApproach PersonalApproach { get; set; }
 

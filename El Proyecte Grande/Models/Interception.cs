@@ -15,7 +15,7 @@ namespace El_Proyecte_Grande.Models
         [Required]
         public DateTime Date { get; set; }
         public LocationTypes Location { get; set; }
-        public Address Address { get; set; }
+        public string Address { get; set; }
         [MaxLength(250)]
         public string OnlineMeet { get; set; }
 
