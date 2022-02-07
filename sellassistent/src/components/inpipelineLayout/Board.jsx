@@ -19,7 +19,6 @@ const Board = (props) => {
         //     setDeals(data);
         // };
         props.fetchDeals(userId);
-        console.log(11);
     }, []);
 
     const fetchDeal = async (id) => {
@@ -81,8 +80,8 @@ const Board = (props) => {
         <>
             <span>
                 Priority: <b style={{ color: "red" }}>High</b>,{" "}
-                <b style={{ color: "yellow" }}>Medium</b>,{" "}
-                <b style={{ color: "#00c8e2" }}>Low</b>
+                <b style={{ color: "#00c8e2" }}>Medium</b>,{" "}
+                <b style={{ color: "yellow" }}>Low</b>
             </span>
             {props.headData.map((item, index) => (
                 <div

@@ -2,6 +2,9 @@ import {
     FETCH_DEALS_FAILURE,
     FETCH_DEALS_REQUEST,
     FETCH_DEALS_SUCCESS,
+    ADD_DEALS_FAILURE,
+    ADD_DEALS_SUCCESS,
+    ADD_DEALS_REQUEST,
 } from "./DealTypes";
 
 const initialState = {
@@ -24,6 +27,23 @@ const reducer = (state = initialState, action) => {
                 error: "",
             };
         case FETCH_DEALS_FAILURE:
+            return {
+                loading: true,
+                deals: [],
+                error: action.payload,
+            };
+        case ADD_DEALS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ADD_DEALS_SUCCESS:
+            return {
+                loading: true,
+                deals: action.payload,
+                error: "",
+            };
+        case ADD_DEALS_FAILURE:
             return {
                 loading: true,
                 deals: [],

@@ -30,7 +30,7 @@ const Card = ({ deals, boardId, changePriority }) => {
         e.stopPropagation();
     };
 
-    const prioritys = ["Low Priority", "Medium Priority", "High Priority"];
+    const prioritys = ["High Priority", "Medium Priority", "Low Priority"];
 
     const nrOfDealsAndSumOfDeals = (deal) => {
         let body = [];
@@ -53,7 +53,7 @@ const Card = ({ deals, boardId, changePriority }) => {
             {deals !== undefined
                 ? deals.map((deal) =>
                       deal.status == boardId
-                          ? (console.log(nrOfDealsAndSumOfDeals(deal)),
+                          ? (console.log(deal),
                             (
                                 <Tippy
                                     key={`tippy-${deal.id}`}

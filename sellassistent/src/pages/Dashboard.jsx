@@ -1,5 +1,5 @@
 import Chart from "react-apexcharts";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StatusCard from "../components/status-card/StatusCard";
 
 import { Link } from "react-router-dom";
@@ -83,35 +83,38 @@ const Dashboard = () => {
     };
     const tableDatatopDeals = () => {
         let tableBodyData = [];
-        deals &&
-            clients &&
-            products &&
-            deals.forEach((deal) => {
-                tableBodyData.push({
-                    name:
-                        clients.filter(
-                            (client) => client.id === deal.clientId
-                        )[0].firstName +
-                        " " +
-                        clients.filter(
-                            (client) => client.id === deal.clientId
-                        )[0].lastName,
+        if (deals.length != 0 && clients.length != 0 && products.length != 0) {
+            deals &&
+                clients &&
+                products &&
+                deals.forEach((deal) => {
+                    tableBodyData.push({
+                        name:
+                            clients.filter(
+                                (client) => client.id === deal.clientId
+                            )[0].firstName +
+                            " " +
+                            clients.filter(
+                                (client) => client.id === deal.clientId
+                            )[0].lastName,
 
-                    dealValue: products
-                        .filter((product) => deal.id === product.dealId)
-                        .map((product) => product.actualPrice)
-                        .reduce(
-                            (accumulator, current) => accumulator + current,
-                            0
-                        ),
+                        dealValue: products
+                            .filter((product) => deal.id === product.dealId)
+                            .map((product) => product.actualPrice)
+                            .reduce(
+                                (accumulator, current) => accumulator + current,
+                                0
+                            ),
 
-                    priority: prioritys.at(deal.priority),
+                        priority: prioritys.at(deal.priority),
+                    });
                 });
-            });
-        tableBodyData.sort(
-            (a, b) => parseFloat(b.dealValue) - parseFloat(a.dealValue)
-        );
-        return tableBodyData.filter((x) => x.dealValue !== 0);
+            tableBodyData.sort(
+                (a, b) => parseFloat(b.dealValue) - parseFloat(a.dealValue)
+            );
+            return tableBodyData.filter((x) => x.dealValue !== 0);
+        }
+        return tableBodyData;
     };
 
     function containsObject(obj, list) {
@@ -123,7 +126,7 @@ const Dashboard = () => {
         }
 
         return false;
-    };
+    }
 
     const sumOfSealdDeals = () => {
         let temp = [];
@@ -169,7 +172,7 @@ const Dashboard = () => {
             title: `Seald Deals total value`,
         },
         {
-            icon: 'bx bxs-face-mask',
+            icon: "bx bxs-face-mask",
             count: `${
                 deals &&
                 Object.keys(deals.filter((deal) => deal.status === 6)).length
@@ -177,7 +180,7 @@ const Dashboard = () => {
             title: "No. of Seald Deals",
         },
     ];
- 
+
     const chartOptions = {
         series: [
             {
@@ -252,7 +255,7 @@ const Dashboard = () => {
         body: tableDatatopDeals(),
     };
 
-    return (
+    return deals.length != 0 && clients.length != 0 && products.length != 0 ? (
         <div>
             <h2 className="page-header">Dashboard</h2>
             <div className="row">
@@ -343,6 +346,8 @@ const Dashboard = () => {
                 </div>
             </div>
         </div>
+    ) : (
+        "Loading"
     );
 };
 

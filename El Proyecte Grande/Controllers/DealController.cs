@@ -51,13 +51,13 @@ namespace El_Proyecte_Grande.Controllers
 
         //Add Client  
         [HttpPost]
-        public async Task<IActionResult> AddDeal([FromBody] Deal deal)
+        public async Task<Deal> AddDeal([FromBody] Deal deal)
         {
             if (deal == null)
             {
-                return BadRequest();
+                return null;
             }
-            return Ok(await services.AddDeal(deal));
+            return await services.AddDeal(deal);
         }
 
         //Delete Client

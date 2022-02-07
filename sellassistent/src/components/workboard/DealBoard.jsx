@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import React from "react";
 import "./dealBoard.css";
+import AddInterceptionForm from "../FormsDeal/AddInterceptionForm";
+import { Link } from "react-router-dom";
 
 const DealBoard = () => {
     const statuses = [
@@ -13,7 +15,7 @@ const DealBoard = () => {
         "Sealed",
         "Failed",
     ];
-    const prioritys = ["Low", "Medium", "High"];
+    const prioritys = ["High", "Medium", "Low"];
     let deals = useSelector((state) => state.dealsRedux).deals;
     let products = useSelector((state) => state.productsRedux).products;
     let clients = useSelector((state) => state.clientsRedux).clients;
@@ -23,20 +25,8 @@ const DealBoard = () => {
     ).interceptions;
     let myData = undefined;
     if (deals !== undefined) {
-        myData = [].concat(deals).sort((a, b) => b.priority - a.priority); //sortare dupa prioritate
+        myData = [].concat(deals).sort((a, b) => a.priority - b.priority); //sortare dupa prioritate
     }
-    // console.log("data");
-    // console.log(myData);
-    // console.log("interceptions");
-    // console.log(interceptions);
-    // console.log("companies");
-    // console.log(companies);
-    // console.log("products");
-    // console.log(products);
-    // console.log("deals");
-    // console.log(deals);
-    // console.log("Clients");
-    // console.log(clients);
 
     if (myData !== undefined) {
         return myData.map((deal) => (
@@ -75,7 +65,10 @@ const DealBoard = () => {
                             {statuses.at(deal.status)}
                         </div>
                     </div>
-                    <div className="col pill pillInterception">
+                    <Link
+                        to={`/addInterception/${deal.id}`}
+                        className="col pill pillInterception"
+                    >
                         {interceptions.map((interception) => {
                             console.log(
                                 `${interception.dealId} === ${deal.id} prority: ${deal.priority}`
@@ -90,7 +83,7 @@ const DealBoard = () => {
                                 </div>
                             ) : null;
                         })}
-                    </div>
+                    </Link>
                     <div className="col pill pillPriority">
                         <div
                             className={`pillText colorpriority${deal.priority}`}
@@ -112,7 +105,10 @@ const DealBoard = () => {
                             ) : null;
                         })}
                     </div>
-                    <div className="col pill pillProduct">
+                    <Link
+                        to={`/addProducts/${deal.id}`}
+                        className="col pill pillProduct"
+                    >
                         {products.map((product) => {
                             return product.dealId === deal.id ? (
                                 <div
@@ -123,7 +119,7 @@ const DealBoard = () => {
                                 </div>
                             ) : null;
                         })}
-                    </div>
+                    </Link>
                 </div>
             </div>
         ));

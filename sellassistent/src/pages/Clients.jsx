@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import Table from "../components/table/Table";
@@ -9,6 +9,9 @@ const Clients = () => {
     let products = useSelector((state) => state.productsRedux).products;
     let clients = useSelector((state) => state.clientsRedux).clients;
 
+    useEffect(() => {
+        return "Loading";
+    }, [clients]);
     const customTableHead = [
         "Client",
         "Deals In Progress",
@@ -117,7 +120,7 @@ const Clients = () => {
         </tr>
     );
 
-    return (
+    return clients.length != 0 ? (
         <div className="container">
             <h2 className="page-header">All Clients</h2>
 
@@ -141,6 +144,8 @@ const Clients = () => {
                 </div>
             </div>
         </div>
+    ) : (
+        "Loading"
     );
 };
 
