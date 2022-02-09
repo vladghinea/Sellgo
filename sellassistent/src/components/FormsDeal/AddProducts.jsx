@@ -30,7 +30,7 @@ const AddProducts = (props) => {
             },
             body: JSON.stringify(product),
         });
-        window.location.replace("/workboard");
+        window.location.replace(`/deal/${dealId}`);
     };
 
     return (

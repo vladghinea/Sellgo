@@ -353,7 +353,7 @@ const Dashboard = () => {
             </div>
         </div>
     ) : (
-        "Loading"
+        "...Loading"
     );
 };
 

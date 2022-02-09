@@ -2,6 +2,7 @@
 using El_Proyecte_Grande.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<Deal> GetDealById(int id)
         {
-            Deal result = await _db.Data.Deals.FirstOrDefaultAsync(x => x.Id == id);
+            Deal result = await _db.Data.Deals.FirstOrDefaultAsync(deal => deal.Id == id);
 
             return result;
         }
@@ -57,6 +58,27 @@ namespace El_Proyecte_Grande.Services
             await _db.Data.SaveChangesAsync();
             return $"Deal with {id} got delete";
         }
+        //public async Task<string> DeleteDeals()
+        //{
+        //    DateTime today = DateTime.Now;
+        //    string day1 = today.Day.ToString();
+        //    if (day1 =="1" )
+        //    {
+        //        List<Deal> deals = await _db.Data.Deals.ToListAsync();
+        //        foreach (Deal deal in deals)
+        //        {
+        //            if (deal.Status == Utils.StatusTypes.Sealed || deal.Status == Utils.StatusTypes.Failed)
+        //            {
+        //                _db.Data.Deals.Remove(deal);
+        //                await _db.Data.SaveChangesAsync();
+        //            }
+        //        }
+        //        return "Today is the day when deals are deleted";
+        //    }
+            
+            
+        //    return "Nothing was deleted";
+        //}
 
         //Add Client      
         public async Task<Deal> AddDeal([FromBody] Deal deal)

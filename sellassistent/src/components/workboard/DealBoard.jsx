@@ -47,7 +47,11 @@ const DealBoard = () => {
             }
         }
         if (result == true) {
-            return <div className="pillText">Add Interception</div>;
+            return (
+                <div className="pillText" style={{ color: "green" }}>
+                    Add Interception
+                </div>
+            );
         }
         return inter;
     };
@@ -78,7 +82,11 @@ const DealBoard = () => {
         });
 
         if (produse === "") {
-            return <div className="pillText">Add Product</div>;
+            return (
+                <div className="pillText" style={{ color: "green" }}>
+                    Add Product
+                </div>
+            );
         }
         return (
             <div className="pillText" key={`product${deal.id}`}>
@@ -91,7 +99,10 @@ const DealBoard = () => {
         return myData.map((deal) => (
             <div className="container card pillcard">
                 <div className="row">
-                    <div className="col pill pillClient">
+                    <Link
+                        to={`/deal/${deal.id}`}
+                        className="col pill pillClient"
+                    >
                         {clients.map((client) => {
                             return client.id === deal.clientId ? (
                                 <div
@@ -102,7 +113,7 @@ const DealBoard = () => {
                                 </div>
                             ) : null;
                         })}
-                    </div>
+                    </Link>
                     <div className="col pill pillCompany">
                         {clients.map((client) => {
                             return client.id === deal.clientId
@@ -152,7 +163,7 @@ const DealBoard = () => {
             </div>
         ));
     } else {
-        return "Loading";
+        return "...Loading";
     }
 };
 

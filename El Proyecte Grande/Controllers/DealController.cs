@@ -72,6 +72,14 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await services.DeleteDeal(id));
 
         }
+        ////Delete Client
+        //[HttpDelete()]
+        //public async Task<IActionResult> DeleteDeals()
+        //{
+
+        //    return Ok(await services.DeleteDeals(id));
+
+        //}
 
         //Update Client
         [HttpPut("{id:int}")]

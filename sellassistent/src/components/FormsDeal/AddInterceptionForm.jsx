@@ -30,7 +30,7 @@ const AddInterceptionForm = (props) => {
             },
             body: JSON.stringify(interception),
         });
-        window.location.replace("/workboard");
+        window.location.replace(`/deal/${dealId}`);
     };
 
     return (

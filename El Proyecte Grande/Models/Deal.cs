@@ -26,7 +26,7 @@ namespace El_Proyecte_Grande.Models
 
         public string Company { get; set; }
 
-
+        //public bool DeleteStatus { get; set; }// TODO de facut dupa ce am terminat cu testele si tot!! SOFT DELETE
 
 
         //Interception (OneToMany)
