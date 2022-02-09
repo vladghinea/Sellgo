@@ -31,7 +31,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet]
         public async Task<List<Client>> GetClients()
         {
-            List<Client> result = await services.GetClientsList();
+            List<Client> result = await services.GetClientsListAsync();
             return result;
         }
 
@@ -39,7 +39,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet("{id:int}")]
         public async Task<Client> GetClient([FromRoute] int id)
         {
-            Client result = await services.GetClientById(id);
+            Client result = await services.GetClientByIdAsync(id);
             return result;
         }
 
@@ -51,7 +51,7 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await services.AddClient(client));
+            return Ok(await services.AddClientAsync(client));
         }
 
         //Delete Client
@@ -63,7 +63,7 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return NotFound();
             }
-            return Ok(await services.DeleteClient(id));
+            return Ok(await services.DeleteClientAsync(id));
 
         }
 

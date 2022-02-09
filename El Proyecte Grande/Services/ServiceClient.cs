@@ -19,14 +19,14 @@ namespace El_Proyecte_Grande.Services
             _db = db;
         }
 
-        public async Task<List<Client>> GetClientsList()
+        public async Task<List<Client>> GetClientsListAsync()
         {
             var result = await _db.Data.Clients.Select(client => client).ToListAsync();
             return result;
         }
 
 
-        public async Task<Client> GetClientById(int id)
+        public async Task<Client> GetClientByIdAsync(int id)
         {
             Client result = await _db.Data.Clients.Select(client => new Client
             {
@@ -50,7 +50,7 @@ namespace El_Proyecte_Grande.Services
             return result;
         }
 
-        public async Task<string> DeleteClient(int id)
+        public async Task<string> DeleteClientAsync(int id)
         {
             Client client = await _db.Data.Clients.FindAsync(id);
             string name = client.FirstName + " " + client.LastName + " id: " + id.ToString();
@@ -60,7 +60,7 @@ namespace El_Proyecte_Grande.Services
         }
 
         //Add Client      
-        public async Task<Client> AddClient([FromBody] Client client)
+        public async Task<Client> AddClientAsync([FromBody] Client client)
         {
 
             await _db.Data.Clients.AddAsync(client);

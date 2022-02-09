@@ -24,25 +24,22 @@ namespace El_Proyecte_Garnde_Tests
         {
             dbMock = new Mock<IAppDbRepository>();
             _systemUnderTest = new ServiceClient(dbMock.Object);
-            dbMock.Setup(element => element.Data.Set<Client>()).Returns(new Client()
+            dbMock.Setup(element => element.Data.Set<Client>()).Returns(new DbSet<Client>()
             {
                 Id = 1,
                 FirstName = "John",
                 LastName = "Doe",
-                Email = "mo",
-                PhoneNumber = client.PhoneNumber,
-                CompanyId = client.CompanyId,
-                Company = client.Company,
-                DateOfBirth = client.DateOfBirth,
-                Position = client.Position,
-                Gender = client.Gender,
-                Address = client.Address,
-                ProfessionalApproach = client.ProfessionalApproach,
-                PersonalApproach = client.PersonalApproach,
-                Deals = client.Deals,
-                SocialMedias = client.SocialMedias
+                Email = "john.doe@mail.com",
+                PhoneNumber = "040395782013",
+                CompanyId = 1,
+                DateOfBirth = DateTime.Now.AddDays(-12820),
+                Position = "Manager",
+                Gender = El_Proyecte_Grande.Utils.GenderTypes.Male,
+                Address = "john address"
 
-            });
+
+            },
+            );
         }
 
 
@@ -55,7 +52,7 @@ namespace El_Proyecte_Garnde_Tests
 
             //Actual
 
-            List<Client> actualClients = await _systemUnderTest.GetClientsList();
+            List<Client> actualClients = await _systemUnderTest.GetClientsListAsync();
 
 
             //Assert
