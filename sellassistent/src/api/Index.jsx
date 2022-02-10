@@ -14,6 +14,8 @@ export const ENDPOINTS = {
     PRODUCT: "product/",
     COMPANY: "Company/",
     INTERCEPTION: "Interception/",
+    PERSONALAPPROACH: "PersonalApproach/",
+    PROFESSIONALAPPROACH: "ProfessionalApproach/",
 };
 
 export const CreateAPIEndPoint = (endpoint) => {
@@ -28,9 +30,6 @@ export const CreateAPIEndPoint = (endpoint) => {
         getDealsPerUser: (id) => axios.get(url + "dealsforuser/" + id),
         getInterceptionWithCloseDate: () => axios.get(url + "closedate"),
         getPersonalApproachPerClient: (clientid) => axios.get(url + clientid),
-        getIndividualPersonalApproachPerClient: (clientid, id) =>
-            axios.get(url + clientid + "/" + id),
-        getInterceptionWithCloseDate: () => axios.get(url + "closedate"),
     };
 };
 

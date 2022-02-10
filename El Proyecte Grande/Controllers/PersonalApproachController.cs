@@ -4,6 +4,7 @@ using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace El_Proyecte_Grande.Controllers
 
         [HttpGet]
         [Route("{clientid:int}")]
-        public async Task<PersonalApproach> GetPersonalApproach([FromRoute] int clientid)
+        public async Task<List<PersonalApproach>> GetPersonalApproach([FromRoute] int clientid)
         {
             return await _servicePersonalApproach.GetPersonalApproachList(clientid);
         }
@@ -59,6 +60,40 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await _servicePersonalApproach.DeletePersonalApproach(id));
 
         }
+
+        
+        //Update PersonalApproach
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateClient(int id, [FromBody] PersonalApproach personalApproach)
+        {
+
+            if (id != personalApproach.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Data.Entry(personalApproach).State = EntityState.Modified;
+
+            try
+            {
+                await _db.Data.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_db.Data.PersonalApproaches.Any(personalApproach => personalApproach.Id == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok();
+
+        }
+
 
     }
 }

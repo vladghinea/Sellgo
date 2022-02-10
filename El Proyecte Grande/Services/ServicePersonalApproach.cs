@@ -17,9 +17,9 @@ namespace El_Proyecte_Grande.Services
         {
             _db = db;
         }
-        public async Task<PersonalApproach> GetPersonalApproachList(int clientid)
+        public async Task<List<PersonalApproach>> GetPersonalApproachList(int clientid)
         {
-            var result = await _db.Data.PersonalApproaches.Where(approach => approach.ClientId == clientid).SingleAsync();
+            var result = await _db.Data.PersonalApproaches.Where(approach => approach.ClientId == clientid).ToListAsync();
             return result;
         }
 

@@ -7,3 +7,4 @@ export * from "./Deals/DealActions";
 export * from "./Products/ProductActions";
 export * from "./Clients/ClientActions";
 export * from "./Interceptions/InterceptionActions";
+export * from "./ClientPersonalApproach/ClientPersonalApproachActions";

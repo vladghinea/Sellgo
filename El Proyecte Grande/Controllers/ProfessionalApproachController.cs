@@ -3,6 +3,7 @@ using El_Proyecte_Grande.Repository;
 using El_Proyecte_Grande.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,37 @@ namespace El_Proyecte_Grande.Controllers
             return Ok(await _serviceProfessionalApproach.DeleteProfessionalApproach(id));
 
         }
+        //Update PRofessional
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateProfessionalApproach(int id, [FromBody] ProfessionalApproach professionalApproach)
+        {
 
+            if (id != professionalApproach.Id)
+            {
+                return BadRequest();
+            }
+
+            _db.Data.Entry(professionalApproach).State = EntityState.Modified;
+
+            try
+            {
+                await _db.Data.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_db.Data.ProfessionalApproaches.Any(professionalApproach => professionalApproach.Id == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok();
+
+        }
     }
 
 }
