@@ -16,20 +16,19 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class PersonalApproachController : ControllerBase
     {
-        public IAppDbRepository _db;
-        private ServicePersonalApproach _servicePersonalApproach;
 
-        public PersonalApproachController(IAppDbRepository db)
+        private IServicePersonalApproach _service;
+
+        public PersonalApproachController(IServicePersonalApproach services)
         {
-            _db = db;
-            _servicePersonalApproach = new ServicePersonalApproach(_db);
+            _service = services;
         }
 
         [HttpGet]
         [Route("{clientid:int}")]
         public async Task<List<PersonalApproach>> GetPersonalApproach([FromRoute] int clientid)
         {
-            return await _servicePersonalApproach.GetPersonalApproachList(clientid);
+            return await _service.GetPersonalApproachList(clientid);
         }
 
 
@@ -42,7 +41,7 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            return Ok(await _servicePersonalApproach.AddPersonalApproach(personalApproach));
+            return Ok(await _service.AddPersonalApproach(personalApproach));
 
         }
 
@@ -52,16 +51,16 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeletePersonalApproach([FromQuery] int clientid, int id)
         {
 
-            PersonalApproach personalApproach = _db.Data.PersonalApproaches.Find(id);
+            PersonalApproach personalApproach = _service.Repository.Data.PersonalApproaches.Find(id);
             if (personalApproach == null)
             {
                 return NotFound();
             }
-            return Ok(await _servicePersonalApproach.DeletePersonalApproach(id));
+            return Ok(await _service.DeletePersonalApproach(id));
 
         }
 
-        
+
         //Update PersonalApproach
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateClient(int id, [FromBody] PersonalApproach personalApproach)
@@ -72,15 +71,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(personalApproach).State = EntityState.Modified;
+            _service.Repository.Data.Entry(personalApproach).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _service.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.PersonalApproaches.Any(personalApproach => personalApproach.Id == id))
+                if (!_service.Repository.Data.PersonalApproaches.Any(personalApproach => personalApproach.Id == id))
                 {
                     return NotFound();
                 }

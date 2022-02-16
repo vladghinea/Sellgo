@@ -9,20 +9,21 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceDeal
+    public class ServiceDeal : IServiceDeal
     {
 
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
 
-        public ServiceDeal(IAppDbRepository db)
+        public ServiceDeal(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
 
         public async Task<List<Deal>> GetDealsList()
         {
-            var result = await _db.Data.Deals.Select(deal => new Deal
+            List<Deal> companies = await Repository.GetDealsListAsync();
+            List<Deal> result = companies.Select(deal => new Deal
             {
                 Id = deal.Id,
                 UserId = deal.UserId,
@@ -33,30 +34,28 @@ namespace El_Proyecte_Grande.Services
                 Interceptions = deal.Interceptions,
                 Products = deal.Products,
                 Company = deal.Client.Company.Name
-            }).ToListAsync();
+            }).ToList();
             return result;
         }
 
         public async Task<List<Deal>> GetDealsForUser(string id)
         {
-            var result = await _db.Data.Deals.Where(deal => deal.UserId == id).ToListAsync();
+            var result = await Repository.GetDealsForUserAsync(id);
             return result;
         }
 
 
         public async Task<Deal> GetDealById(int id)
         {
-            Deal result = await _db.Data.Deals.FirstOrDefaultAsync(deal => deal.Id == id);
+            Deal result = await Repository.GetDealByIdAsync(id);
 
             return result;
         }
 
         public async Task<string> DeleteDeal(int id)
         {
-            Deal deal = await _db.Data.Deals.FindAsync(id);
-            _db.Data.Deals.Remove(deal);
-            await _db.Data.SaveChangesAsync();
-            return $"Deal with {id} got delete";
+
+            return await Repository.DeleteDealAsync(id);
         }
         //public async Task<string> DeleteDeals()
         //{
@@ -75,19 +74,15 @@ namespace El_Proyecte_Grande.Services
         //        }
         //        return "Today is the day when deals are deleted";
         //    }
-            
-            
+
+
         //    return "Nothing was deleted";
         //}
 
         //Add Client      
         public async Task<Deal> AddDeal([FromBody] Deal deal)
         {
-
-            await _db.Data.Deals.AddAsync(deal);
-            await _db.Data.SaveChangesAsync();
-            return deal;
-
+            return await Repository.AddDealAsync(deal);
         }
     }
 }

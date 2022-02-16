@@ -9,36 +9,29 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceProfessionalApproach
+    public class ServiceProfessionalApproach : IServiceProfessionalApproach
     {
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
-        public ServiceProfessionalApproach(IAppDbRepository db)
+        public ServiceProfessionalApproach(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
         public async Task<List<ProfessionalApproach>> GetProfessionalApproachList(int clientid)
         {
-            var result = await _db.Data.ProfessionalApproaches.Where(approach => approach.ClientId == clientid).ToListAsync();
+            var result = await Repository.GetProfessionalApproachListAsync(clientid);
             return result;
         }
 
         public async Task<string> DeleteProfessionalApproach(int id)
         {
-            ProfessionalApproach professionalApproach = await _db.Data.ProfessionalApproaches.FindAsync(id);
-            _db.Data.ProfessionalApproaches.Remove(professionalApproach);
-            await _db.Data.SaveChangesAsync();
-            return $"Professional Approach with {id} got delete";
+            return await Repository.DeleteProfessionalApproachAsync(id);
         }
 
-        //Add Client      
+
         public async Task<ProfessionalApproach> AddProfessionalApproach([FromBody] ProfessionalApproach professionalApproach)
         {
-
-            await _db.Data.ProfessionalApproaches.AddAsync(professionalApproach);
-            await _db.Data.SaveChangesAsync();
-            return professionalApproach;
-
+            return await Repository.AddProfessionalApproachAsync(professionalApproach);
         }
     }
 }

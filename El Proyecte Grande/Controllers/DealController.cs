@@ -15,12 +15,12 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class DealController : ControllerBase
     {
-        private IAppDbRepository _db;
-        private ServiceDeal services;
-        public DealController(IAppDbRepository db)
+
+        private IServiceDeal _services;
+        public DealController(IServiceDeal serviceDeal)
         {
-            _db = db;
-            services = new ServiceDeal(_db);
+
+            _services = serviceDeal;
         }
 
 
@@ -28,7 +28,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet]
         public async Task<List<Deal>> GetDeals()
         {
-            List<Deal> result = await services.GetDealsList();
+            List<Deal> result = await _services.GetDealsList();
             return result;
         }
         //GET Client
@@ -36,7 +36,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet("dealsforuser/{id}")]
         public async Task<List<Deal>> GetDealOfUser([FromRoute] string id)
         {
-            List<Deal> result = await services.GetDealsForUser(id);
+            List<Deal> result = await _services.GetDealsForUser(id);
             return result;
         }
 
@@ -45,7 +45,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet("{id:int}")]
         public async Task<Deal> GetDealById([FromRoute] int id)
         {
-            Deal result = await services.GetDealById(id);
+            Deal result = await _services.GetDealById(id);
             return result;
         }
 
@@ -57,19 +57,19 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return null;
             }
-            return await services.AddDeal(deal);
+            return await _services.AddDeal(deal);
         }
 
         //Delete Client
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteDeal(int id)
         {
-            Deal deal = _db.Data.Deals.Find(id);
+            Deal deal = _services.Repository.Data.Deals.Find(id);
             if (deal == null)
             {
                 return NotFound();
             }
-            return Ok(await services.DeleteDeal(id));
+            return Ok(await _services.DeleteDeal(id));
 
         }
         ////Delete Client
@@ -91,15 +91,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(deal).State = EntityState.Modified;
+            _services.Repository.Data.Entry(deal).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Deals.Any(deal => deal.Id == id))
+                if (!_services.Repository.Data.Deals.Any(deal => deal.Id == id))
                 {
                     return NotFound();
                 }

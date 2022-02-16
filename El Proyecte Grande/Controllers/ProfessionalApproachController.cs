@@ -15,20 +15,20 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class ProfessionalApproachController : ControllerBase
     {
-        public IAppDbRepository _db;
-        private ServiceProfessionalApproach _serviceProfessionalApproach;
 
-        public ProfessionalApproachController(IAppDbRepository db)
+        private IServiceProfessionalApproach _services;
+
+        public ProfessionalApproachController(IServiceProfessionalApproach services)
         {
-            _db = db;
-            _serviceProfessionalApproach = new ServiceProfessionalApproach(_db);
+
+            _services = services;
         }
 
         [HttpGet]
         [Route("{clientid:int}")]
         public async Task<List<ProfessionalApproach>> GetProfessionalApproach([FromRoute] int clientid)
         {
-            return await _serviceProfessionalApproach.GetProfessionalApproachList(clientid);
+            return await _services.GetProfessionalApproachList(clientid);
         }
 
 
@@ -41,7 +41,7 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            return Ok(await _serviceProfessionalApproach.AddProfessionalApproach(personalApproach));
+            return Ok(await _services.AddProfessionalApproach(personalApproach));
 
 
         }
@@ -50,12 +50,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeleteProfessionalApproach([FromQuery] int clientid, int id)
         {
 
-            ProfessionalApproach personalApproach = _db.Data.ProfessionalApproaches.Find(id);
+            ProfessionalApproach personalApproach = _services.Repository.Data.ProfessionalApproaches.Find(id);
             if (personalApproach == null)
             {
                 return NotFound();
             }
-            return Ok(await _serviceProfessionalApproach.DeleteProfessionalApproach(id));
+            return Ok(await _services.DeleteProfessionalApproach(id));
 
         }
         //Update PRofessional
@@ -68,15 +68,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(professionalApproach).State = EntityState.Modified;
+            _services.Repository.Data.Entry(professionalApproach).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.ProfessionalApproaches.Any(professionalApproach => professionalApproach.Id == id))
+                if (!_services.Repository.Data.ProfessionalApproaches.Any(professionalApproach => professionalApproach.Id == id))
                 {
                     return NotFound();
                 }

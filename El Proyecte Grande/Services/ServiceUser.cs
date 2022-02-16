@@ -10,32 +10,30 @@ using El_Proyecte_Grande.Repository;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceUser
+    public class ServiceUser : IServiceUser
     {
-        private IAppDbRepository _db;
-        public ServiceUser(IAppDbRepository db)
+        public IAppDbRepository Repository { get; set; }
+        public ServiceUser(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
         public async Task<User> GetUser(string id)
         {
-            return await _db.Data.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await Repository.GetUserAsync(id);
         }
 
         public async Task<List<User>> GetUsers()
         {
-            return await _db.Data.Users.ToListAsync();
+            return await Repository.GetUsersAsync();
         }
 
         public async Task<User> AddUser(User user)
         {
-            user.Password = Utils.Helper.HashPassword(user.Password);
-            //user.Id = _db.Data.Users.OrderBy(user => user.Id).Select(user => user.Id).Last() + 1;
-            await _db.Data.Users.AddAsync(user);
-            await _db.Data.SaveChangesAsync();
-            return user;
+
+            return await Repository.AddUserAsync(user);
 
         }
+        //unique Service method
         public bool TryAddUser(User user)
         {
             if (user.Password == user.ConfirmPassword)
@@ -47,21 +45,13 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<string> DeleteUser(string id)
         {
-            User user = await _db.Data.Users.FindAsync(id);
-            string name = user.FirstName + " " + user.LastName + " id: " + id.ToString();
-            _db.Data.Users.Remove(user);
-            await _db.Data.SaveChangesAsync();
-            return name;
+
+            return await Repository.DeleteUserAsync(id);
         }
 
         public async Task<User> UpdateUser(User newUser)
         {
-            //_db.Data.Users.Update(newUser);
-            _db.Data.Entry(newUser).State = EntityState.Modified;
-
-            await _db.Data.SaveChangesAsync();
-            return newUser;
-
+            return await Repository.UpdateUserAsync(newUser);
         }
 
 

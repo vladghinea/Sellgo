@@ -10,20 +10,21 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceInterception
+    public class ServiceInterception : IServiceInterception
     {
 
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
 
-        public ServiceInterception(IAppDbRepository db)
+        public ServiceInterception(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
 
         public async Task<List<Interception>> GetInterceptions()
         {
-            var result = await _db.Data.Interceptions.Select(inter =>
+            List<Interception> interceptions = await Repository.GetInterceptionsAsync();
+            List<Interception> result = interceptions.Select(inter =>
             new Interception
             {
                 Id = inter.Id,
@@ -35,41 +36,34 @@ namespace El_Proyecte_Grande.Services
 
 
             }
-            ).ToListAsync();
+            ).ToList();
             return result;
         }
 
 
         public async Task<Interception> GetInterceptionById(int id)
         {
-            var result = await _db.Data.Interceptions.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await Repository.GetInterceptionByIdAsync(id);
 
             return result;
         }
 
         public async Task<string> DeleteInterception(int id)
         {
-            var interception = await _db.Data.Interceptions.FindAsync(id);
-            _db.Data.Interceptions.Remove(interception);
-            await _db.Data.SaveChangesAsync();
-            return "DOne";
+            return await Repository.DeleteInterceptionAsync(id);
         }
 
-        //Add Client      
+
         public async Task<Interception> AddInterception([FromBody] Interception interception)
         {
-
-            await _db.Data.Interceptions.AddAsync(interception);
-            await _db.Data.SaveChangesAsync();
-            return interception;
-
+            return await Repository.AddInterceptionAsync(interception);
         }
-
+        //Unique on Service
         public async Task<List<Interception>> GetInterceptionsOfUserWithCloseDate()
         {
-            var deals = await _db.Data.Deals.Select(deal => deal).ToListAsync();
+            var deals = await Repository.GetDealsListAsync();
 
-            var allInterceptions = await _db.Data.Interceptions.Select(interception => interception).ToListAsync();
+            var allInterceptions = await Repository.GetInterceptionsAsync();
 
             DateTime now = DateTime.Now;
 

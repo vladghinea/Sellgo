@@ -75,6 +75,15 @@ namespace El_Proyecte_Grande
 
             services.AddTransient<IAppDbRepository, AppDbRepository>();
             services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddScoped<IServiceClient, ServiceClient>();
+            services.AddScoped<IServiceCompany, ServiceCompany>();
+            services.AddScoped<IServiceUser, ServiceUser>();
+            services.AddScoped<IServiceDeal, ServiceDeal>();
+            services.AddScoped<IServiceProduct, ServiceProduct>();
+            services.AddScoped<IServicePersonalApproach, ServicePersonalApproach>();
+            services.AddScoped<IServiceProfessionalApproach, ServiceProfessionalApproach>();
+            services.AddScoped<IServiceInterception, ServiceInterception>();
+
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddCors(option =>

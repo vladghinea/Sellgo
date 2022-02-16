@@ -10,20 +10,21 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceCompany
+    public class ServiceCompany : IServiceCompany
     {
 
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
 
-        public ServiceCompany(IAppDbRepository db)
+        public ServiceCompany(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
 
         public async Task<List<Company>> GetCompaniesList()
         {
-            var result = await _db.Data.Companies.Select(company => new Company
+            List<Company> companies = await Repository.GetCompaniesListAsync();
+            List<Company> result = companies.Select(company => new Company
             {
                 Id = company.Id,
                 Name = company.Name,
@@ -34,14 +35,14 @@ namespace El_Proyecte_Grande.Services
                 Empmloyees = company.Empmloyees,
                 Deals = company.Deals,
                 Teams = company.Teams
-            }).ToListAsync();
+            }).ToList();
             return result;
         }
 
 
         public async Task<Company> GetCompanyById(int id)
         {
-            Company result = await _db.Data.Companies.FirstOrDefaultAsync(x => x.Id == id);
+            Company result = await Repository.GetCompanyByIdAsync(id);
 
             return result;
         }
@@ -49,21 +50,12 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<Company> AddCompany(Company company)
         {
-
-            //company.Id = _db.Data.Users.OrderBy(company => company.Id).Select(company => company.Id).Last() + 1;
-            await _db.Data.Companies.AddAsync(company);
-            await _db.Data.SaveChangesAsync();
-            return company;
-
+            return await Repository.AddCompanyAsync(company);
         }
 
         public async Task<string> DeleteCompany(int id)
         {
-            var obj = await _db.Data.Companies.FindAsync(id);
-            string name = obj.Name;
-            _db.Data.Companies.Remove(obj);
-            await _db.Data.SaveChangesAsync();
-            return name;
+            return await Repository.DeleteClientAsync(id);
         }
 
 

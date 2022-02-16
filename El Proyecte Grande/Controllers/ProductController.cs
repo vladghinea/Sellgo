@@ -13,19 +13,19 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private IAppDbRepository _db;
-        private ServiceProduct services;
-        public ProductController(IAppDbRepository db)
+
+        private IServiceProduct _services;
+        public ProductController(IServiceProduct services)
         {
-            _db = db;
-            services = new ServiceProduct(_db);
+
+            _services = services;
         }
         //GET Products
         [HttpGet]
         // [ValidateAntiForgeryToken]
         public async Task<List<Product>> GetProducts()
         {
-            List<Product> result = await services.GetProductList();
+            List<Product> result = await _services.GetProductList();
             return result;
         }
 
@@ -34,7 +34,7 @@ namespace El_Proyecte_Grande.Controllers
         [Route("{id:int}")]
         public async Task<Product> GetProduct([FromRoute] int id)
         {
-            Product result = await services.GetProductById(id);
+            Product result = await _services.GetProductById(id);
             return result;
         }
 
@@ -46,7 +46,7 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await services.AddProduct(product));
+            return Ok(await _services.AddProduct(product));
         }
 
         //Delete Product 
@@ -54,12 +54,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeleteProduct([FromQuery] int id)
         {
 
-            Product product = _db.Data.Products.Find(id);
+            Product product = _services.Repository.Data.Products.Find(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return Ok(await services.DeleteProduct(id));
+            return Ok(await _services.DeleteProduct(id));
 
         }
 
@@ -73,15 +73,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(product).State = EntityState.Modified;
+            _services.Repository.Data.Entry(product).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Products.Any(product => product.Id == id))
+                if (!_services.Repository.Data.Products.Any(product => product.Id == id))
                 {
                     return NotFound();
                 }

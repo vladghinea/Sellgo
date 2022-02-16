@@ -6,17 +6,17 @@ namespace El_Proyecte_Garnde_Tests
 {
     public class UserTests
     {
-        [SetUp]
-        public void Setup()
-        {
+        //[SetUp]
+        //public void Setup()
+        //{
 
-        }
+        //}
 
-        [Test]
-        public void UserControllerTest()
-        {
+        //[Test]
+        //public void UserControllerTest()
+        //{
 
-            Assert.Pass();
-        }
+        //    Assert.Pass();
+        //}
     }
 }

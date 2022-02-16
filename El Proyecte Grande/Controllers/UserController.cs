@@ -16,24 +16,20 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public IAppDbRepository _db;
-        private ServiceUser serviceUser;
 
-        public UserController(IAppDbRepository db)
+        private IServiceUser _services;
+
+        public UserController(IServiceUser services)
         {
-            _db = db;
-            serviceUser = new ServiceUser(_db);
+
+            _services = services;
         }
-
-
-
-
 
         //Get Users
         [HttpGet]
         public async Task<List<User>> GetUsers()
         {
-            return await serviceUser.GetUsers();
+            return await _services.GetUsers();
         }
 
         //Get User
@@ -41,7 +37,7 @@ namespace El_Proyecte_Grande.Controllers
         [Route("{id}")]
         public async Task<User> GetUser([FromRoute] string id)
         {
-            return await serviceUser.GetUser(id);
+            return await _services.GetUser(id);
         }
 
         //Add User
@@ -52,10 +48,10 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return BadRequest();
             }
-            if (serviceUser.TryAddUser(user))
+            if (_services.TryAddUser(user))
             {
 
-                return Ok(await serviceUser.AddUser(user));
+                return Ok(await _services.AddUser(user));
             }
             return BadRequest();
 
@@ -66,12 +62,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeleteUser([FromQuery] string id)
         {
 
-            User user = _db.Data.Users.Find(id);
+            User user = _services.Repository.Data.Users.Find(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(await serviceUser.DeleteUser(id));
+            return Ok(await _services.DeleteUser(id));
 
         }
 
@@ -85,15 +81,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(user).State = EntityState.Modified;
+            _services.Repository.Data.Entry(user).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Users.Any(user => user.Id == id))
+                if (!_services.Repository.Data.Users.Any(user => user.Id == id))
                 {
                     return NotFound();
                 }

@@ -8,64 +8,70 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceClient
+    public class ServiceClient : IServiceClient
     {
 
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
 
-        public ServiceClient(IAppDbRepository db)
+        public ServiceClient(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
 
         public async Task<List<Client>> GetClientsListAsync()
         {
-            var result = await _db.Data.Clients.Select(client => client).ToListAsync();
+            var result = await Repository.GetClientsListAsync();
             return result;
         }
 
 
         public async Task<Client> GetClientByIdAsync(int id)
         {
-            Client result = await _db.Data.Clients.Select(client => new Client
-            {
-                Id = client.Id,
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                Email = client.Email,
-                PhoneNumber = client.PhoneNumber,
-                CompanyId = client.CompanyId,
-                Company = client.Company,
-                DateOfBirth = client.DateOfBirth,
-                Position = client.Position,
-                Gender = client.Gender,
-                Address = client.Address,
-                ProfessionalApproach = client.ProfessionalApproach,
-                PersonalApproach = client.PersonalApproach,
-                Deals = client.Deals,
-                SocialMedias = client.SocialMedias
-            }).FirstOrDefaultAsync(x => x.Id == id);
 
-            return result;
+            var client = await Repository.GetClientByIdAsync(id);
+
+
+            if (client != null)
+            {
+                Client result = new Client
+
+                {
+                    Id = client.Id,
+                    FirstName = client.FirstName,
+                    LastName = client.LastName,
+                    Email = client.Email,
+                    PhoneNumber = client.PhoneNumber,
+                    CompanyId = client.CompanyId,
+                    Company = client.Company,
+                    DateOfBirth = client.DateOfBirth,
+                    Position = client.Position,
+                    Gender = client.Gender,
+                    Address = client.Address,
+                    ProfessionalApproach = client.ProfessionalApproach,
+                    PersonalApproach = client.PersonalApproach,
+                    Deals = client.Deals,
+                    SocialMedias = client.SocialMedias
+                };
+
+                return result;
+            }
+            return null;
+
         }
 
         public async Task<string> DeleteClientAsync(int id)
         {
-            Client client = await _db.Data.Clients.FindAsync(id);
-            string name = client.FirstName + " " + client.LastName + " id: " + id.ToString();
-            _db.Data.Clients.Remove(client);
-            await _db.Data.SaveChangesAsync();
-            return name;
+
+            return await Repository.DeleteClientAsync(id);
         }
 
         //Add Client      
         public async Task<Client> AddClientAsync([FromBody] Client client)
         {
 
-            await _db.Data.Clients.AddAsync(client);
-            await _db.Data.SaveChangesAsync();
-            return client;
+
+            return await Repository.AddClientAsync(client);
 
         }
     }

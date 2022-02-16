@@ -15,12 +15,12 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private IAppDbRepository _db;
-        private ServiceCompany services;
-        public CompanyController(IAppDbRepository db)
+
+        private IServiceCompany _services;
+        public CompanyController(IServiceCompany serviceCompany)
         {
-            _db = db;
-            services = new ServiceCompany(_db);
+
+            _services = serviceCompany;
         }
 
         //GET Companies
@@ -28,7 +28,7 @@ namespace El_Proyecte_Grande.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<List<Company>> GetCompanies()
         {
-            List<Company> result = await services.GetCompaniesList();
+            List<Company> result = await _services.GetCompaniesList();
             return result;
         }
 
@@ -37,7 +37,7 @@ namespace El_Proyecte_Grande.Controllers
         [Route("{id:int}")]
         public async Task<Company> GetCompany([FromRoute] int id)
         {
-            Company result = await services.GetCompanyById(id);
+            Company result = await _services.GetCompanyById(id);
             return result;
         }
 
@@ -49,7 +49,7 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await services.AddCompany(company));
+            return Ok(await _services.AddCompany(company));
         }
 
         //Delete Company
@@ -57,12 +57,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeleteCompany([FromQuery] int id)
         {
 
-            Company company = _db.Data.Companies.Find(id);
+            Company company = _services.Repository.Data.Companies.Find(id);
             if (company == null)
             {
                 return NotFound();
             }
-            return Ok(await services.DeleteCompany(id));
+            return Ok(await _services.DeleteCompany(id));
 
         }
 
@@ -76,15 +76,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(company).State = EntityState.Modified;
+            _services.Repository.Data.Entry(company).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Companies.Any(company => company.Id == id))
+                if (!_services.Repository.Data.Companies.Any(company => company.Id == id))
                 {
                     return NotFound();
                 }

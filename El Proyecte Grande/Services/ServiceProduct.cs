@@ -8,42 +8,36 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServiceProduct
+    public class ServiceProduct : IServiceProduct
     {
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
 
-        public ServiceProduct(IAppDbRepository db)
+        public ServiceProduct(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
 
         public async Task<List<Product>> GetProductList()
         {
-            var result = await _db.Data.Products.Select(product => product).ToListAsync();
+            var result = await Repository.GetProductListAsync();
             return result;
         }
 
         public async Task<Product> GetProductById(int id)
         {
-            var result = await _db.Data.Products.FirstOrDefaultAsync(product => product.Id == id);
+            var result = await Repository.GetProductByIdAsync(id);
             return result;
         }
 
-        internal async Task<object> AddProduct(Product product)
+        public async Task<object> AddProduct(Product product)
         {
-            await _db.Data.Products.AddAsync(product);
-            await _db.Data.SaveChangesAsync();
-            return product;
+            return await Repository.AddProductAsync(product);
         }
 
         public async Task<string> DeleteProduct(int id)
         {
-            var obj = await _db.Data.Products.FindAsync(id);
-            string name = obj.Name;
-            _db.Data.Products.Remove(obj);
-            await _db.Data.SaveChangesAsync();
-            return name;
+            return await Repository.DeleteProductAsync(id);
         }
     }
 }

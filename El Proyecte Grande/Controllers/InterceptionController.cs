@@ -16,13 +16,13 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class InterceptionController : ControllerBase
     {
-        public IAppDbRepository _db;
-        private ServiceInterception serviceInterception;
 
-        public InterceptionController(IAppDbRepository db)
+        private IServiceInterception _services;
+
+        public InterceptionController(IServiceInterception serviceInterception)
         {
-            _db = db;
-            serviceInterception = new ServiceInterception(_db);
+
+            _services = serviceInterception;
         }
 
 
@@ -30,7 +30,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet]
         public async Task<List<Interception>> GetInterceptions()
         {
-            return await serviceInterception.GetInterceptions();
+            return await _services.GetInterceptions();
         }
 
         //Get Interception
@@ -38,7 +38,7 @@ namespace El_Proyecte_Grande.Controllers
         [Route("{id}")]
         public async Task<Interception> GetInterception([FromRoute] int id)
         {
-            return await serviceInterception.GetInterceptionById(id);
+            return await _services.GetInterceptionById(id);
         }
         //Get Interceptions
         [HttpGet]
@@ -46,11 +46,11 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<List<Interception>> GetInterceptionsOfUserWithCloseDate()
         {
 
-            var result = await serviceInterception.GetInterceptionsOfUserWithCloseDate();
+            var result = await _services.GetInterceptionsOfUserWithCloseDate();
             return result;
         }
 
-        
+
         //Add Interception
         [HttpPost]
         public async Task<IActionResult> AddInterception([FromBody] Interception interception)
@@ -60,7 +60,7 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-                return Ok(await serviceInterception.AddInterception(interception));
+            return Ok(await _services.AddInterception(interception));
 
 
         }
@@ -70,12 +70,12 @@ namespace El_Proyecte_Grande.Controllers
         public async Task<IActionResult> DeleteInterception([FromQuery] int id)
         {
 
-            Interception interception = _db.Data.Interceptions.Find(id);
+            Interception interception = _services.Repository.Data.Interceptions.Find(id);
             if (interception == null)
             {
                 return NotFound();
             }
-            return Ok(await serviceInterception.DeleteInterception(id));
+            return Ok(await _services.DeleteInterception(id));
 
         }
 
@@ -89,15 +89,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(interception).State = EntityState.Modified;
+            _services.Repository.Data.Entry(interception).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Interceptions.Any(interception => interception.Id == id))
+                if (!_services.Repository.Data.Interceptions.Any(interception => interception.Id == id))
                 {
                     return NotFound();
                 }

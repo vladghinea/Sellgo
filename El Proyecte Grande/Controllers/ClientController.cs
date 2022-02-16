@@ -15,12 +15,12 @@ namespace El_Proyecte_Grande.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private IAppDbRepository _db;
-        private ServiceClient services;
-        public ClientController(IAppDbRepository db)
+
+        private IServiceClient _services;
+        public ClientController(IServiceClient services)
         {
-            _db = db;
-            services = new ServiceClient(_db);
+
+            _services = services;
         }
 
 
@@ -31,7 +31,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet]
         public async Task<List<Client>> GetClients()
         {
-            List<Client> result = await services.GetClientsListAsync();
+            List<Client> result = await _services.GetClientsListAsync();
             return result;
         }
 
@@ -39,7 +39,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpGet("{id:int}")]
         public async Task<Client> GetClient([FromRoute] int id)
         {
-            Client result = await services.GetClientByIdAsync(id);
+            Client result = await _services.GetClientByIdAsync(id);
             return result;
         }
 
@@ -51,19 +51,19 @@ namespace El_Proyecte_Grande.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await services.AddClientAsync(client));
+            return Ok(await _services.AddClientAsync(client));
         }
 
         //Delete Client
         [HttpDelete]
         public async Task<IActionResult> DeleteClient([FromQuery] int id)
         {
-            Client client = _db.Data.Clients.Find(id);
+            Client client = _services.Repository.Data.Clients.Find(id);
             if (client == null)
             {
                 return NotFound();
             }
-            return Ok(await services.DeleteClientAsync(id));
+            return Ok(await _services.DeleteClientAsync(id));
 
         }
 
@@ -77,15 +77,15 @@ namespace El_Proyecte_Grande.Controllers
                 return BadRequest();
             }
 
-            _db.Data.Entry(client).State = EntityState.Modified;
+            _services.Repository.Data.Entry(client).State = EntityState.Modified;
 
             try
             {
-                await _db.Data.SaveChangesAsync();
+                await _services.Repository.Data.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_db.Data.Clients.Any(client => client.Id == id))
+                if (!_services.Repository.Data.Clients.Any(client => client.Id == id))
                 {
                     return NotFound();
                 }

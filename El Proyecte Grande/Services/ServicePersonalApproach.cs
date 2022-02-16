@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 
 namespace El_Proyecte_Grande.Services
 {
-    public class ServicePersonalApproach
+    public class ServicePersonalApproach : IServicePersonalApproach
     {
-        private IAppDbRepository _db;
+        public IAppDbRepository Repository { get; set; }
 
-        public ServicePersonalApproach(IAppDbRepository db)
+        public ServicePersonalApproach(IAppDbRepository repository)
         {
-            _db = db;
+            Repository = repository;
         }
+
+
+
         public async Task<List<PersonalApproach>> GetPersonalApproachList(int clientid)
         {
-            var result = await _db.Data.PersonalApproaches.Where(approach => approach.ClientId == clientid).ToListAsync();
+            var result = await Repository.GetPersonalApproachListAsync(clientid);
             return result;
         }
 
@@ -27,19 +30,13 @@ namespace El_Proyecte_Grande.Services
         //Add Personal Approach Service 
         public async Task<PersonalApproach> AddPersonalApproach([FromBody] PersonalApproach personalApproach)
         {
-
-            await _db.Data.PersonalApproaches.AddAsync(personalApproach);
-            await _db.Data.SaveChangesAsync();
-            return personalApproach;
-
+            return await Repository.AddPersonalApproachAsync(personalApproach);
         }
 
         public async Task<string> DeletePersonalApproach(int id)
         {
-            PersonalApproach personalApproach = await _db.Data.PersonalApproaches.FindAsync(id);
-            _db.Data.PersonalApproaches.Remove(personalApproach);
-            await _db.Data.SaveChangesAsync();
-            return $"Deal with {id} got delete";
+
+            return await Repository.DeletePersonalApproachAsync(id);
         }
 
 
