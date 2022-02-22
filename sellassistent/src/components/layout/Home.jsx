@@ -149,7 +149,7 @@ const Home = () => {
                                     Sellgo is Helping Sellers to create
                                     relationships and interact with their
                                     potential customers.
-                                    <br /> A grate platform that will help you
+                                    <br /> A great platform that will help you
                                     manage your workflow.{" "}
                                 </p>
                                 <p className="lead">
@@ -191,13 +191,11 @@ const Home = () => {
                     <LoginForm
                         show={modalLogin}
                         onHide={() => setModalLogin(false)}
-                        
                     />
                     <RegisterForm
                         show={modalRegister}
                         openLogin={() => setModalLogin(true)}
                         onHide={() => setModalRegister(false)}
-                        
                     />
                 </>
             ) : (

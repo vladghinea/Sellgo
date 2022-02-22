@@ -113,7 +113,7 @@ const DealDetailsForm = ({ location }) => {
             }
         }
         if (result == true) {
-            return <span>Not Interception !</span>;
+            return <span>Zero Interception!</span>;
         }
         return inter;
     };
@@ -254,7 +254,7 @@ const DealDetailsForm = ({ location }) => {
                     type="text"
                     id="details"
                     name="details"
-                    placeholder="Write here Your Personal Approach For this client...."
+                    placeholder="Write here your personal approach for this client...."
                     value={value.details}
                     onChange={handleChange}
                 />
@@ -318,7 +318,7 @@ const DealDetailsForm = ({ location }) => {
                     type="text"
                     id="details"
                     name="details"
-                    placeholder="Write here Your Professional Approach For this client...."
+                    placeholder="Write here your professional approach for this client...."
                     value={value.details}
                     onChange={handleChange}
                 />

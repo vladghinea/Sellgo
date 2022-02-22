@@ -16,7 +16,7 @@ const Clients = () => {
         "Client",
         "Deals In Progress",
         "Potential ",
-        "Deals Seald",
+        "Deals Sealed",
         "Total Sold",
         "Deals Lose",
         "Total Losed",

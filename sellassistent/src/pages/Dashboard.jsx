@@ -156,7 +156,7 @@ const Dashboard = () => {
         {
             icon: "bx bx-dollar-circle",
             count: `$${deals && products && sumOfDealInProcess()[0]}`,
-            title: "Deals in Process total value",
+            title: "Deals in Progress total value",
         },
         {
             icon: "bx bxs-face-mask",
@@ -173,7 +173,7 @@ const Dashboard = () => {
         {
             icon: "bx bx-dollar-circle",
             count: `$${deals && products && sumOfSealdDeals()[0]}`,
-            title: `Seald Deals total value`,
+            title: `Sealed Deals total value`,
         },
         {
             icon: "bx bxs-face-mask",
@@ -181,21 +181,21 @@ const Dashboard = () => {
                 deals &&
                 Object.keys(deals.filter((deal) => deal.status === 6)).length
             }`,
-            title: "No. of Seald Deals",
+            title: "No. of Sealed Deals",
         },
     ];
 
     const chartOptions = {
         series: [
             {
-                name: "Deals in Process",
+                name: "Deals in Progress",
                 data:
                     (deals, products, clients) && sumOfDealInProcess()[1]
                         ? sumOfDealInProcess()[1]
                         : [],
             },
             {
-                name: "Seald Deals",
+                name: "Sealed Deals",
                 data:
                     (deals, products, clients) && sumOfSealdDeals()[1]
                         ? sumOfSealdDeals()[1]
