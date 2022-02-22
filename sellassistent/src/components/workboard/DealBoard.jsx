@@ -47,11 +47,7 @@ const DealBoard = () => {
             }
         }
         if (result == true) {
-            return (
-                <div className="pillText" style={{ color: "green" }}>
-                    Add Interception
-                </div>
-            );
+            return <div className="pillText">Add Interception</div>;
         }
         return inter;
     };
@@ -82,11 +78,7 @@ const DealBoard = () => {
         });
 
         if (produse === "") {
-            return (
-                <div className="pillText" style={{ color: "green" }}>
-                    Add Product
-                </div>
-            );
+            return <div className="pillText">Add Product</div>;
         }
         return (
             <div className="pillText" key={`product${deal.id}`}>
