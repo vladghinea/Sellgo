@@ -2,7 +2,9 @@ import { ENDPOINTS } from "../../api/Index";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchPersonalApproach } from "../../redux/ClientPersonalApproach/ClientPersonalApproachActions";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
 
 import React, { useState, useEffect } from "react";
 
@@ -30,7 +32,6 @@ const DealDetailsForm = ({ location }) => {
     ).interceptions;
     let testpersonalApproach = undefined;
     let testprofessionalApproach = undefined;
-
     const [personalApproach, setPersonalApproach] = useState();
 
     const [professionalApproach, setProfessionalApproach] = useState();
@@ -77,13 +78,32 @@ const DealDetailsForm = ({ location }) => {
         return data;
     };
 
+    const handleDelete = (id, endpoint) => {
+        axios.delete(`${ENDPOINTS.BASE_URL}${endpoint}?id=${id}`);
+        if (endpoint === ENDPOINTS.DEAL) {
+            window.location.replace(`/workboard`);
+        } else {
+            window.location.reload();
+        }
+    };
     let showInterceptions = (deal) => {
         let inter = interceptions.map((interception) => {
             return interception.dealId === deal.id ? (
-                <span key={`interception${interception.id}`}>
-                    Closest Interception: {interception.date.split("T")[0]}{" "}
-                    {interception.date.split("T")[1]}
-                </span>
+                <>
+                    <span key={`interception${interception.id}`}>
+                        Closest Interception: {interception.date.split("T")[0]}{" "}
+                        {interception.date.split("T")[1]}
+                    </span>
+                    <i
+                        className="bx bxs-trash delete-icon"
+                        onClick={() =>
+                            handleDelete(
+                                interception.id,
+                                ENDPOINTS.INTERCEPTION
+                            )
+                        }
+                    ></i>
+                </>
             ) : null;
         });
         let result = true;
@@ -97,6 +117,7 @@ const DealDetailsForm = ({ location }) => {
         }
         return inter;
     };
+
     let showProducts = (deal) => {
         let inter = products.map((product) => {
             return product.dealId === deal.id ? (
@@ -106,6 +127,13 @@ const DealDetailsForm = ({ location }) => {
                         {product.description}
                         {"   "}
                     </span>
+
+                    <i
+                        className="bx bxs-trash delete-icon"
+                        onClick={() =>
+                            handleDelete(product.id, ENDPOINTS.PRODUCT)
+                        }
+                    ></i>
                     <br />
                 </div>
             ) : null;
@@ -187,16 +215,17 @@ const DealDetailsForm = ({ location }) => {
             editPersonalApproach(value);
         };
         return (
-            <form className="row" onSubmit={updateEvenet}>
-                <textarea
-                    className="col-6"
+            <form onSubmit={updateEvenet}>
+                <TextareaAutosize
+                    minRows={3}
+                    className="col-12 textareaApproach"
                     type="text"
                     id="clientPersonalDetail"
                     name="textarea"
                     value={value.details}
                     onChange={handleChange}
                 />
-                <div className="col-6">
+                <div className="col-12">
                     <button type="submit" className="btn btn-info">
                         Update Personal Approach
                     </button>
@@ -219,8 +248,9 @@ const DealDetailsForm = ({ location }) => {
         };
         return (
             <form className="row" onSubmit={updateEvenet}>
-                <textarea
-                    className="col-6"
+                <TextareaAutosize
+                    minRows={3}
+                    className="col-6 textareaApproach"
                     type="text"
                     id="details"
                     name="details"
@@ -247,16 +277,18 @@ const DealDetailsForm = ({ location }) => {
             editProfessionalApproach(value);
         };
         return (
-            <form className="row" onSubmit={updateEvenet}>
-                <textarea
-                    className="col-6"
+            <form onSubmit={updateEvenet}>
+                <TextareaAutosize
+                    minRows={3}
+                    className="col-12 textareaApproach"
                     type="text"
                     id="clientProfessionalDetail"
                     name="textarea"
+                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
                     value={value.details}
                     onChange={handleChange}
                 />
-                <div className="col-6">
+                <div className="col-12">
                     <button type="submit" className="btn btn-info">
                         Update Professional Approach
                     </button>
@@ -280,8 +312,9 @@ const DealDetailsForm = ({ location }) => {
         };
         return (
             <form className="row" onSubmit={updateEvenet}>
-                <textarea
-                    className="col-6"
+                <TextareaAutosize
+                    className="col-6 textareaApproach"
+                    minRows={3}
                     type="text"
                     id="details"
                     name="details"
@@ -303,82 +336,102 @@ const DealDetailsForm = ({ location }) => {
             <h3>
                 Deal <b>{deal.id}</b> Details
             </h3>
+
             <div className="container card">
-                <div className="col-3">
-                    <span> Status: {statuses.at(deal.status)}</span>
-                </div>
-                <div className="col-3">
-                    <span>Priority: {prioritys.at(deal.priority)}</span>
-                </div>
-                <hr />
+                <div className="row ">
+                    <div className="col-6 ml-5">
+                        <span> Status: {statuses.at(deal.status)}</span>
+                    </div>
+                    <div className="col-5">
+                        <span>Priority: {prioritys.at(deal.priority)}</span>
+                    </div>
+                    <div className="col-1">
+                        <i
+                            className="bx bxs-trash delete-icon"
+                            onClick={() =>
+                                handleDelete(deal.id, ENDPOINTS.DEAL)
+                            }
+                        ></i>
+                    </div>
+                    <hr className="mt-3" />
+                    <div className="col-6 nopadding">
+                        <div className="col-12">
+                            Products: {showProducts(deal)}
+                            <br></br>
+                            Total: {showDealSizeOrZERO(deal)}$
+                        </div>
+                        <Link to={`/addProducts/${deal.id}`} className="col-12">
+                            <button className="btn btn-info mt-1">
+                                Add Product
+                            </button>
+                        </Link>
+                    </div>
+                    <div className="col-6 nopadding">
+                        <div className="col-12 ">
+                            <span>{showInterceptions(deal)}</span>
+                        </div>
 
-                <div className="col-10">
-                    Products: {showProducts(deal)}
-                    <br></br>
-                    Total: {showDealSizeOrZERO(deal)}$
-                </div>
-                <Link to={`/addProducts/${deal.id}`} className="col-2">
-                    <button className="btn btn-info ">Add Product</button>
-                </Link>
-                <hr />
-
-                <div className="col-10">
-                    <span>{showInterceptions(deal)}</span>
-                </div>
-                <Link
-                    className="col-2"
-                    to={`/addInterception/${deal.id}`}
-                    id={`intr${deal.id}`}
-                >
-                    {" "}
-                    <button className="btn btn-info ">Add Interception</button>
-                </Link>
-                <hr />
-
-                {clients.map((client) => {
-                    return client.id === deal.clientId ? (
-                        <>
-                            <span className="col-4">
-                                Client: {client.firstName} {client.lastName}
-                            </span>
-                            <span className="col-6">
-                                Email : {client.email}
+                        <Link
+                            className="col-12 "
+                            to={`/addInterception/${deal.id}`}
+                            id={`intr${deal.id}`}
+                        >
+                            {" "}
+                            <button className="btn btn-info mt-4">
+                                Add Interception
+                            </button>
+                        </Link>
+                    </div>
+                    <hr className="mt-3" />
+                    {clients.map((client) => {
+                        return client.id === deal.clientId ? (
+                            <>
+                                <span className="col-4">
+                                    Client: {client.firstName} {client.lastName}
+                                </span>
+                                <span className="col-4">
+                                    Email : {client.email}
+                                    {"  "}
+                                </span>
                                 {"  "}
-                            </span>
-                            {"  "}
-                            <span className="col-6">
-                                BirthDate :{" "}
-                                {client.dateOfBirth.split("T").at(0)}
-                                {"  "}
-                            </span>
-                            <span className="col-4">
-                                Position : {client.position}
-                                {"  "}
-                            </span>{" "}
-                            <span className="col-4">
-                                PhoneNumber : {client.phoneNumber}
-                                {"  "}
-                            </span>{" "}
-                            <span className="col-6">
-                                Address : {client.address}
-                                {"  "}
-                            </span>{" "}
-                        </>
-                    ) : null;
-                })}
-                <hr />
-                {/* Company name */}
-                <div className="col-3">
+                                <span className="col-4">
+                                    BirthDate :{" "}
+                                    {client.dateOfBirth.split("T").at(0)}
+                                    {"  "}
+                                </span>
+                                <span className="col-4">
+                                    Position : {client.position}
+                                    {"  "}
+                                </span>{" "}
+                                <span className="col-4">
+                                    PhoneNumber : {client.phoneNumber}
+                                    {"  "}
+                                </span>{" "}
+                                <span className="col-4">
+                                    Address : {client.address}
+                                    {"  "}
+                                </span>{" "}
+                            </>
+                        ) : null;
+                    })}
+                    <hr className="mt-3" />
+                    {/* Company name */}
                     {clients.map((client) => {
                         return client.id === deal.clientId
                             ? companies.map((company) => {
                                   return company.id === client.companyId ? (
                                       <>
-                                          <span key={`company${company.id}`}>
+                                          <span
+                                              className="col-6"
+                                              key={`company${company.id}name`}
+                                          >
                                               Company name: {company.name}
                                           </span>
                                           <br></br>
-                                          <span key={`company${company.id}`}>
+                                          <span
+                                              className="col-6"
+                                              key={`company${company.id}email`}
+                                          >
                                               Company email: {company.email}
                                           </span>
                                       </>
@@ -386,13 +439,11 @@ const DealDetailsForm = ({ location }) => {
                               })
                             : null;
                     })}
-                </div>
-                <hr />
-
-                {/* PersonalForm */}
-                <div className="row">
-                    <span className="col-6">Personal Approach:</span>
-                    <span className="col-6">Professional Approach:</span>
+                    <hr className="mt-3" />
+                    {/* PersonalForm */}
+                    {/* <div className="row"> */}
+                    <span className="col-6 mb-1">Personal Approach:</span>
+                    <span className="col-6 mb-1 ">Professional Approach:</span>
                     <div className="col-6">
                         {personalApproach === undefined ||
                         personalApproach.length === 0 ? (
@@ -409,9 +460,9 @@ const DealDetailsForm = ({ location }) => {
                             <EditorProfessional />
                         )}
                     </div>
+                    {/* </div> */}
+                    <br />
                 </div>
-
-                <br />
             </div>
         </div>
     ) : (

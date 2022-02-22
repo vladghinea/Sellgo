@@ -252,11 +252,7 @@
     width: 100%;
     padding-top: 100%;
     border-radius: 50%;
-    background-image: linear-gradient(
-        to top right,
-        pink,
-        var(--second-color)
-    );
+    background-image: linear-gradient(to top right, pink, var(--second-color));
     position: absolute;
     left: 0.5%;
     top: 50%;

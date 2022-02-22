@@ -253,3 +253,25 @@ input:focus {
     border-radius: 20px; /* roundness of the scroll thumb */
     border: 2px solid var(--main-color); /* creates padding around scroll thumb */
 }
+
+.delete-icon {
+    margin-left: 25px;
+    color: rgb(82, 72, 72);
+    cursor: pointer;
+}
+.delete-icon:hover {
+    color: rgb(180, 14, 14);
+    transition: all 0.3s ease-in-out;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.textareaApproach {
+    /* border: gray; */
+    border-radius: 5px;
+    color: var(--txt-color);
+    background-color: transparent;
+}
