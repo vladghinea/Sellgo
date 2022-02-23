@@ -7,3 +7,10 @@
     width: 450px;
     margin-left: 180px;
 }
+.modal-footer {
+    margin-left: 0px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}

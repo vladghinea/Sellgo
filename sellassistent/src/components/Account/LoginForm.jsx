@@ -58,9 +58,6 @@ const Login = (props) => {
                                 setLoginState({ ...loginState, ...{ email } });
                             }}
                         />
-                        <div id="emailHelp" className="form-text">
-                            We'll never share your email with anyone else.
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label
@@ -101,7 +98,9 @@ const Login = (props) => {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn btn-info " onClick={props.onHide}>Close</button>
+                <div id="emailHelp" className="text-gray">
+                    We will never share your email with anyone else.
+                </div>
             </Modal.Footer>
         </Modal>
     );

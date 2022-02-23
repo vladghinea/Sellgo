@@ -431,7 +431,7 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="col-md-12">
                             <button
-                                className="btn btn-primary float-end"
+                                className="btn btn-primary"
                                 disabled={
                                     !validFirstName ||
                                     !validLastName ||
@@ -446,10 +446,12 @@ const RegisterForm = (props) => {
                             </button>
                         </div>
                     </form>
-                    <p className="text-center mt-3 text-secondary">
-                        If you have account, Please{" "}
+                </Modal.Body>
+                <Modal.Footer>
+                    <p className="text-gray">
+                        If you have an account, Please{" "}
                         <a
-                            className="btn btn-link text-secondary text-decoration-none"
+                            className="btn-link text-white text-decoration-none"
                             href="#"
                             onClick={(event) => {
                                 event.preventDefault();
@@ -460,11 +462,6 @@ const RegisterForm = (props) => {
                             Login Now
                         </a>
                     </p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className="btn btn-info" onClick={props.onHide}>
-                        Close
-                    </button>
                 </Modal.Footer>
             </Modal>
         </>
