@@ -90,10 +90,10 @@ const Board = (props) => {
                     draggable="false"
                     onDrop={drop}
                     onDragOver={dragOver}
-                    className="card col-3"
+                    className="card col-3 cardSpace"
                 >
                     {" "}
-                    {item}
+                    <span className="cardTitle">{item}</span>
                     <Card
                         deals={props.deals.deals}
                         boardId={index}

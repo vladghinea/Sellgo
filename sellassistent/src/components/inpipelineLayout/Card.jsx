@@ -56,6 +56,7 @@ const Card = ({ deals, boardId, changePriority }) => {
                           ? (console.log(deal),
                             (
                                 <Tippy
+                                    className="tomato-theme"
                                     key={`tippy-${deal.id}`}
                                     content={
                                         <span
@@ -68,7 +69,7 @@ const Card = ({ deals, boardId, changePriority }) => {
                                     <div
                                         key={`status-${deal.id}`}
                                         id={deal.id}
-                                        className={`card priority${deal.priority}`}
+                                        className={`card priority${deal.priority} CardTile`}
                                         draggable="true"
                                         onDragStart={dragStart}
                                         onDragOver={dragOver}

@@ -67,7 +67,7 @@ const Topnav = (props) => {
         image: user_image,
     };
 
-    const mainColor = { backgroundColor: "var(--main-color)" };
+    // const mainColor = { backgroundColor: "var(--main-color)" };
 
     const routeChange = () => {
         props.logout(history);
@@ -95,7 +95,7 @@ const Topnav = (props) => {
                             <button
                                 href="#"
                                 className="btn"
-                                style={mainColor}
+                                
                                 onClick={() => {
                                     props.logout(history);
                                     routeChange();
