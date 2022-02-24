@@ -58,7 +58,7 @@ namespace El_Proyecte_Grande.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteClient([FromQuery] int id)
         {
-            Client client = _services.Repository.Data.Clients.Find(id);
+            Client client = await _services.GetClientByIdAsync(id);
             if (client == null)
             {
                 return NotFound();
