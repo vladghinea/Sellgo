@@ -2,12 +2,10 @@ import { ENDPOINTS } from "../../api/Index";
 import React, { useState, useEffect } from "react";
 
 const CompanyForm = () => {
-    const [name, setName] = useState("Unknown"); //done
-    const [cui, setCui] = useState("12341234"); // done
-    const [email, setEmail] = useState("contact@exemple.com"); //done
-    const [address, setAddress] = useState(
-        "Bucharest str Maica Domnului nr 11"
-    ); //done
+    const [name, setName] = useState("No Company"); //done
+    const [cui, setCui] = useState("00000000"); // done
+    const [email, setEmail] = useState("x@x.com"); //done
+    const [address, setAddress] = useState("No Address"); //done
     const [company, setCompany] = useState({ name, cui, email, address }); // done
 
     useEffect(() => {

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import Modaltest from "../modal/Modaltest";
+import { ENDPOINTS } from "../../api/Index";
 
 import { LogOutAuthAction } from "../../redux/Authentication/AuthActions";
 import notifications from "../../assets/JsonData/notification.json";
@@ -41,6 +44,20 @@ const renderUserToggle = (user) => (
 // );
 
 const Topnav = (props) => {
+    const userId = useSelector((state) => state.authRedux).user.id;
+    const [user, setUser] = useState();
+    useEffect(() => {
+        // axios
+        axios.get(`${ENDPOINTS.BASE_URL}${ENDPOINTS.USER}${userId}`).then(
+            (response) => {
+                setUser(response.data);
+                console.log(user);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
     const [show, setShow] = useState(false);
     const renderUserMenu = (item, index) => (
         <a
@@ -50,6 +67,8 @@ const Topnav = (props) => {
                     ? () => setShow(true)
                     : item.content === "Logout"
                     ? () => routeChange()
+                    : item.content === "Profile"
+                    ? () => routeChangeToProfile()
                     : {}
             }
         >
@@ -63,12 +82,14 @@ const Topnav = (props) => {
     const history = useHistory();
     const guest = useSelector((state) => state.authRedux);
     const curr_user = {
-        display_name: guest.user.name,
+        display_name: user?.firstName + " " + user?.lastName,
         image: user_image,
     };
 
     // const mainColor = { backgroundColor: "var(--main-color)" };
-
+    const routeChangeToProfile = () => {
+        window.location.replace(`/profile`);
+    };
     const routeChange = () => {
         props.logout(history);
         window.location.reload();
@@ -95,7 +116,6 @@ const Topnav = (props) => {
                             <button
                                 href="#"
                                 className="btn"
-                                
                                 onClick={() => {
                                     props.logout(history);
                                     routeChange();

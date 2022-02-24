@@ -19,6 +19,7 @@ import Home from "./layout/Home";
 import AddInterceptionForm from "./FormsDeal/AddInterceptionForm";
 import AddProducts from "./FormsDeal/AddProducts";
 import DealDetailsForm from "./FormsDeal/DealDetailsForm";
+import Profile from "./Account/Profile";
 
 const Routes = () => {
     return (
@@ -49,6 +50,8 @@ const Routes = () => {
             <Route path="/companyform" component={CompanyForm} />
             <Route path="/dealform" component={DealForm} />
             <Route path="/deal" component={DealDetailsForm} />
+            <Route path="/profile" component={Profile} />
+
             <Route path="/" component={Dashboard} />
         </Switch>
     );
