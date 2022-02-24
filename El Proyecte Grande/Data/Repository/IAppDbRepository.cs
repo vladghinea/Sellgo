@@ -14,7 +14,7 @@ namespace El_Proyecte_Grande.Repository
         Task<Deal> AddDealAsync([FromBody] Deal deal);
         Task<Interception> AddInterceptionAsync([FromBody] Interception interception);
         Task<PersonalApproach> AddPersonalApproachAsync([FromBody] PersonalApproach personalApproach);
-        Task<object> AddProductAsync(Product product);
+        Task<Product> AddProductAsync(Product product);
         Task<ProfessionalApproach> AddProfessionalApproachAsync([FromBody] ProfessionalApproach professionalApproach);
         Task<User> AddUserAsync(User user);
         Task<string> DeleteClientAsync(int id);

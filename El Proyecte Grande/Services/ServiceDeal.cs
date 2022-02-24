@@ -23,18 +23,7 @@ namespace El_Proyecte_Grande.Services
         public async Task<List<Deal>> GetDealsList()
         {
             List<Deal> companies = await Repository.GetDealsListAsync();
-            List<Deal> result = companies.Select(deal => new Deal
-            {
-                Id = deal.Id,
-                UserId = deal.UserId,
-                Priority = deal.Priority,
-                Status = deal.Status,
-                ClientId = deal.ClientId,
-                Client = deal.Client,
-                Interceptions = deal.Interceptions,
-                Products = deal.Products,
-                Company = deal.Client.Company.Name
-            }).ToList();
+            List<Deal> result = companies.ToList();
             return result;
         }
 
