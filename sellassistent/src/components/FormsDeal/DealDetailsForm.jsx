@@ -123,7 +123,11 @@ const DealDetailsForm = ({ location }) => {
             return product.dealId === deal.id ? (
                 <div>
                     <span key={`product${product.id}`}>
-                        {product.name} {product.actualPrice}${"    "}
+                        <span style={{ fontWeight: "bold" }}>
+                            {" "}
+                            {product.name}
+                        </span>{" "}
+                        {product.actualPrice}${"    "}
                         {product.description}
                         {"   "}
                     </span>

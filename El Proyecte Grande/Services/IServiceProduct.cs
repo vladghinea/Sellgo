@@ -8,7 +8,7 @@ namespace El_Proyecte_Grande.Services
     public interface IServiceProduct
     {
         public IAppDbRepository Repository { get; set; }
-        Task<object> AddProduct(Product product);
+        Task<Product> AddProduct(Product product);
         Task<string> DeleteProduct(int id);
         Task<Product> GetProductById(int id);
         Task<List<Product>> GetProductList();

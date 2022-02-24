@@ -304,3 +304,8 @@ input:focus {
 .tippy-tooltip.tomato-theme {
     background-color: rgba(37, 36, 36, 0.562);
 }
+.user__image {
+    height: 100px;
+    width: 100px;
+    border-radius: 25%;
+}

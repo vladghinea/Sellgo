@@ -55,7 +55,7 @@ namespace El_Proyecte_Grande.Services
 
         public async Task<string> DeleteCompany(int id)
         {
-            return await Repository.DeleteClientAsync(id);
+            return await Repository.DeleteCompanyAsync(id);
         }
 
 

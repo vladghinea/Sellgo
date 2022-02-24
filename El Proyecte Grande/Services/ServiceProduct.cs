@@ -30,7 +30,7 @@ namespace El_Proyecte_Grande.Services
             return result;
         }
 
-        public async Task<object> AddProduct(Product product)
+        public async Task<Product> AddProduct(Product product)
         {
             return await Repository.AddProductAsync(product);
         }

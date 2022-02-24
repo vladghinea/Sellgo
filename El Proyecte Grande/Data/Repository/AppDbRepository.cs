@@ -84,7 +84,7 @@ namespace El_Proyecte_Grande.Repository
         public async Task<string> DeleteCompanyAsync(int id)
         {
             var obj = await Data.Companies.FindAsync(id);
-            string name = obj.Name;
+            string name = obj.Name + " CUI:" + obj.CUI + " ID:" + obj.Id + " is deleted";
             Data.Companies.Remove(obj);
             await Data.SaveChangesAsync();
             return name;
@@ -191,7 +191,7 @@ namespace El_Proyecte_Grande.Repository
         }
         #endregion
         #region Create
-        public async Task<object> AddProductAsync(Product product)
+        public async Task<Product> AddProductAsync(Product product)
         {
             await Data.Products.AddAsync(product);
             await Data.SaveChangesAsync();
@@ -202,7 +202,7 @@ namespace El_Proyecte_Grande.Repository
         public async Task<string> DeleteProductAsync(int id)
         {
             var obj = await Data.Products.FindAsync(id);
-            string name = obj.Name;
+            string name = obj.Name + " ID:" + obj.Id.ToString() + " is deleted";
             Data.Products.Remove(obj);
             await Data.SaveChangesAsync();
             return name;
@@ -238,9 +238,10 @@ namespace El_Proyecte_Grande.Repository
         public async Task<string> DeleteInterceptionAsync(int id)
         {
             var interception = await Data.Interceptions.FindAsync(id);
+            string result = "id: " + interception.Id.ToString() + "online meet:  " + interception.OnlineMeet;
             Data.Interceptions.Remove(interception);
             await Data.SaveChangesAsync();
-            return "Delete done";
+            return result;
         }
         #endregion
         #endregion
