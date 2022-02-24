@@ -238,9 +238,10 @@ namespace El_Proyecte_Grande.Repository
         public async Task<string> DeleteInterceptionAsync(int id)
         {
             var interception = await Data.Interceptions.FindAsync(id);
+            string result = "id: " + interception.Id.ToString() + "online meet:  " + interception.OnlineMeet;
             Data.Interceptions.Remove(interception);
             await Data.SaveChangesAsync();
-            return "Delete done";
+            return result;
         }
         #endregion
         #endregion

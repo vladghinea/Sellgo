@@ -37,7 +37,7 @@ namespace El_Proyecte_Grande.Services
 
             }
             ).ToList();
-            return result;
+            return interceptions;
         }
 
 
