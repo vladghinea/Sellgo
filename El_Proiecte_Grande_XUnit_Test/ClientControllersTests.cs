@@ -16,7 +16,7 @@ namespace El_Proyecte_Grande_XUnit_Test
     public class ClientControllersTests
     {
         private readonly Mock<IServiceClient> repositoryStub = new Mock<IServiceClient>();
-       
+
 
         private List<Client> clientsDto = new List<Client>() {
                 new Client()
@@ -68,7 +68,7 @@ namespace El_Proyecte_Grande_XUnit_Test
         public void GetClients_WithExistingClientsList_ReturnsExpectedClientsList()
         {
             //Arrange
-            
+
             //Act 
 
             //Assert
@@ -124,7 +124,7 @@ namespace El_Proyecte_Grande_XUnit_Test
             var controller = new ClientController(repositoryStub.Object);
 
             //Act 
-            IActionResult actionResult = await controller.AddClient(clientToAdd) ;
+            IActionResult actionResult = await controller.AddClient(clientToAdd);
             OkObjectResult okResult = actionResult as OkObjectResult;
 
             //Assert
@@ -140,6 +140,13 @@ namespace El_Proyecte_Grande_XUnit_Test
             var clientID = 1;
             var controller = new ClientController(repositoryStub.Object);
 
+            repositoryStub.Setup(x => x.GetClientByIdAsync(clientID)).ReturnsAsync(clientsDto.
+                Where(client => client.Id == clientID).SingleOrDefault());
+
+            repositoryStub.Setup(x => x.DeleteClientAsync(clientID)).ReturnsAsync(clientsDto.
+               Where(client => client.Id == clientID).
+               Select(client => client.FirstName + " " + client.LastName + " id: " + client.Id.ToString()).
+               SingleOrDefault().ToString());
 
             //Act 
             IActionResult actionResult = await controller.DeleteClient(clientID);
