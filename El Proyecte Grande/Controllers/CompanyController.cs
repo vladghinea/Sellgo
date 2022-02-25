@@ -25,7 +25,6 @@ namespace El_Proyecte_Grande.Controllers
 
         //GET Companies
         [HttpGet]
-        // [ValidateAntiForgeryToken]
         public async Task<List<Company>> GetCompanies()
         {
             List<Company> result = await _services.GetCompaniesList();

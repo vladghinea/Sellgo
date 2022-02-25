@@ -133,24 +133,30 @@ namespace El_Proyecte_Grande_XUnit_Test
 
         }
 
-        //[Fact]
-        //public async void DeleteClient_WithExistingClient_ReturnsOk()
-        //{
-        //    //Arrange
-        //    var clientID = 1;
-        //    var controller = new ClientController(repositoryStub.Object);
-        //    repositoryStub.Setup(repo => repo.DeleteClientAsync(clientID))
-        //        .ReturnsAsync(ISe);
+        [Fact]
+        public async void DeleteClient_WithExistingClient_ReturnsOk()
+        {
+            //Arrange
+            var clientID = 1;
+            var controller = new ClientController(repositoryStub.Object);
 
-        //    //Act 
-        //    IActionResult actionResult = await controller.DeleteClient(clientID);
-        //    OkObjectResult okResult = actionResult as OkObjectResult;
+            repositoryStub.Setup(x => x.GetClientByIdAsync(clientID)).ReturnsAsync(clientsDto.
+                Where(client => client.Id == clientID).SingleOrDefault());
+
+            repositoryStub.Setup(x => x.DeleteClientAsync(clientID)).ReturnsAsync(clientsDto.
+               Where(client => client.Id == clientID).
+               Select(client => client.FirstName + " " + client.LastName + " id: " + client.Id.ToString()).
+               SingleOrDefault().ToString());
+
+            //Act 
+            IActionResult actionResult = await controller.DeleteClient(clientID);
+            OkObjectResult okResult = actionResult as OkObjectResult;
 
 
-        //    //Assert
-        //    Assert.NotNull(okResult);
-        //    Assert.Equal(200, okResult.StatusCode);
+            //Assert
+            Assert.NotNull(okResult);
+            Assert.Equal(200, okResult.StatusCode);
 
-       // }
+        }
     }
 }
