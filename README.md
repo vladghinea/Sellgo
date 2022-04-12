@@ -14,8 +14,28 @@
 > - CSS
 
 -------------------------
+### Features: ###
+1) <p align="center">INTERACTIVE DASHBOARD:</p> 
+![Sellgo2](https://user-images.githubusercontent.com/79163522/162953201-6c1de6b3-7105-4831-8ebc-a8f3350dbebf.png)
+
+2) <p align="center">DRAG&DROP KANBAN INPLEMENTATION FOR DEAL STATUS PROGRESSION:</p> 
+![Sellgo3](https://user-images.githubusercontent.com/79163522/162953261-5ba9de8d-bdb6-4b61-8d96-735eea5398df.png)
+
+3) <p align="center">DEALS CENTRALIZATION:</p> 
+![Sellgo4](https://user-images.githubusercontent.com/79163522/162953664-2532c25a-7e9e-45c3-b814-d79ed3417cef.png)
+
+4) <p align="center">DEAL FILE:</p> 
+![Sellgo5](https://user-images.githubusercontent.com/79163522/162953734-90552a1f-016e-4a4d-bb3a-513e858dff6c.png)
+
+5) <p align="center">FORMULAR FOR ADD CLIENT:</p> 
+![Sellgo6](https://user-images.githubusercontent.com/79163522/162953775-a46a6555-c482-4b38-8383-7fb85477d8a5.png)
+
+6) <p align="center">FORMULAR FOR ADD DEAL & A LOT OF THEMES VARIATION TO CHOOSE FROM:</p> 
+![Sellgo7](https://user-images.githubusercontent.com/79163522/162953798-e015482b-e184-45f2-a7c7-dd39d1cc723c.png)
+
 
 ---------------------------------------------
+
 
 ### Install the project: ###
 - first to install this project you need to have Node instal to your computer https://nodejs.org/en/download/
