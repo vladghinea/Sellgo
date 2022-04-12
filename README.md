@@ -1,5 +1,5 @@
 
-
+![Sellgo1](https://user-images.githubusercontent.com/79163522/162952886-5fcdb5bc-14a1-43c6-9d53-1c19989908c3.png)
 
 # Sellgo #
 >**_About:_** This is an app that helps sellers manage their sales status -
@@ -20,6 +20,7 @@
 ### Install the project: ###
 - first to install this project you need to have Node instal to your computer https://nodejs.org/en/download/
 - second verify your machine has Node and NPM:
+
 ```diff  
 node -v
 npm -v
