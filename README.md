@@ -75,3 +75,12 @@ npm -v
 ```diff 
 + http://localhost:3000
 ```
+## Development Team
+
+* [Vlad Ghinea's GitHub][vlad-ghinea]
+* [Lamine Keita's GitHub][lamine-keita]
+* [Bogdan Apetrei's GitHub][bodan-apetrei]
+
+[bodan-apetrei]:https://github.com/apetreibogdan
+[vlad-ghinea]:https://github.com/vladghinea
+[lamine-keita]: https://github.com/keitkalon
